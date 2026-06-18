@@ -5,279 +5,526 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BiomiX 3.0 — Multi-omics integration platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --blue:        #2196f3;
+      --blue-dark:   #1565c0;
+      --blue-light:  #e3f2fd;
+      --blue-mid:    #90caf9;
+      --text:        #1a2636;
+      --text-muted:  #546e7a;
+      --white:       #ffffff;
+      --bg:          #f5f9ff;
+      --border:      #dce8f5;
+      --radius:      10px;
+      --radius-lg:   18px;
+      --shadow:      0 2px 16px rgba(33,150,243,0.08);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NAVBAR ─────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(33,150,243,0.07);
+    }
+    .nav__inner {
+      max-width: 1140px; margin: 0 auto;
+      padding: 0 32px; height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.15rem; color: var(--text);
+    }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 28px; list-style: none; }
+    .nav__links a {
+      color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
+      transition: color 0.18s;
+    }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta {
+      background: var(--blue); color: var(--white) !important;
+      padding: 6px 18px; border-radius: var(--radius);
+      font-weight: 600; font-size: 0.875rem;
+      transition: background 0.18s;
+    }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      min-height: 480px;
+      display: flex; align-items: center;
+    }
+    .hero__bg {
+      position: absolute; inset: 0;
+      background-image: url('Main_1.jpg');
+      background-size: cover; background-position: center;
+      filter: brightness(0.38);
+    }
+    .hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(120deg, rgba(21,101,192,0.7) 0%, rgba(33,150,243,0.35) 100%);
+    }
+    .hero__content {
+      position: relative; z-index: 2;
+      max-width: 1140px; margin: 0 auto; padding: 80px 32px;
+      text-align: center;
+    }
+    .hero__eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #e3f2fd; border: 1px solid rgba(255,255,255,0.3);
+      font-size: 0.78rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero__title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.15; margin-bottom: 16px;
+    }
+    .hero__subtitle {
+      font-size: 1.1rem; color: rgba(255,255,255,0.82);
+      max-width: 560px; margin: 0 auto 36px;
+    }
+    .hero__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 26px; border-radius: var(--radius);
+      font-weight: 600; font-size: 0.95rem;
+      cursor: pointer; transition: all 0.18s;
+      border: none; text-decoration: none !important;
+    }
+    .btn--primary { background: var(--white); color: var(--blue); }
+    .btn--primary:hover { background: var(--blue-light); }
+    .btn--outline-white {
+      background: transparent; color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .btn--outline-white:hover { background: rgba(255,255,255,0.12); }
+
+    /* hero stats */
+    .hero__stats {
+      display: flex; justify-content: center; gap: 48px;
+      flex-wrap: wrap; margin-top: 52px;
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero__stat-value { font-size: 2rem; font-weight: 700; color: var(--white); }
+    .hero__stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 2px; }
+
+    /* ── SHARED SECTION ─────────────────────────────────────── */
+    .section { padding: 72px 0; }
+    .section--alt { background: var(--bg); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+
+    .section-header { margin-bottom: 48px; }
+    .section-header--center { text-align: center; }
+    .section-header--center p { margin: 12px auto 0; }
+    .section-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--text); margin-bottom: 8px; }
+    .section-header p { color: var(--text-muted); font-size: 1rem; max-width: 60ch; }
+
+    /* ── WHAT'S NEW ─────────────────────────────────────────── */
+    .card-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      box-shadow: var(--shadow); transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(33,150,243,0.13); }
+    .card__icon { font-size: 2rem; margin-bottom: 14px; }
+    .card h3 { font-size: 1rem; color: var(--text); margin-bottom: 8px; }
+    .card p { font-size: 0.875rem; color: var(--text-muted); }
+
+    /* ── FEATURE ROWS (immagini funzionalità) ───────────────── */
+    .feature-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center; margin-bottom: 64px;
+    }
+    .feature-row:last-child { margin-bottom: 0; }
+    .feature-row--reverse { direction: rtl; }
+    .feature-row--reverse > * { direction: ltr; }
+
+    .feature-row__text h3 {
+      font-size: 1.3rem; color: var(--text); margin-bottom: 12px;
+    }
+    .feature-row__text p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .feature-row__img {
+      background: var(--blue-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 220px; padding: 16px;
+    }
+    .feature-row__img img { width: 100%; height: auto; }
+
+    /* ── SINGLE-OMICS (2 immagini affiancate) ───────────────── */
+    .single-omics-imgs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      margin-top: 36px;
+    }
+    .single-omics-imgs .img-box {
+      background: var(--blue-light); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 16px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── INTEGRATION PILLS ──────────────────────────────────── */
+    .method-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 36px; }
+    .method-pill {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 40px; padding: 14px 28px; text-align: center;
+      min-width: 148px; box-shadow: var(--shadow);
+      transition: all 0.18s;
+    }
+    .method-pill:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(33,150,243,0.15); }
+    .method-pill__name { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .method-pill__type { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+    .method-pill--supervised  { border-top: 3px solid var(--blue); }
+    .method-pill--unsupervised{ border-top: 3px solid #43a047; }
+    .method-pill--soon        { opacity: 0.6; border-top: 3px solid #bdbdbd; }
+
+    .badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px;
+    }
+    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid #a5d6a7; }
+    .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+
+    /* ── QUICK START ────────────────────────────────────────── */
+    pre {
+      background: #1e2a3a; color: #90caf9;
+      border-radius: var(--radius-lg); padding: 24px 28px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.875rem; overflow-x: auto; line-height: 1.7;
+    }
+
+    /* ── CITE ───────────────────────────────────────────────── */
+    .cite-box {
+      background: var(--blue-light); border: 1px solid var(--blue-mid);
+      border-radius: var(--radius-lg); padding: 28px 32px;
+    }
+    .cite-box pre {
+      background: var(--white); color: var(--text);
+      border: 1px solid var(--border); font-size: 0.82rem;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 0; }
+    .footer__inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 32px 40px;
+      display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    }
+    .footer__col h4 {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em;
+      color: #78909c; margin-bottom: 16px;
+    }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom {
+      max-width: 1140px; margin: 0 auto;
+      padding: 18px 32px; border-top: 1px solid #263545;
+      font-size: 0.78rem; color: #546e7a;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .card-grid, .feature-row, .single-omics-imgs { grid-template-columns: 1fr; }
+      .feature-row--reverse { direction: ltr; }
+      .nav__links { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ── NAVIGATION ─────────────────────────────────────────── -->
-  <nav class="nav">
-    <div class="nav__inner">
-      <a href="index.html" class="nav__logo">
-        <img src="assets/BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
-        BiomiX <span class="badge badge--version">3.0</span>
-      </a>
-      <ul class="nav__links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="pages/installation.html">Installation</a></li>
-        <li><a href="pages/tutorial.html">Tutorial</a></li>
-        <li><a href="pages/single-omics.html">Single-omics</a></li>
-        <li><a href="pages/integration.html">Integration</a></li>
-        <li><a href="pages/about.html">About</a></li>
-        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
-      </ul>
+<!-- ── NAVBAR ───────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="Installation.html">Installation</a></li>
+      <li><a href="Tutorial.html">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html">Integration</a></li>
+      <li><a href="about_us.html">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">BiomiX 3.0 — Now available</p>
+    <h1 class="hero__title">Multi-omics integration<br>for every researcher</h1>
+    <p class="hero__subtitle">
+      A graphical desktop platform that makes state-of-the-art multi-omics analysis
+      accessible without programming expertise.
+    </p>
+    <div class="hero__actions">
+      <a href="Installation.html" class="btn btn--primary">Get Started →</a>
+      <a href="Tutorial.html" class="btn btn--outline-white">View Tutorials</a>
+      <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--outline-white">Read the paper ↗</a>
     </div>
-  </nav>
-
-  <!-- ── HERO ───────────────────────────────────────────────── -->
-  <section class="hero">
-    <div class="container">
-      <p class="hero__eyebrow">BiomiX 3.0 — Now available</p>
-      <h1 class="hero__title">
-        Multi-omics integration<br>for every researcher
-      </h1>
-      <p class="hero__subtitle">
-        A graphical desktop platform that makes state-of-the-art multi-omics analysis
-        accessible without programming expertise.
-      </p>
-      <div class="hero__actions">
-        <a href="pages/installation.html" class="btn btn--primary">Get Started →</a>
-        <a href="pages/tutorial.html" class="btn btn--outline">View Tutorials</a>
-        <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--outline">Read the paper ↗</a>
+    <div class="hero__stats">
+      <div>
+        <div class="hero__stat-value">5</div>
+        <div class="hero__stat-label">Integration methods</div>
       </div>
-
-      <!-- Key stats -->
-      <div class="hero__stats">
-        <div>
-          <div class="hero__stat-value">5</div>
-          <div class="hero__stat-label">Integration methods</div>
-        </div>
-        <div>
-          <div class="hero__stat-value">3</div>
-          <div class="hero__stat-label">Omics layers</div>
-        </div>
-        <div>
-          <div class="hero__stat-value">3</div>
-          <div class="hero__stat-label">OS supported</div>
-        </div>
-        <div>
-          <div class="hero__stat-value">0</div>
-          <div class="hero__stat-label">Lines of code required</div>
-        </div>
+      <div>
+        <div class="hero__stat-value">3</div>
+        <div class="hero__stat-label">Omics layers</div>
+      </div>
+      <div>
+        <div class="hero__stat-value">0</div>
+        <div class="hero__stat-label">Lines of code required</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── WHAT'S NEW IN 3.0 ──────────────────────────────────── -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section-header section-header--center">
-        <h2>What's new in BiomiX 3.0</h2>
-        <p>Built on the same GUI philosophy, now with broader integration capabilities and simpler deployment.</p>
+<!-- ── WHAT'S NEW ────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <h2>What's new in BiomiX 3.0</h2>
+      <p>Built on the same GUI philosophy, now with broader integration capabilities and simpler deployment.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card__icon">🧩</div>
+        <h3>4 new integration methods</h3>
+        <p>SNF, NEMO, DIABLO, and PRAMIGO join MOFA to offer unsupervised, supervised, and graph-based strategies in a single interface.</p>
       </div>
-
-      <div class="grid-3">
-        <div class="card">
-          <div class="card__icon">🧩</div>
-          <h3>4 new integration methods</h3>
-          <p>SNF, NEMO, DIABLO, and PRAMIGO join MOFA to offer unsupervised, supervised, and graph-based strategies in a single interface.</p>
-        </div>
-        <div class="card">
-          <div class="card__icon">🐳</div>
-          <h3>Docker-based installation</h3>
-          <p>No more manual dependency management. BiomiX 3.0 ships as a Docker container for a reproducible, one-command setup across all platforms.</p>
-        </div>
-        <div class="card">
-          <div class="card__icon">⚡</div>
-          <h3>Nextflow pipelines</h3>
-          <p>Run scalable, reproducible single-omics and integration analyses through integrated Nextflow workflows, from laptop to HPC cluster.</p>
-        </div>
+      <div class="card">
+        <div class="card__icon">🐳</div>
+        <h3>Docker-based installation</h3>
+        <p>No more manual dependency management. BiomiX 3.0 ships as a Docker container for a reproducible, one-command setup across all platforms.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">⚡</div>
+        <h3>Nextflow pipelines</h3>
+        <p>Run scalable, reproducible analyses through integrated Nextflow workflows — from laptop to HPC cluster.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── SINGLE-OMICS ───────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="grid-2">
-        <div>
-          <div class="section-header">
-            <h2>Single-omics analysis, just a click away</h2>
-            <p>Customizable pipelines for transcriptomics, metabolomics, and methylomics. Choose your parameters and let BiomiX handle the analysis — so you can focus on the biology.</p>
-          </div>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; margin-top: 24px;">
-            <li style="display:flex; gap:12px; align-items:flex-start;">
-              <span style="color:var(--color-accent); font-size:1.2rem;">✓</span>
-              <span><strong>Transcriptomics</strong> — DESeq2 / Limma differential expression</span>
-            </li>
-            <li style="display:flex; gap:12px; align-items:flex-start;">
-              <span style="color:var(--color-accent); font-size:1.2rem;">✓</span>
-              <span><strong>Metabolomics</strong> — CEU Mass Mediator, TidyMass peak annotation</span>
-            </li>
-            <li style="display:flex; gap:12px; align-items:flex-start;">
-              <span style="color:var(--color-accent); font-size:1.2rem;">✓</span>
-              <span><strong>Methylomics</strong> — ChAMP differential methylation analysis</span>
-            </li>
-          </ul>
-          <div style="margin-top: 32px;">
-            <a href="pages/single-omics.html" class="btn btn--outline">Explore single-omics →</a>
-          </div>
-        </div>
-        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:280px;">
-          <img src="assets/Main_2a.svg" alt="Single-omics pipeline overview" style="width:100%; height:auto;" onerror="this.parentElement.innerHTML='<p style=\'color:var(--color-text-muted); padding:32px; text-align:center;\'>Single-omics pipeline figure</p>'">
-        </div>
+<!-- ── FEATURE ROWS (immagini funzionalità) ─────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <h2>Everything you need, in one interface</h2>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="feature-row">
+      <div class="feature-row__img">
+        <img src="Main_1_line.svg" alt="Samples subpopulation" onerror="this.src=''">
+      </div>
+      <div class="feature-row__text">
+        <h3>Samples subpopulation</h3>
+        <p>Subgroup your samples based on your gene panel. Discriminate by biological pathway or signalling genes to get a deeper answer to your questions.</p>
       </div>
     </div>
-  </section>
 
-  <!-- ── INTEGRATION METHODS ────────────────────────────────── -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section-header section-header--center">
-        <h2>Five integration strategies, one platform</h2>
-        <p>Choose the method that fits your question — or run them all and compare.</p>
+    <!-- Row 2 (reversed) -->
+    <div class="feature-row feature-row--reverse">
+      <div class="feature-row__img">
+        <img src="Main_2_line.svg" alt="Biological interpretation" onerror="this.src=''">
       </div>
-
-      <div class="method-grid" style="justify-content:center;">
-
-        <div class="method-pill method-pill--unsupervised">
-          <div class="method-pill__name">MOFA</div>
-          <div class="method-pill__type">Unsupervised · Factor analysis</div>
-        </div>
-
-        <div class="method-pill method-pill--unsupervised">
-          <div class="method-pill__name">SNF</div>
-          <div class="method-pill__type">Unsupervised · Network fusion</div>
-        </div>
-
-        <div class="method-pill method-pill--unsupervised">
-          <div class="method-pill__name">NEMO</div>
-          <div class="method-pill__type">Unsupervised · Partial overlap</div>
-        </div>
-
-        <div class="method-pill method-pill--supervised">
-          <div class="method-pill__name">DIABLO</div>
-          <div class="method-pill__type">Supervised · Sparse CCA</div>
-        </div>
-
-        <div class="method-pill method-pill--coming-soon">
-          <div class="method-pill__name">PRAMIGO <span class="badge badge--soon">Soon</span></div>
-          <div class="method-pill__type">Supervised · Graph transformer</div>
-        </div>
-
-      </div>
-
-      <div style="display:flex; gap:24px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
-        <span style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--color-text-muted);">
-          <span style="width:12px; height:3px; background:var(--color-accent); display:inline-block; border-radius:2px;"></span>
-          Supervised
-        </span>
-        <span style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--color-text-muted);">
-          <span style="width:12px; height:3px; background:var(--color-green); display:inline-block; border-radius:2px;"></span>
-          Unsupervised
-        </span>
-      </div>
-
-      <div style="text-align:center; margin-top:32px;">
-        <a href="pages/integration.html" class="btn btn--outline">Explore integration methods →</a>
+      <div class="feature-row__text">
+        <h3>Biological interpretation</h3>
+        <p>Discover our implementation for MOFA factors exploration and comprehension — from enrichment analysis to automated bibliography retrieval.</p>
       </div>
     </div>
-  </section>
 
-  <!-- ── QUICK START ────────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header section-header--center">
-        <h2>Up and running in minutes</h2>
-        <p>BiomiX 3.0 installs via Docker — no dependency conflicts, no configuration.</p>
+    <!-- Row 3 -->
+    <div class="feature-row">
+      <div class="feature-row__img">
+        <img src="Main_3_line.svg" alt="Statistics and tests" onerror="this.src=''">
       </div>
+      <div class="feature-row__text">
+        <h3>Statistics and tests</h3>
+        <p>Explore the statistical approaches available in BiomiX and find the most suitable for your data and experimental design.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div style="max-width: 680px; margin: 0 auto;">
-        <pre><code># Pull and run BiomiX 3.0
+<!-- ── SINGLE-OMICS ──────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Single-omics analysis, just a click away</h2>
+      <p>Customizable pipelines for transcriptomics, metabolomics, and methylomics. Choose your parameters and let BiomiX handle the analysis — so you can focus on the biology.</p>
+    </div>
+    <div class="single-omics-imgs">
+      <div class="img-box">
+        <img src="Main_2a.svg" alt="Single-omics pipeline overview A">
+      </div>
+      <div class="img-box">
+        <img src="Main_2b.svg" alt="Single-omics pipeline overview B">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTEGRATION METHODS ──────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <h2>Five integration strategies, one platform</h2>
+      <p>Choose the method that fits your question — or run them all and compare.</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-pill method-pill--unsupervised">
+        <div class="method-pill__name">MOFA</div>
+        <div class="method-pill__type">Unsupervised · Factor analysis</div>
+      </div>
+      <div class="method-pill method-pill--unsupervised">
+        <div class="method-pill__name">SNF</div>
+        <div class="method-pill__type">Unsupervised · Network fusion</div>
+      </div>
+      <div class="method-pill method-pill--unsupervised">
+        <div class="method-pill__name">NEMO</div>
+        <div class="method-pill__type">Unsupervised · Partial overlap</div>
+      </div>
+      <div class="method-pill method-pill--supervised">
+        <div class="method-pill__name">DIABLO</div>
+        <div class="method-pill__type">Supervised · Sparse CCA</div>
+      </div>
+      <div class="method-pill method-pill--soon">
+        <div class="method-pill__name">PRAMIGO <span class="badge badge--soon">Soon</span></div>
+        <div class="method-pill__type">Supervised · Graph transformer</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:36px;">
+      <a href="Integration_analysis.html" class="btn btn--primary" style="background:var(--blue); color:var(--white);">Explore integration methods →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUICK START ───────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <h2>Up and running in minutes</h2>
+      <p>BiomiX 3.0 installs via Docker — no dependency conflicts, no configuration.</p>
+    </div>
+    <div style="max-width:660px; margin:0 auto;">
+      <pre><code># Pull and run BiomiX 3.0
 docker pull ghcr.io/biomix-consortium/biomix:3.0
-docker run -p 8080:8080 ghcr.io/biomix-consortium/biomix:3.0</code></pre>
-        <p style="margin-top:16px; font-size:0.9rem; color:var(--color-text-muted);">
-          Supports Linux, Windows, and macOS (Intel &amp; Apple Silicon).
-          Full installation instructions including Nextflow setup are available on the
-          <a href="pages/installation.html">Installation page</a>.
-        </p>
-      </div>
+docker run -p 8080:8080 \
+  -v /path/to/your/data:/data \
+  ghcr.io/biomix-consortium/biomix:3.0</code></pre>
+      <p style="margin-top:14px; font-size:0.875rem; color:var(--text-muted);">
+        Supports Linux, Windows, and macOS.
+        Full instructions on the <a href="Installation.html">Installation page</a>.
+      </p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── CITE ───────────────────────────────────────────────── -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="grid-2" style="align-items:center; gap: 48px;">
+<!-- ── CITE ──────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="cite-box">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
         <div>
-          <h2>Cite BiomiX</h2>
-          <p style="margin-top:16px; color:var(--color-text-muted);">
-            If you use BiomiX in your research, please cite our publication in <em>BMC Bioinformatics</em>.
-            A second publication describing BiomiX 3.0 is currently under review.
+          <h2 style="font-size:1.4rem;">Cite BiomiX</h2>
+          <p style="margin-top:12px; color:var(--text-muted);">
+            If you use BiomiX in your research, please cite our publication in
+            <em>BMC Bioinformatics</em>. A manuscript describing BiomiX 3.0 is currently under review.
           </p>
-          <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
-            <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--primary">Read paper (v1) ↗</a>
-          </div>
+          <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank"
+             class="btn btn--primary" style="margin-top:20px; background:var(--blue); color:var(--white);">
+            Read paper (v1) ↗
+          </a>
         </div>
         <div>
-          <pre style="font-size:0.78rem; line-height:1.7;"><code>Iperi C. et al. BiomiX, a user-friendly
+          <pre style="font-size:0.78rem; line-height:1.75;"><code>Iperi C. et al. BiomiX, a user-friendly
 bioinformatic tool for democratized analysis
 and integration of multiomics data.
 BMC Bioinformatics 26, 8 (2025).
-https://doi.org/10.1186/s12859-024-06022-y</code></pre>
+doi: 10.1186/s12859-024-06022-y</code></pre>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── FOOTER ─────────────────────────────────────────────── -->
-  <footer class="footer">
-    <div class="footer__inner">
-      <div class="footer__col">
-        <h4>BiomiX</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="pages/installation.html">Installation</a></li>
-          <li><a href="pages/tutorial.html">Tutorial</a></li>
-          <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
-        </ul>
-      </div>
-      <div class="footer__col">
-        <h4>Analysis</h4>
-        <ul>
-          <li><a href="pages/single-omics.html">Single-omics</a></li>
-          <li><a href="pages/integration.html">Integration</a></li>
-          <li><a href="pages/integration.html#pramigo">PRAMIGO <span class="badge badge--soon">Soon</span></a></li>
-        </ul>
-      </div>
-      <div class="footer__col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank">Publication (v1)</a></li>
-          <li><a href="pages/tutorial.html">Dataset tutorials</a></li>
-          <li><a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">Report a bug</a></li>
-        </ul>
-      </div>
-      <div class="footer__col">
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
-          <li><a href="pages/about.html">Team & collaborators</a></li>
-          <li><a href="https://www.univ-brest.fr/lbai" target="_blank">LBAI — UMR 1227</a></li>
-        </ul>
-      </div>
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+      </ul>
     </div>
-    <div class="footer__bottom">
-      <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
-      <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+    <div class="footer__col">
+      <h4>Analysis</h4>
+      <ul>
+        <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+        <li><a href="Integration_analysis.html">Integration</a></li>
+        <li><a href="Integration_analysis.html#pramigo">PRAMIGO <span class="badge badge--soon">Soon</span></a></li>
+      </ul>
     </div>
-  </footer>
+    <div class="footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank">Publication (v1)</a></li>
+        <li><a href="Tutorial.html">Dataset tutorials</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">Report a bug</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team &amp; collaborators</a></li>
+        <li><a href="https://www.univ-brest.fr/lbai" target="_blank">LBAI — UMR 1227</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
 
-  <script>
-    // Highlight active nav link
-    document.querySelectorAll('.nav__links a').forEach(link => {
-      if (link.href === window.location.href) link.classList.add('active');
-    });
-  </script>
 </body>
 </html>
