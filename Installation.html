@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installation — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+  <!-- ── NAVIGATION ─────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <img src="../assets/BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+        BiomiX <span class="badge badge--version">3.0</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="installation.html" class="active">Installation</a></li>
+        <li><a href="tutorial.html">Tutorial</a></li>
+        <li><a href="single-omics.html">Single-omics</a></li>
+        <li><a href="integration.html">Integration</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HEADER ────────────────────────────────────────── -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <div class="section-header">
+        <p class="hero__eyebrow" style="font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-accent); margin-bottom:12px;">Installation</p>
+        <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);">Get BiomiX 3.0 running</h1>
+        <p style="margin-top:12px; color:var(--color-text-muted); font-size:1rem;">
+          BiomiX 3.0 installs via Docker for a clean, dependency-free setup.
+          Legacy conda-based installation is still available for advanced users.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RECOMMENDED: DOCKER ────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+        <span style="font-size:1.5rem;">🐳</span>
+        <h2 style="font-size:1.5rem;">Recommended: Docker installation</h2>
+        <span class="badge badge--new">New in 3.0</span>
+      </div>
+
+      <p style="color:var(--color-text-muted); margin-bottom:24px; max-width:60ch;">
+        The Docker approach is recommended for all operating systems. It guarantees a consistent environment
+        and avoids dependency conflicts entirely.
+      </p>
+
+      <!-- OS tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('docker', 'linux', this)">🐧 Linux</button>
+        <button class="tab-btn" onclick="showTab('docker', 'windows', this)">🪟 Windows</button>
+        <button class="tab-btn" onclick="showTab('docker', 'macos', this)">🍎 macOS</button>
+      </div>
+
+      <div id="docker-linux" class="tab-panel active">
+        <p style="margin-bottom:16px; color:var(--color-text-muted);">Install Docker Engine, then:</p>
+        <pre><code># 1. Pull BiomiX 3.0
+docker pull ghcr.io/biomix-consortium/biomix:3.0
+
+# 2. Run with your data directory mounted
+docker run -p 8080:8080 \
+  -v /path/to/your/data:/data \
+  ghcr.io/biomix-consortium/biomix:3.0</code></pre>
+        <p style="margin-top:12px; font-size:0.875rem; color:var(--color-text-muted);">
+          BiomiX will be accessible at <code>http://localhost:8080</code> in your browser.
+        </p>
+      </div>
+
+      <div id="docker-windows" class="tab-panel">
+        <p style="margin-bottom:16px; color:var(--color-text-muted);">Install <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop for Windows</a>, then open PowerShell:</p>
+        <pre><code># 1. Pull BiomiX 3.0
+docker pull ghcr.io/biomix-consortium/biomix:3.0
+
+# 2. Run with your data directory mounted
+docker run -p 8080:8080 `
+  -v C:\path\to\your\data:/data `
+  ghcr.io/biomix-consortium/biomix:3.0</code></pre>
+      </div>
+
+      <div id="docker-macos" class="tab-panel">
+        <p style="margin-bottom:16px; color:var(--color-text-muted);">Install <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop for Mac</a> (Apple Silicon and Intel supported), then:</p>
+        <pre><code># 1. Pull BiomiX 3.0
+docker pull ghcr.io/biomix-consortium/biomix:3.0
+
+# 2. Run with your data directory mounted
+docker run -p 8080:8080 \
+  -v /path/to/your/data:/data \
+  ghcr.io/biomix-consortium/biomix:3.0</code></pre>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── NEXTFLOW ───────────────────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="container">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+        <span style="font-size:1.5rem;">⚡</span>
+        <h2 style="font-size:1.5rem;">Nextflow pipelines</h2>
+        <span class="badge badge--new">New in 3.0</span>
+      </div>
+      <p style="color:var(--color-text-muted); margin-bottom:24px; max-width:60ch;">
+        For HPC clusters or automated workflows, BiomiX 3.0 provides Nextflow pipelines
+        that wrap the Docker container and handle parallelization automatically.
+      </p>
+      <pre><code># Run the BiomiX Nextflow pipeline
+nextflow run BiomiX-consortium/BiomiX \
+  --input samplesheet.csv \
+  --outdir results/ \
+  -profile docker</code></pre>
+      <p style="margin-top:16px; font-size:0.875rem; color:var(--color-text-muted);">
+        See the <a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub repository</a>
+        for the full Nextflow parameter reference.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── LEGACY CONDA ───────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+        <span style="font-size:1.5rem;">🐍</span>
+        <h2 style="font-size:1.5rem;">Legacy: Conda installation</h2>
+      </div>
+      <p style="color:var(--color-text-muted); margin-bottom:24px; max-width:60ch;">
+        The conda-based installation from BiomiX v1 is still available for users who prefer it
+        or cannot use Docker. This requires more manual setup.
+      </p>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('conda', 'linux', this)">🐧 Linux</button>
+        <button class="tab-btn" onclick="showTab('conda', 'windows', this)">🪟 Windows</button>
+        <button class="tab-btn" onclick="showTab('conda', 'macos', this)">🍎 macOS (Beta)</button>
+      </div>
+
+      <div id="conda-linux" class="tab-panel active">
+        <pre><code># 1. Download and unzip BiomiX
+wget https://github.com/BiomiX-consortium/BiomiX/releases/latest/download/BiomiX.zip
+unzip -q BiomiX.zip
+
+# 2. Install Miniconda 23.5.0
+wget https://repo.anaconda.com/miniconda/Miniconda3-py39_23.5.0-3-Linux-x86_64.sh
+bash Miniconda3-py39_23.5.0-3-Linux-x86_64.sh
+# Follow prompts and select conda init = yes. Reopen terminal.
+
+# 3. Run the installer
+chmod +x _INSTALL/BiomiX_INSTALL_LINUX.sh
+./_INSTALL/BiomiX_INSTALL_LINUX.sh
+
+# 4. Launch BiomiX
+./Biomix_linux_exe.sh</code></pre>
+      </div>
+
+      <div id="conda-windows" class="tab-panel">
+        <pre><code>1. Download BiomiX from:
+   https://github.com/BiomiX-consortium/BiomiX/releases/latest
+
+2. Unzip to your home directory (recommended).
+
+3. Install Miniconda 23.5.0:
+   https://repo.anaconda.com/miniconda/Miniconda3-py39_23.5.2-0-Windows-x86_64.exe
+
+4. Double-click _INSTALL/BiomiX_INSTALL_WINDOWS.bat
+
+5. Double-click Biomix_exe.bat to launch BiomiX.</code></pre>
+      </div>
+
+      <div id="conda-macos" class="tab-panel">
+        <pre><code># Install Homebrew and Miniconda first, then:
+conda create -n BiomiX-env python=3.9 -y
+conda activate BiomiX-env
+conda install -c conda-forge r-base=4.4.1 -y
+brew install libgit2
+
+# Run the macOS installer
+python3 /path/to/BiomiX/_INSTALL/BiomiX_INSTALL_OS.py
+./BiomiX_INSTALL_OS.sh
+
+# Launch
+./Biomix_macos_exe.sh</code></pre>
+        <p style="margin-top:12px; font-size:0.875rem; color:var(--color-text-muted);">
+          ⚠️ macOS support is a beta version. Please
+          <a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">report any issues</a>
+          to help us improve it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TROUBLESHOOTING ────────────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Troubleshooting</h2>
+        <p>Common issues and how to fix them.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:16px; max-width:780px;">
+
+        <details style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:20px; cursor:pointer;">
+          <summary style="font-weight:600; color:var(--color-white);">ModuleNotFoundError: No module named 'package name'</summary>
+          <p style="margin-top:12px; color:var(--color-text-muted);">This happens during conda installation when a Python package is missing. Fix it by running:</p>
+          <pre style="margin-top:12px;"><code>pip install 'package-name'</code></pre>
+        </details>
+
+        <details style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:20px; cursor:pointer;">
+          <summary style="font-weight:600; color:var(--color-white);">Error in library("Package"): No package named "Package"</summary>
+          <p style="margin-top:12px; color:var(--color-text-muted);">Open R inside the BiomiX conda environment and install manually:</p>
+          <pre style="margin-top:12px;"><code>conda activate BiomiX-env
+R  # (or R.exe on Windows)
+install.packages("Package")</code></pre>
+        </details>
+
+        <details style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:20px; cursor:pointer;">
+          <summary style="font-weight:600; color:var(--color-white);">fontconfig / freetype error on macOS or Linux</summary>
+          <pre style="margin-top:12px;"><code># macOS
+brew install freetype
+
+# Ubuntu / Debian
+sudo apt-get install libfontconfig1-dev</code></pre>
+        </details>
+
+      </div>
+
+      <p style="margin-top:32px; color:var(--color-text-muted); font-size:0.9rem;">
+        Still stuck? Open an issue on
+        <a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">GitHub</a>
+        or contact us at <a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <h4>BiomiX</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+          <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Analysis</h4>
+        <ul>
+          <li><a href="single-omics.html">Single-omics</a></li>
+          <li><a href="integration.html">Integration</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+          <li><a href="about.html">Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+      <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+    </div>
+  </footer>
+
+  <script>
+    function showTab(group, id, btn) {
+      // hide all panels in this group
+      document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+      // deactivate all buttons in the same tabs container
+      btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      // activate selected
+      document.getElementById(`${group}-${id}`).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

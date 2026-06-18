@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOFA Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h2, h3, h4 {
+            color: #3498db;
+        }
+
+        .center {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .center img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .banner {
+            background-color: #3498db; /* Blue background color */
+            padding: 10px;
+            text-align: left;
+            color: white;
+        }
+
+        .banner a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Banner with Navigation Links -->
+    <div class="banner">
+       <a href="index.html">BiomiX</a>
+       <a href="Installation.html">Installation</a>
+       <a href="Tutorial.html">Tutorial</a>
+       <a href="Single-omics_analysis.html">Single-omics analysis</a>
+       <a href="Integration_analysis.html">Integration</a>
+       <a href="Parameters_and_interface.html">Parameters and interface</a>
+       <a href="about_us.html">About us</a>
+    </div>
+
+    <h2 id="mofa-integration">MOFA Integration</h2>
+
+    <h3 id="mofa-analysis">MOFA Analysis</h3>
+    <p>MOFA is used in BiomiX following developer guidelines,
+        (<a href="https://biofam.github.io/MOFA2/">https://biofam.github.io/MOFA2/</a>) with transformed data inputs and reduced feature size. Transformation methods depend on the omics type: transcriptomics data use variance-stabilizing transformation, metabolomics data use log transformation to approximate Gaussian distribution, and methylomics data need no transformation. Top genes and CpG islands with the highest variance are selected for MOFA integration, except for metabolomics, where fewer peaks are typically included.</p>
+
+    <p>BiomiX’s MOFA implementation allows customization of parameters like convergence speed, Evidence Lower Bound frequency, and maximum iterations. An automated tuning mode optimizes the total factor count, stopping when three models have a factor explaining less than 1% of variance. The top three models, prioritizing those with more statistically significant discriminant factors, are selected. Each model’s factors are tested with a Mann–Whitney test, with p-values adjusted by FDR method.</p>
+
+    <div class="center">
+        <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/disegno.svg?raw=true" alt="MOFA Image">
+    </div>
+
+    
+    <h2 id="mofa-factors-interpretation">MOFA Factors Interpretation</h2>
+
+    <p>Both automatic and not automatic MOFA analysis
+        includes three methods to ease the user interpretation of the discriminating MOFA factors.</p>
+
+    <p><strong>Correlation analysis:</strong> Users can upload a matrix containing binary or numerical clinical features to integrate into the MOFA model. The numerical data are correlated through a Pearson correlation with each MOFA factor, while the binary clinical data are analyzed using the Wilcoxon test after dividing the groups into positive and negative categories. The nominal p-values are corrected using the Benjamini–Hochberg method.</p>
+
+    <p><strong>Pathway analysis:</strong>BiomiX identifies the top contributing genes, metabolites, and CpG islands for discriminating factors in each MOFA model. According to the omics data type, BiomiX selects an R package to determine if a biological or metabolic pathway is enriched within these genes, metabolites, or CpG islands. Genes are analyzed with EnrichR using Reactome, Biological Process, Encyclopedia of DNA Elements (ENCODE), and ChIP-X Enrichment Analysis (ChEA) transcription factor libraries. Metabolites are assessed via MetPath using the KEGG and HMDB databases. CpG islands, when linked to associated genes, are also analyzed using EnrichR.</p>
+
+    <p><strong>Pubmed bibliography research:</strong> For each discriminating factor in each MOFA model, top contributing genes, metabolites, and CpG island genes are used for PubMed searches to gain insights into factor identities. The search algorithm operates on three levels, prioritizing abstracts that combine more multiomic contributors. At the first level, abstracts include at least one of the top ten contributors; at the second level, abstracts contain at least one contributor from any two omics (e.g., transcriptomics–metabolomics); and the third level includes abstracts with at least one contributor from a single omics.</p>
+    <p>The output is a .TSV file with PubMed articles, total and individual contributor matches, DOIs, and keywords. Since author-provided keywords are limited, BiomiX performs additional text-mining with litsearchr v1.0.0, generating a vocabulary of frequent word combinations filtered against Gene Ontology and human phenotype terms. The top 15 terms are included in the .TSV file, along with a final word frequency analysis across all abstracts retrieved from each level.</p>
+
+    <div class="center">
+        <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/MOFA2.svg?raw=true" alt="MOFA2 Image" width="1100" height="700">
+    </div>
+
+</body>
+
+</html>

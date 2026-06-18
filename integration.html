@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integration Methods — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .method-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      scroll-margin-top: 80px;
+    }
+    .method-card--supervised  { border-left: 4px solid var(--color-accent); }
+    .method-card--unsupervised{ border-left: 4px solid var(--color-green); }
+    .method-card--coming-soon { border-left: 4px solid var(--color-text-muted); opacity: 0.75; }
+
+    .method-card__header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .method-card__header h2 { margin: 0; font-size: 1.5rem; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tag--supervised   { background: rgba(46,164,255,0.15); color: var(--color-accent); }
+    .tag--unsupervised { background: rgba(63,185,80,0.15);  color: var(--color-green); }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .output-item {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.875rem;
+    }
+    .output-item__label { color: var(--color-text-muted); font-size: 0.75rem; margin-bottom: 4px; }
+    .output-item__value { color: var(--color-white); font-weight: 500; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ─────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <img src="../assets/BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+        BiomiX <span class="badge badge--version">3.0</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="installation.html">Installation</a></li>
+        <li><a href="tutorial.html">Tutorial</a></li>
+        <li><a href="single-omics.html">Single-omics</a></li>
+        <li><a href="integration.html" class="active">Integration</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HEADER ────────────────────────────────────────── -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <p style="font-size:0.8rem; font-weight:600; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-accent); margin-bottom:12px;">Integration</p>
+      <h1 style="font-size:clamp(1.8rem,4vw,2.8rem);">Multi-omics integration methods</h1>
+      <p style="margin-top:12px; color:var(--color-text-muted); font-size:1rem; max-width:60ch;">
+        BiomiX 3.0 provides five methodologically diverse integration strategies.
+        Each captures a distinct aspect of multi-omics data — run one or all.
+      </p>
+
+      <!-- Quick-jump links -->
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:32px; padding-bottom:32px; border-bottom:1px solid var(--color-border);">
+        <a href="#mofa"   class="btn btn--outline" style="font-size:0.85rem; padding:6px 16px;">MOFA</a>
+        <a href="#snf"    class="btn btn--outline" style="font-size:0.85rem; padding:6px 16px;">SNF</a>
+        <a href="#nemo"   class="btn btn--outline" style="font-size:0.85rem; padding:6px 16px;">NEMO</a>
+        <a href="#diablo" class="btn btn--outline" style="font-size:0.85rem; padding:6px 16px;">DIABLO</a>
+        <a href="#pramigo" class="btn btn--outline" style="font-size:0.85rem; padding:6px 16px;">PRAMIGO <span class="badge badge--soon" style="margin-left:4px;">Soon</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── METHOD CARDS ───────────────────────────────────────── -->
+  <section class="section">
+    <div class="container" style="display:flex; flex-direction:column; gap:32px;">
+
+      <!-- MOFA -->
+      <div class="method-card method-card--unsupervised" id="mofa">
+        <div class="method-card__header">
+          <h2>MOFA</h2>
+          <span class="tag tag--unsupervised">Unsupervised</span>
+          <span style="color:var(--color-text-muted); font-size:0.9rem;">Multi-Omics Factor Analysis</span>
+        </div>
+        <p>A probabilistic Bayesian framework that decomposes multi-omics datasets into latent factors capturing shared and modality-specific sources of variance. In BiomiX 3.0, MOFA is implemented with automated factor selection and semi-supervised discriminant factor identification.</p>
+        <p style="margin-top:12px;">Discriminant factors are interpreted through correlation with clinical data, pathway enrichment via EnrichR, and automated PubMed bibliography search.</p>
+        <div class="output-grid" style="margin-top:24px;">
+          <div class="output-item"><div class="output-item__label">Type</div><div class="output-item__value">Matrix factorization</div></div>
+          <div class="output-item"><div class="output-item__label">Best for</div><div class="output-item__value">Multi-dimensional biological coverage</div></div>
+          <div class="output-item"><div class="output-item__label">Output</div><div class="output-item__value">Latent factors + loadings</div></div>
+          <div class="output-item"><div class="output-item__label">Missing data</div><div class="output-item__value">Supported</div></div>
+        </div>
+      </div>
+
+      <!-- SNF -->
+      <div class="method-card method-card--unsupervised" id="snf">
+        <div class="method-card__header">
+          <h2>SNF</h2>
+          <span class="tag tag--unsupervised">Unsupervised</span>
+          <span style="color:var(--color-text-muted); font-size:0.9rem;">Similarity Network Fusion</span>
+        </div>
+        <p>A network-based method that constructs a patient similarity network for each omic layer and iteratively fuses them into a single integrated network. The fused network captures complementary cross-modal information. Spectral clustering is then applied to identify patient subgroups.</p>
+        <p style="margin-top:12px;">In BiomiX 3.0, SNF is implemented via the SNFtool R package, with the number of clusters selected automatically via the eigen-gap heuristic.</p>
+        <div class="output-grid" style="margin-top:24px;">
+          <div class="output-item"><div class="output-item__label">Type</div><div class="output-item__value">Network-based</div></div>
+          <div class="output-item"><div class="output-item__label">Best for</div><div class="output-item__value">Patient stratification</div></div>
+          <div class="output-item"><div class="output-item__label">Output</div><div class="output-item__value">Fused similarity network + clusters</div></div>
+          <div class="output-item"><div class="output-item__label">Missing data</div><div class="output-item__value">Not supported</div></div>
+        </div>
+      </div>
+
+      <!-- NEMO -->
+      <div class="method-card method-card--unsupervised" id="nemo">
+        <div class="method-card__header">
+          <h2>NEMO</h2>
+          <span class="tag tag--unsupervised">Unsupervised</span>
+          <span style="color:var(--color-text-muted); font-size:0.9rem;">NEighborhood-based Multi-Omics clustering</span>
+        </div>
+        <p>A network-based method specifically designed to handle datasets with partially overlapping samples across omics layers, without requiring imputation. NEMO constructs affinity scores from nearest-neighbor relationships within each omic, using only available modalities per sample.</p>
+        <div class="output-grid" style="margin-top:24px;">
+          <div class="output-item"><div class="output-item__label">Type</div><div class="output-item__value">Network-based</div></div>
+          <div class="output-item"><div class="output-item__label">Best for</div><div class="output-item__value">Partially overlapping samples</div></div>
+          <div class="output-item"><div class="output-item__label">Output</div><div class="output-item__value">Affinity matrix + clusters</div></div>
+          <div class="output-item"><div class="output-item__label">Missing data</div><div class="output-item__value">✓ Natively supported</div></div>
+        </div>
+      </div>
+
+      <!-- DIABLO -->
+      <div class="method-card method-card--supervised" id="diablo">
+        <div class="method-card__header">
+          <h2>DIABLO</h2>
+          <span class="tag tag--supervised">Supervised</span>
+          <span style="color:var(--color-text-muted); font-size:0.9rem;">Data Integration Analysis for Biomarker discovery using Latent cariable Approaches for Omics</span>
+        </div>
+        <p>A supervised integration method from the MixOmics framework that extends sparse canonical correlation analysis to multiple omics layers. It identifies correlated latent components across modalities while optimizing discrimination between predefined groups, making it well-suited for biomarker discovery.</p>
+        <p style="margin-top:12px;">In BiomiX 3.0, the number of components is selected automatically via Mann-Whitney test with FDR correction, mirroring MOFA's factor selection strategy.</p>
+        <div class="output-grid" style="margin-top:24px;">
+          <div class="output-item"><div class="output-item__label">Type</div><div class="output-item__value">Sparse CCA</div></div>
+          <div class="output-item"><div class="output-item__label">Best for</div><div class="output-item__value">Biomarker discovery</div></div>
+          <div class="output-item"><div class="output-item__label">Output</div><div class="output-item__value">Latent components + feature weights</div></div>
+          <div class="output-item"><div class="output-item__label">Missing data</div><div class="output-item__value">Excluded before analysis</div></div>
+        </div>
+      </div>
+
+      <!-- PRAMIGO -->
+      <div class="method-card method-card--coming-soon" id="pramigo">
+        <div class="method-card__header">
+          <h2>PRAMIGO <span class="badge badge--soon">Coming Soon</span></h2>
+          <span class="tag tag--supervised">Supervised</span>
+          <span style="color:var(--color-text-muted); font-size:0.9rem;">Phenotyping netwoRk Application for Multi-omics InteGratiOn</span>
+        </div>
+        <p>A novel supervised Heterogeneous Graph Transformer (HGT) that models cross-modal molecular interactions explicitly. PRAMIGO constructs a heterogeneous graph where nodes represent both samples and molecular features, and edges capture within-omic, between-omic, and sample-feature relationships.</p>
+        <p style="margin-top:12px;">Unlike other methods that summarize variation at the sample level, PRAMIGO uncovers biologically interpretable multi-omics programs and feature-level interactions — including ncRNA hubs, immunoglobulin repertoire diversity, and epigenetic co-regulation programs — that are inaccessible to conventional integration approaches.</p>
+        <div class="output-grid" style="margin-top:24px;">
+          <div class="output-item"><div class="output-item__label">Type</div><div class="output-item__value">Heterogeneous Graph Transformer</div></div>
+          <div class="output-item"><div class="output-item__label">Best for</div><div class="output-item__value">Cross-modal regulatory discovery</div></div>
+          <div class="output-item"><div class="output-item__label">Output</div><div class="output-item__value">Attention scores + multi-omics programs</div></div>
+          <div class="output-item"><div class="output-item__label">Also available at</div><div class="output-item__value"><a href="https://github.com/iclemente99/PRAMIGO" target="_blank">github.com/iclemente99/PRAMIGO ↗</a></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── METHOD SELECTION GUIDE ─────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Which method should I use?</h2>
+        <p>Each method is designed for a different analytical objective. When in doubt, run multiple methods and compare.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px; max-width:780px;">
+        <div style="display:grid; grid-template-columns:1fr 2fr; gap:16px; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:16px 20px; align-items:start;">
+          <div style="font-weight:700; color:var(--color-white);">DIABLO</div>
+          <div style="color:var(--color-text-muted); font-size:0.9rem;">Primary goal is <strong style="color:var(--color-text);">biomarker discovery</strong> with co-variation across omics layers.</div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 2fr; gap:16px; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:16px 20px; align-items:start;">
+          <div style="font-weight:700; color:var(--color-white);">MOFA</div>
+          <div style="color:var(--color-text-muted); font-size:0.9rem;">Goal is <strong style="color:var(--color-text);">multi-dimensional coverage</strong> of independent biological axes without a condition label.</div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 2fr; gap:16px; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:16px 20px; align-items:start;">
+          <div style="font-weight:700; color:var(--color-white);">SNF / NEMO</div>
+          <div style="color:var(--color-text-muted); font-size:0.9rem;">Goal is <strong style="color:var(--color-text);">patient stratification</strong> sensitive to sharp between-sample biological boundaries.</div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 2fr; gap:16px; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:16px 20px; align-items:start;">
+          <div style="font-weight:700; color:var(--color-white);">PRAMIGO</div>
+          <div style="color:var(--color-text-muted); font-size:0.9rem;">Goal is <strong style="color:var(--color-text);">cross-modal regulatory mechanism discovery</strong>, especially ncRNA, repertoire diversity, or structural cross-modal features. <span class="badge badge--soon">Soon</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <h4>BiomiX</h4>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="installation.html">Installation</a></li>
+          <li><a href="tutorial.html">Tutorial</a></li>
+          <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+          <li><a href="about.html">Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+      <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+    </div>
+  </footer>
+
+</body>
+</html>

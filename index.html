@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiomiX 3.0 — Multi-omics integration platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ── NAVIGATION ─────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+        BiomiX <span class="badge badge--version">3.0</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="pages/installation.html">Installation</a></li>
+        <li><a href="pages/tutorial.html">Tutorial</a></li>
+        <li><a href="pages/single-omics.html">Single-omics</a></li>
+        <li><a href="pages/integration.html">Integration</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero__eyebrow">BiomiX 3.0 — Now available</p>
+      <h1 class="hero__title">
+        Multi-omics integration<br>for every researcher
+      </h1>
+      <p class="hero__subtitle">
+        A graphical desktop platform that makes state-of-the-art multi-omics analysis
+        accessible without programming expertise.
+      </p>
+      <div class="hero__actions">
+        <a href="pages/installation.html" class="btn btn--primary">Get Started →</a>
+        <a href="pages/tutorial.html" class="btn btn--outline">View Tutorials</a>
+        <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--outline">Read the paper ↗</a>
+      </div>
+
+      <!-- Key stats -->
+      <div class="hero__stats">
+        <div>
+          <div class="hero__stat-value">5</div>
+          <div class="hero__stat-label">Integration methods</div>
+        </div>
+        <div>
+          <div class="hero__stat-value">3</div>
+          <div class="hero__stat-label">Omics layers</div>
+        </div>
+        <div>
+          <div class="hero__stat-value">3</div>
+          <div class="hero__stat-label">OS supported</div>
+        </div>
+        <div>
+          <div class="hero__stat-value">0</div>
+          <div class="hero__stat-label">Lines of code required</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S NEW IN 3.0 ──────────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <h2>What's new in BiomiX 3.0</h2>
+        <p>Built on the same GUI philosophy, now with broader integration capabilities and simpler deployment.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card__icon">🧩</div>
+          <h3>4 new integration methods</h3>
+          <p>SNF, NEMO, DIABLO, and PRAMIGO join MOFA to offer unsupervised, supervised, and graph-based strategies in a single interface.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">🐳</div>
+          <h3>Docker-based installation</h3>
+          <p>No more manual dependency management. BiomiX 3.0 ships as a Docker container for a reproducible, one-command setup across all platforms.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">⚡</div>
+          <h3>Nextflow pipelines</h3>
+          <p>Run scalable, reproducible single-omics and integration analyses through integrated Nextflow workflows, from laptop to HPC cluster.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SINGLE-OMICS ───────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <div class="section-header">
+            <h2>Single-omics analysis, just a click away</h2>
+            <p>Customizable pipelines for transcriptomics, metabolomics, and methylomics. Choose your parameters and let BiomiX handle the analysis — so you can focus on the biology.</p>
+          </div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:12px; margin-top: 24px;">
+            <li style="display:flex; gap:12px; align-items:flex-start;">
+              <span style="color:var(--color-accent); font-size:1.2rem;">✓</span>
+              <span><strong>Transcriptomics</strong> — DESeq2 / Limma differential expression</span>
+            </li>
+            <li style="display:flex; gap:12px; align-items:flex-start;">
+              <span style="color:var(--color-accent); font-size:1.2rem;">✓</span>
+              <span><strong>Metabolomics</strong> — CEU Mass Mediator, TidyMass peak annotation</span>
+            </li>
+            <li style="display:flex; gap:12px; align-items:flex-start;">
+              <span style="color:var(--color-accent); font-size:1.2rem;">✓</span>
+              <span><strong>Methylomics</strong> — ChAMP differential methylation analysis</span>
+            </li>
+          </ul>
+          <div style="margin-top: 32px;">
+            <a href="pages/single-omics.html" class="btn btn--outline">Explore single-omics →</a>
+          </div>
+        </div>
+        <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:280px;">
+          <img src="assets/Main_2a.svg" alt="Single-omics pipeline overview" style="width:100%; height:auto;" onerror="this.parentElement.innerHTML='<p style=\'color:var(--color-text-muted); padding:32px; text-align:center;\'>Single-omics pipeline figure</p>'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INTEGRATION METHODS ────────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <h2>Five integration strategies, one platform</h2>
+        <p>Choose the method that fits your question — or run them all and compare.</p>
+      </div>
+
+      <div class="method-grid" style="justify-content:center;">
+
+        <div class="method-pill method-pill--unsupervised">
+          <div class="method-pill__name">MOFA</div>
+          <div class="method-pill__type">Unsupervised · Factor analysis</div>
+        </div>
+
+        <div class="method-pill method-pill--unsupervised">
+          <div class="method-pill__name">SNF</div>
+          <div class="method-pill__type">Unsupervised · Network fusion</div>
+        </div>
+
+        <div class="method-pill method-pill--unsupervised">
+          <div class="method-pill__name">NEMO</div>
+          <div class="method-pill__type">Unsupervised · Partial overlap</div>
+        </div>
+
+        <div class="method-pill method-pill--supervised">
+          <div class="method-pill__name">DIABLO</div>
+          <div class="method-pill__type">Supervised · Sparse CCA</div>
+        </div>
+
+        <div class="method-pill method-pill--coming-soon">
+          <div class="method-pill__name">PRAMIGO <span class="badge badge--soon">Soon</span></div>
+          <div class="method-pill__type">Supervised · Graph transformer</div>
+        </div>
+
+      </div>
+
+      <div style="display:flex; gap:24px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
+        <span style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--color-text-muted);">
+          <span style="width:12px; height:3px; background:var(--color-accent); display:inline-block; border-radius:2px;"></span>
+          Supervised
+        </span>
+        <span style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:var(--color-text-muted);">
+          <span style="width:12px; height:3px; background:var(--color-green); display:inline-block; border-radius:2px;"></span>
+          Unsupervised
+        </span>
+      </div>
+
+      <div style="text-align:center; margin-top:32px;">
+        <a href="pages/integration.html" class="btn btn--outline">Explore integration methods →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUICK START ────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <h2>Up and running in minutes</h2>
+        <p>BiomiX 3.0 installs via Docker — no dependency conflicts, no configuration.</p>
+      </div>
+
+      <div style="max-width: 680px; margin: 0 auto;">
+        <pre><code># Pull and run BiomiX 3.0
+docker pull ghcr.io/biomix-consortium/biomix:3.0
+docker run -p 8080:8080 ghcr.io/biomix-consortium/biomix:3.0</code></pre>
+        <p style="margin-top:16px; font-size:0.9rem; color:var(--color-text-muted);">
+          Supports Linux, Windows, and macOS (Intel &amp; Apple Silicon).
+          Full installation instructions including Nextflow setup are available on the
+          <a href="pages/installation.html">Installation page</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CITE ───────────────────────────────────────────────── -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="grid-2" style="align-items:center; gap: 48px;">
+        <div>
+          <h2>Cite BiomiX</h2>
+          <p style="margin-top:16px; color:var(--color-text-muted);">
+            If you use BiomiX in your research, please cite our publication in <em>BMC Bioinformatics</em>.
+            A second publication describing BiomiX 3.0 is currently under review.
+          </p>
+          <div style="margin-top: 24px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--primary">Read paper (v1) ↗</a>
+          </div>
+        </div>
+        <div>
+          <pre style="font-size:0.78rem; line-height:1.7;"><code>Iperi C. et al. BiomiX, a user-friendly
+bioinformatic tool for democratized analysis
+and integration of multiomics data.
+BMC Bioinformatics 26, 8 (2025).
+https://doi.org/10.1186/s12859-024-06022-y</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <h4>BiomiX</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pages/installation.html">Installation</a></li>
+          <li><a href="pages/tutorial.html">Tutorial</a></li>
+          <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Analysis</h4>
+        <ul>
+          <li><a href="pages/single-omics.html">Single-omics</a></li>
+          <li><a href="pages/integration.html">Integration</a></li>
+          <li><a href="pages/integration.html#pramigo">PRAMIGO <span class="badge badge--soon">Soon</span></a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank">Publication (v1)</a></li>
+          <li><a href="pages/tutorial.html">Dataset tutorials</a></li>
+          <li><a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">Report a bug</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+          <li><a href="pages/about.html">Team & collaborators</a></li>
+          <li><a href="https://www.univ-brest.fr/lbai" target="_blank">LBAI — UMR 1227</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+      <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+    </div>
+  </footer>
+
+  <script>
+    // Highlight active nav link
+    document.querySelectorAll('.nav__links a').forEach(link => {
+      if (link.href === window.location.href) link.classList.add('active');
+    });
+  </script>
+</body>
+</html>
