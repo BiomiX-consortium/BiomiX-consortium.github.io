@@ -7,24 +7,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-
-    /* ── TOKENS ─────────────────────────────────────────────── */
     :root {
-      --blue:        #2196f3;
-      --blue-dark:   #1565c0;
-      --blue-light:  #e3f2fd;
-      --blue-mid:    #90caf9;
-      --text:        #1a2636;
-      --text-muted:  #546e7a;
-      --white:       #ffffff;
-      --bg:          #f5f9ff;
-      --border:      #dce8f5;
-      --radius:      10px;
-      --radius-lg:   18px;
-      --shadow:      0 2px 16px rgba(33,150,243,0.08);
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
     }
-
-    /* ── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
@@ -32,234 +28,113 @@
     a:hover { text-decoration: underline; }
     img { max-width: 100%; display: block; }
 
-    /* ── NAVBAR ─────────────────────────────────────────────── */
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 1px 8px rgba(33,150,243,0.07);
-    }
-    .nav__inner {
-      max-width: 1140px; margin: 0 auto;
-      padding: 0 32px; height: 62px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav__logo {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 700; font-size: 1.15rem; color: var(--text);
-    }
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
     .nav__logo img { height: 34px; width: auto; }
     .nav__logo-name { color: var(--blue); }
     .nav__links { display: flex; gap: 28px; list-style: none; }
-    .nav__links a {
-      color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
-      transition: color 0.18s;
-    }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
     .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
-    .nav__cta {
-      background: var(--blue); color: var(--white) !important;
-      padding: 6px 18px; border-radius: var(--radius);
-      font-weight: 600; font-size: 0.875rem;
-      transition: background 0.18s;
-    }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; transition: background 0.18s; }
     .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
 
-    /* ── HERO ───────────────────────────────────────────────── */
-    .hero {
-      position: relative; overflow: hidden;
-      min-height: 480px;
-      display: flex; align-items: center;
-    }
-    .hero__bg {
-      position: absolute; inset: 0;
-      background-image: url('Main_1.jpg');
-      background-size: cover; background-position: center;
-      filter: brightness(0.38);
-    }
-    .hero__overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(120deg, rgba(21,101,192,0.7) 0%, rgba(33,150,243,0.35) 100%);
-    }
-    .hero__content {
-      position: relative; z-index: 2;
-      max-width: 1140px; margin: 0 auto; padding: 80px 32px;
-      text-align: center;
-    }
-    .hero__eyebrow {
-      display: inline-block;
-      background: rgba(255,255,255,0.15);
-      color: #e3f2fd; border: 1px solid rgba(255,255,255,0.3);
-      font-size: 0.78rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 4px 14px; border-radius: 20px;
-      margin-bottom: 20px;
-    }
-    .hero__title {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 700; color: var(--white);
-      line-height: 1.15; margin-bottom: 16px;
-    }
-    .hero__subtitle {
-      font-size: 1.1rem; color: rgba(255,255,255,0.82);
-      max-width: 560px; margin: 0 auto 36px;
-    }
+    /* HERO */
+    .hero { position: relative; overflow: hidden; min-height: 480px; display: flex; align-items: center; }
+    .hero__bg { position: absolute; inset: 0; background-image: url('Main_1.jpg'); background-size: cover; background-position: center; filter: brightness(0.38); }
+    .hero__overlay { position: absolute; inset: 0; background: linear-gradient(120deg, rgba(21,101,192,0.7) 0%, rgba(33,150,243,0.35) 100%); }
+    .hero__content { position: relative; z-index: 2; max-width: 1140px; margin: 0 auto; padding: 80px 32px; text-align: center; }
+    .hero__eyebrow { display: inline-block; background: rgba(255,255,255,0.15); color: #e3f2fd; border: 1px solid rgba(255,255,255,0.3); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; }
+    .hero__title { font-size: clamp(2rem,5vw,3.2rem); font-weight: 700; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+    .hero__subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.82); max-width: 560px; margin: 0 auto 36px; }
     .hero__actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 26px; border-radius: var(--radius);
-      font-weight: 600; font-size: 0.95rem;
-      cursor: pointer; transition: all 0.18s;
-      border: none; text-decoration: none !important;
-    }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 26px; border-radius: var(--radius); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.18s; border: none; text-decoration: none !important; }
     .btn--primary { background: var(--white); color: var(--blue); }
     .btn--primary:hover { background: var(--blue-light); }
-    .btn--outline-white {
-      background: transparent; color: var(--white);
-      border: 1.5px solid rgba(255,255,255,0.6);
-    }
+    .btn--blue { background: var(--blue); color: var(--white); }
+    .btn--blue:hover { background: var(--blue-dark); }
+    .btn--outline-white { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.6); }
     .btn--outline-white:hover { background: rgba(255,255,255,0.12); }
-
-    /* hero stats */
-    .hero__stats {
-      display: flex; justify-content: center; gap: 48px;
-      flex-wrap: wrap; margin-top: 52px;
-      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2);
-    }
+    .btn--outline { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+    .btn--outline:hover { background: var(--blue-light); }
+    .hero__stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; margin-top: 52px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2); }
     .hero__stat-value { font-size: 2rem; font-weight: 700; color: var(--white); }
     .hero__stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 2px; }
 
-    /* ── SHARED SECTION ─────────────────────────────────────── */
+    /* LAYOUT */
     .section { padding: 72px 0; }
     .section--alt { background: var(--bg); }
     .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
-
     .section-header { margin-bottom: 48px; }
     .section-header--center { text-align: center; }
     .section-header--center p { margin: 12px auto 0; }
-    .section-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--text); margin-bottom: 8px; }
-    .section-header p { color: var(--text-muted); font-size: 1rem; max-width: 60ch; }
+    .section-header h2 { font-size: clamp(1.5rem,3vw,2rem); color: var(--text); margin-bottom: 8px; }
+    .section-header p { color: var(--muted); font-size: 1rem; max-width: 60ch; }
 
-    /* ── WHAT'S NEW ─────────────────────────────────────────── */
+    /* WHAT'S NEW CARDS */
     .card-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-    .card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 28px 24px;
-      box-shadow: var(--shadow); transition: transform 0.18s, box-shadow 0.18s;
-    }
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; box-shadow: var(--shadow); transition: transform 0.18s, box-shadow 0.18s; }
     .card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(33,150,243,0.13); }
     .card__icon { font-size: 2rem; margin-bottom: 14px; }
     .card h3 { font-size: 1rem; color: var(--text); margin-bottom: 8px; }
-    .card p { font-size: 0.875rem; color: var(--text-muted); }
+    .card p { font-size: 0.875rem; color: var(--muted); }
 
-    /* ── FEATURE ROWS (immagini funzionalità) ───────────────── */
-    .feature-row {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 48px; align-items: center; margin-bottom: 64px;
-    }
+    /* FEATURE ROWS */
+    .feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 72px; }
     .feature-row:last-child { margin-bottom: 0; }
-    .feature-row--reverse { direction: rtl; }
-    .feature-row--reverse > * { direction: ltr; }
+    .feature-row--reverse .feature-row__img { order: 2; }
+    .feature-row--reverse .feature-row__text { order: 1; }
+    .feature-row__text h3 { font-size: 1.35rem; color: var(--text); margin-bottom: 12px; }
+    .feature-row__text p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+    .feature-row__img { background: var(--blue-light); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 240px; padding: 20px; }
+    .feature-row__img img, .feature-row__img svg { width: 100%; height: auto; }
 
-    .feature-row__text h3 {
-      font-size: 1.3rem; color: var(--text); margin-bottom: 12px;
-    }
-    .feature-row__text p { color: var(--text-muted); font-size: 0.95rem; }
+    /* SINGLE-OMICS */
+    .single-omics-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+    .single-omics-imgs .img-box { background: var(--blue-light); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; align-items: center; justify-content: center; }
 
-    .feature-row__img {
-      background: var(--blue-light);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      min-height: 220px; padding: 16px;
-    }
-    .feature-row__img img { width: 100%; height: auto; }
-
-    /* ── SINGLE-OMICS (2 immagini affiancate) ───────────────── */
-    .single-omics-imgs {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-      margin-top: 36px;
-    }
-    .single-omics-imgs .img-box {
-      background: var(--blue-light); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 16px;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ── INTEGRATION PILLS ──────────────────────────────────── */
+    /* METHOD PILLS */
     .method-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 36px; }
-    .method-pill {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 40px; padding: 14px 28px; text-align: center;
-      min-width: 148px; box-shadow: var(--shadow);
-      transition: all 0.18s;
-    }
+    .method-pill { background: var(--white); border: 1px solid var(--border); border-radius: 40px; padding: 14px 28px; text-align: center; min-width: 148px; box-shadow: var(--shadow); transition: all 0.18s; }
     .method-pill:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(33,150,243,0.15); }
     .method-pill__name { font-weight: 700; font-size: 1rem; color: var(--text); }
-    .method-pill__type { font-size: 0.72rem; color: var(--text-muted); margin-top: 3px; }
+    .method-pill__type { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
     .method-pill--supervised  { border-top: 3px solid var(--blue); }
     .method-pill--unsupervised{ border-top: 3px solid #43a047; }
     .method-pill--soon        { opacity: 0.6; border-top: 3px solid #bdbdbd; }
-
-    .badge {
-      display: inline-block; font-size: 0.65rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.05em;
-      padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px;
-    }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
     .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid #a5d6a7; }
     .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
 
-    /* ── QUICK START ────────────────────────────────────────── */
-    pre {
-      background: #1e2a3a; color: #90caf9;
-      border-radius: var(--radius-lg); padding: 24px 28px;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.875rem; overflow-x: auto; line-height: 1.7;
-    }
+    /* CODE */
+    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius-lg); padding: 24px 28px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
 
-    /* ── CITE ───────────────────────────────────────────────── */
-    .cite-box {
-      background: var(--blue-light); border: 1px solid var(--blue-mid);
-      border-radius: var(--radius-lg); padding: 28px 32px;
-    }
-    .cite-box pre {
-      background: var(--white); color: var(--text);
-      border: 1px solid var(--border); font-size: 0.82rem;
-    }
+    /* CITE */
+    .cite-box { background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 32px 36px; }
+    .cite-box pre { background: var(--white); color: var(--text); border: 1px solid var(--border); font-size: 0.82rem; }
 
-    /* ── FOOTER ─────────────────────────────────────────────── */
-    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 0; }
-    .footer__inner {
-      max-width: 1140px; margin: 0 auto; padding: 0 32px 40px;
-      display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap;
-    }
-    .footer__col h4 {
-      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em;
-      color: #78909c; margin-bottom: 16px;
-    }
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; }
     .footer__col ul { list-style: none; }
     .footer__col ul li { margin-bottom: 10px; }
     .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
     .footer__col ul a:hover { color: var(--white); text-decoration: none; }
-    .footer__bottom {
-      max-width: 1140px; margin: 0 auto;
-      padding: 18px 32px; border-top: 1px solid #263545;
-      font-size: 0.78rem; color: #546e7a;
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-    }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 860px) {
       .card-grid, .feature-row, .single-omics-imgs { grid-template-columns: 1fr; }
-      .feature-row--reverse { direction: ltr; }
+      .feature-row--reverse .feature-row__img,
+      .feature-row--reverse .feature-row__text { order: unset; }
       .nav__links { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ───────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav class="nav">
   <div class="nav__inner">
     <a href="index.html" class="nav__logo">
@@ -279,40 +154,28 @@
   </div>
 </nav>
 
-<!-- ── HERO ─────────────────────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero__bg"></div>
   <div class="hero__overlay"></div>
   <div class="hero__content">
     <p class="hero__eyebrow">BiomiX 3.0 — Now available</p>
     <h1 class="hero__title">Multi-omics integration<br>for every researcher</h1>
-    <p class="hero__subtitle">
-      A graphical desktop platform that makes state-of-the-art multi-omics analysis
-      accessible without programming expertise.
-    </p>
+    <p class="hero__subtitle">A graphical desktop platform that makes state-of-the-art multi-omics analysis accessible without programming expertise.</p>
     <div class="hero__actions">
       <a href="Installation.html" class="btn btn--primary">Get Started →</a>
       <a href="Tutorial.html" class="btn btn--outline-white">View Tutorials</a>
       <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--outline-white">Read the paper ↗</a>
     </div>
     <div class="hero__stats">
-      <div>
-        <div class="hero__stat-value">5</div>
-        <div class="hero__stat-label">Integration methods</div>
-      </div>
-      <div>
-        <div class="hero__stat-value">3</div>
-        <div class="hero__stat-label">Omics layers</div>
-      </div>
-      <div>
-        <div class="hero__stat-value">0</div>
-        <div class="hero__stat-label">Lines of code required</div>
-      </div>
+      <div><div class="hero__stat-value">5</div><div class="hero__stat-label">Integration methods</div></div>
+      <div><div class="hero__stat-value">3</div><div class="hero__stat-label">Omics layers</div></div>
+      <div><div class="hero__stat-value">0</div><div class="hero__stat-label">Lines of code required</div></div>
     </div>
   </div>
 </section>
 
-<!-- ── WHAT'S NEW ────────────────────────────────────────────── -->
+<!-- WHAT'S NEW -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header section-header--center">
@@ -339,49 +202,53 @@
   </div>
 </section>
 
-<!-- ── FEATURE ROWS (immagini funzionalità) ─────────────────── -->
+<!-- FEATURE ROWS -->
 <section class="section">
   <div class="container">
     <div class="section-header section-header--center">
       <h2>Everything you need, in one interface</h2>
     </div>
 
-    <!-- Row 1 -->
+    <!-- Row 1: Biological interpretation -->
     <div class="feature-row">
       <div class="feature-row__img">
-        <img src="Main_1_line.svg" alt="Samples subpopulation" onerror="this.src=''">
+        <img src="Main_2_line.svg" alt="Biological interpretation">
       </div>
       <div class="feature-row__text">
-        <h3>Samples subpopulation</h3>
-        <p>Subgroup your samples based on your gene panel. Discriminate by biological pathway or signalling genes to get a deeper answer to your questions.</p>
+        <h3>Automated biological interpretation</h3>
+        <p>Once your integration is complete, BiomiX automatically runs pathway enrichment via EnrichR and retrieves relevant PubMed literature for each identified factor or component — turning statistical results into biological insight with a single click.</p>
       </div>
     </div>
 
-    <!-- Row 2 (reversed) -->
+    <!-- Row 2: Multi-omics without coding -->
     <div class="feature-row feature-row--reverse">
       <div class="feature-row__img">
-        <img src="Main_2_line.svg" alt="Biological interpretation" onerror="this.src=''">
+        <img src="Main_1_line.svg" alt="Multi-omics integration without coding">
       </div>
       <div class="feature-row__text">
-        <h3>Biological interpretation</h3>
-        <p>Discover our implementation for MOFA factors exploration and comprehension — from enrichment analysis to automated bibliography retrieval.</p>
+        <h3>Multi-omics integration without coding</h3>
+        <p>Five state-of-the-art integration methods — MOFA, SNF, NEMO, DIABLO, and PRAMIGO — are all accessible through the same graphical interface. No R, no Python, no command line. Just your data and your question.</p>
       </div>
     </div>
 
-    <!-- Row 3 -->
+    <!-- Row 3: Community & stability -->
     <div class="feature-row">
       <div class="feature-row__img">
-        <img src="Main_3_line.svg" alt="Statistics and tests" onerror="this.src=''">
+        <img src="community.svg" alt="BiomiX community and stability">
       </div>
       <div class="feature-row__text">
-        <h3>Statistics and tests</h3>
-        <p>Explore the statistical approaches available in BiomiX and find the most suitable for your data and experimental design.</p>
+        <h3>Built to last, backed by a community</h3>
+        <p>BiomiX is an open-source project actively maintained by a multi-institution European consortium. Docker-based deployment guarantees that your analyses remain reproducible regardless of system updates, while an active developer and researcher community ensures the platform keeps growing.</p>
+        <div style="margin-top:20px;">
+          <a href="about_us.html" class="btn btn--outline" style="font-size:0.875rem; padding:8px 20px;">Meet the team →</a>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- ── SINGLE-OMICS ──────────────────────────────────────────── -->
+<!-- SINGLE-OMICS -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header">
@@ -390,16 +257,16 @@
     </div>
     <div class="single-omics-imgs">
       <div class="img-box">
-        <img src="Main_2a.svg" alt="Single-omics pipeline overview A">
+        <img src="Main_2a.svg" alt="Single-omics pipeline overview">
       </div>
       <div class="img-box">
-        <img src="Main_2b.svg" alt="Single-omics pipeline overview B">
+        <img src="Main_2b.svg" alt="Single-omics results example">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── INTEGRATION METHODS ──────────────────────────────────── -->
+<!-- INTEGRATION METHODS -->
 <section class="section">
   <div class="container">
     <div class="section-header section-header--center">
@@ -429,12 +296,12 @@
       </div>
     </div>
     <div style="text-align:center; margin-top:36px;">
-      <a href="Integration_analysis.html" class="btn btn--primary" style="background:var(--blue); color:var(--white);">Explore integration methods →</a>
+      <a href="Integration_analysis.html" class="btn btn--blue">Explore integration methods →</a>
     </div>
   </div>
 </section>
 
-<!-- ── QUICK START ───────────────────────────────────────────── -->
+<!-- QUICK START -->
 <section class="section section--alt">
   <div class="container">
     <div class="section-header section-header--center">
@@ -447,7 +314,7 @@ docker pull ghcr.io/biomix-consortium/biomix:3.0
 docker run -p 8080:8080 \
   -v /path/to/your/data:/data \
   ghcr.io/biomix-consortium/biomix:3.0</code></pre>
-      <p style="margin-top:14px; font-size:0.875rem; color:var(--text-muted);">
+      <p style="margin-top:14px; font-size:0.875rem; color:var(--muted);">
         Supports Linux, Windows, and macOS.
         Full instructions on the <a href="Installation.html">Installation page</a>.
       </p>
@@ -455,21 +322,15 @@ docker run -p 8080:8080 \
   </div>
 </section>
 
-<!-- ── CITE ──────────────────────────────────────────────────── -->
+<!-- CITE -->
 <section class="section">
   <div class="container">
     <div class="cite-box">
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;">
         <div>
-          <h2 style="font-size:1.4rem;">Cite BiomiX</h2>
-          <p style="margin-top:12px; color:var(--text-muted);">
-            If you use BiomiX in your research, please cite our publication in
-            <em>BMC Bioinformatics</em>. A manuscript describing BiomiX 3.0 is currently under review.
-          </p>
-          <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank"
-             class="btn btn--primary" style="margin-top:20px; background:var(--blue); color:var(--white);">
-            Read paper (v1) ↗
-          </a>
+          <h2 style="font-size:1.4rem; color:var(--text);">Cite BiomiX</h2>
+          <p style="margin-top:12px; color:var(--muted);">If you use BiomiX in your research, please cite our publication in <em>BMC Bioinformatics</em>. A manuscript describing BiomiX 3.0 is currently under review.</p>
+          <a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank" class="btn btn--blue" style="margin-top:20px;">Read paper (v1) ↗</a>
         </div>
         <div>
           <pre style="font-size:0.78rem; line-height:1.75;"><code>Iperi C. et al. BiomiX, a user-friendly
@@ -483,7 +344,7 @@ doi: 10.1186/s12859-024-06022-y</code></pre>
   </div>
 </section>
 
-<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer__inner">
     <div class="footer__col">
