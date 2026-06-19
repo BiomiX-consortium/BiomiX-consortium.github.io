@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installation — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    code { font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.85em; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 28px; list-style: none; }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; transition: background 0.18s; }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
+    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid #a5d6a7; }
+    .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+
+    /* LAYOUT */
+    .section { padding: 56px 0; }
+    .section--alt { background: var(--bg); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+
+    /* PAGE HEADER */
+    .page-header { padding: 48px 0 8px; }
+    .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--text); margin-bottom: 14px; }
+    .page-header p { color: var(--muted); font-size: 1.02rem; max-width: 64ch; }
+
+    /* STEP HEADER */
+    .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+    .step-number { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: var(--white); font-weight: 700; font-size: 0.95rem; flex-shrink: 0; }
+    .step-header h2 { font-size: 1.4rem; color: var(--text); }
+
+    /* MODULE TABLE */
+    .module-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+    .module-table th { background: var(--blue-light); color: var(--blue-dark); text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 14px 20px; font-weight: 600; }
+    .module-table td { padding: 16px 20px; border-top: 1px solid var(--border); vertical-align: middle; }
+    .module-table tr:hover td { background: var(--bg); }
+    .module-name { font-weight: 600; color: var(--text); font-size: 0.95rem; }
+    .module-desc { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+    .module-table code { background: #1e2a3a; color: #90caf9; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .tag-required { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 20px; background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
+    .tag-optional { display: inline-block; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 20px; background: #eceff1; color: var(--muted); border: 1px solid var(--border); }
+
+    /* CODE BLOCKS */
+    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius-lg); padding: 22px 26px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
+
+    /* CALLOUT */
+    .callout { display: flex; gap: 14px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 18px 22px; margin-top: 24px; }
+    .callout__icon { font-size: 1.3rem; flex-shrink: 0; }
+    .callout p { color: var(--blue-dark); font-size: 0.9rem; margin: 0; }
+
+    .callout--soon { background: #f1f8e9; border-color: #a5d6a7; }
+    .callout--soon p { color: #2e7d32; }
+
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 860px) {
+      .nav__links { display: none; }
+      .module-table, .module-table thead, .module-table tbody, .module-table th, .module-table td, .module-table tr { display: block; }
+      .module-table thead { display: none; }
+      .module-table tr { border-top: 1px solid var(--border); padding: 14px 0; }
+      .module-table td { border-top: none; padding: 6px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Installation.html" class="active">Installation</a></li>
+      <li><a href="Tutorial.html">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html">Integration</a></li>
+      <li><a href="about_us.html">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <p class="page-header__eyebrow">Installation</p>
+    <h1>Get BiomiX 3.0 running</h1>
+    <p>BiomiX 3.0 installs through Docker, replacing the previous Conda-based setup. Each analysis module is distributed as an independent container, so you only download what your analysis actually needs.</p>
+  </div>
+</section>
+
+<!-- STEP 0: PREREQUISITES -->
+<section class="section">
+  <div class="container">
+    <div class="step-header">
+      <span class="step-number">0</span>
+      <h2>Install Docker</h2>
+    </div>
+    <p style="color:var(--muted); max-width:64ch;">
+      BiomiX 3.0 requires Docker to be installed on your system. We recommend
+      <a href="https://docs.docker.com/engine/install/" target="_blank">Docker Engine</a> on Linux/Ubuntu,
+      which is the environment BiomiX 3.0 has been built and tested for.
+    </p>
+  </div>
+</section>
+
+<!-- STEP 1: PULL MODULES -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="step-header">
+      <span class="step-number">1</span>
+      <h2>Pull the modules you need</h2>
+    </div>
+    <p style="color:var(--muted); max-width:70ch; margin-bottom:28px;">
+      <code>biomix_gui</code> and <code>biomix-base</code> are always required — the first provides the BiomiX graphical interface, the second the core R environment used by every analysis module.
+      Add only the single-omics and integration modules relevant to your analysis — each one is an independent container.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table class="module-table">
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th>Pull command</th>
+            <th>Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="module-name">biomix_gui</div>
+              <div class="module-desc">BiomiX graphical interface — Shiny frontend</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix_gui:latest</code></td>
+            <td><span class="tag-required">Always required</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-base</div>
+              <div class="module-desc">Core R environment used by the analysis modules</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-base:latest</code></td>
+            <td><span class="tag-required">Always required</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-transcriptomics</div>
+              <div class="module-desc">Transcriptomics single-omics pipeline</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-transcriptomics:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-methylomics</div>
+              <div class="module-desc">Methylomics single-omics pipeline</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-methylomics:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-metabolomics</div>
+              <div class="module-desc">Metabolomics single-omics pipeline</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-metabolomics:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-mofa</div>
+              <div class="module-desc">MOFA integration method</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-mofa:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-snf</div>
+              <div class="module-desc">SNF integration method</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-snf:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-nemo</div>
+              <div class="module-desc">NEMO integration method</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-nemo:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-diablo</div>
+              <div class="module-desc">DIABLO integration method</div>
+            </td>
+            <td><code>docker pull ghcr.io/biomix-consortium/biomix-diablo:latest</code></td>
+            <td><span class="tag-optional">Optional</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="module-name">biomix-pramigo <span class="badge badge--soon">Soon</span></div>
+              <div class="module-desc">PRAMIGO integration method — not yet released</div>
+            </td>
+            <td><code style="opacity:0.5;">Coming soon</code></td>
+            <td><span class="tag-optional" style="opacity:0.6;">Optional</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="callout__icon">💡</span>
+      <p>Example: to run a transcriptomics analysis integrated with MOFA, pull <code>biomix_gui</code>, <code>biomix-base</code>, <code>biomix-transcriptomics</code>, and <code>biomix-mofa</code> — nothing else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 2: LAUNCH -->
+<section class="section">
+  <div class="container">
+    <div class="step-header">
+      <span class="step-number">2</span>
+      <h2>Launch BiomiX</h2>
+    </div>
+    <p style="color:var(--muted); max-width:70ch; margin-bottom:24px;">
+      Once the modules are pulled, start the BiomiX graphical interface directly from the <code>biomix_gui</code> container. From there, you select your analyses and modules before starting execution.
+    </p>
+
+    <pre><code># Launch the BiomiX graphical interface
+docker run -p 3838:3838 \
+  -v /path/to/your/data:/data \
+  ghcr.io/biomix-consortium/biomix_gui:latest</code></pre>
+
+    <p style="margin-top:14px; font-size:0.875rem; color:var(--muted);">
+      Once running, open <code>http://localhost:3838</code> in your browser. From the interface, you can select the modules to use, configure your analysis, and start execution.
+    </p>
+  </div>
+</section>
+
+<!-- PRAMIGO COMING SOON -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="callout callout--soon">
+      <span class="callout__icon">🚧</span>
+      <p><strong>PRAMIGO</strong> will be released as a separate module shortly after BiomiX 3.0. This page will be updated with its pull command as soon as it becomes available.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TROUBLESHOOTING -->
+<section class="section">
+  <div class="container">
+    <div class="step-header">
+      <h2 style="font-size:1.4rem;">Need help?</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.95rem;">
+      If you run into issues during installation, please open an issue on the
+      <a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">consortium's issue tracker</a>
+      or contact us directly at <a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a>.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Analysis</h4>
+      <ul>
+        <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+        <li><a href="Integration_analysis.html">Integration</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
+
+</body>
+</html>
