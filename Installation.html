@@ -72,7 +72,30 @@
     .tag-optional { display: inline-block; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 20px; background: #eceff1; color: var(--muted); border: 1px solid var(--border); }
 
     /* CODE BLOCKS */
+    .code-block { position: relative; }
     pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius-lg); padding: 22px 26px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
+    .copy-btn {
+      position: absolute; top: 12px; right: 12px;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08); color: #90caf9;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+      padding: 5px 10px; font-size: 0.75rem; font-family: 'Inter', sans-serif; font-weight: 500;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+    .copy-btn svg { width: 13px; height: 13px; }
+    .copy-btn.copied { color: #66bb6a; border-color: rgba(102,187,106,0.4); }
+
+    /* Inline pull-command copy (inside table cells) */
+    .pull-cell { display: flex; align-items: center; gap: 8px; }
+    .pull-cell code { flex: 1; }
+    .copy-btn--inline {
+      position: static; flex-shrink: 0;
+      padding: 4px 6px; background: rgba(33,150,243,0.08); color: var(--blue);
+      border: 1px solid var(--blue-mid);
+    }
+    .copy-btn--inline:hover { background: var(--blue-light); }
+    .copy-btn--inline.copied { color: #2e7d32; border-color: #a5d6a7; background: #f1f8e9; }
 
     /* CALLOUT */
     .callout { display: flex; gap: 14px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 18px 22px; margin-top: 24px; }
@@ -174,7 +197,7 @@
               <div class="module-name">biomix_gui</div>
               <div class="module-desc">BiomiX graphical interface — Shiny frontend</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix_gui:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix_gui">docker pull ghcr.io/biomix-consortium/biomix_gui:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix_gui')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-required">Always required</span></td>
           </tr>
           <tr>
@@ -182,7 +205,7 @@
               <div class="module-name">biomix-base</div>
               <div class="module-desc">Core R environment used by the analysis modules</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-base:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-base">docker pull ghcr.io/biomix-consortium/biomix-base:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-base')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-required">Always required</span></td>
           </tr>
           <tr>
@@ -190,7 +213,7 @@
               <div class="module-name">biomix-transcriptomics</div>
               <div class="module-desc">Transcriptomics single-omics pipeline</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-transcriptomics:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-transcriptomics">docker pull ghcr.io/biomix-consortium/biomix-transcriptomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-transcriptomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -198,7 +221,7 @@
               <div class="module-name">biomix-methylomics</div>
               <div class="module-desc">Methylomics single-omics pipeline</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-methylomics:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-methylomics">docker pull ghcr.io/biomix-consortium/biomix-methylomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-methylomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -206,7 +229,7 @@
               <div class="module-name">biomix-metabolomics</div>
               <div class="module-desc">Metabolomics single-omics pipeline</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-metabolomics:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-metabolomics">docker pull ghcr.io/biomix-consortium/biomix-metabolomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-metabolomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -214,7 +237,7 @@
               <div class="module-name">biomix-mofa</div>
               <div class="module-desc">MOFA integration method</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-mofa:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-mofa">docker pull ghcr.io/biomix-consortium/biomix-mofa:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-mofa')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -222,7 +245,7 @@
               <div class="module-name">biomix-snf</div>
               <div class="module-desc">SNF integration method</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-snf:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-snf">docker pull ghcr.io/biomix-consortium/biomix-snf:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-snf')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -230,7 +253,7 @@
               <div class="module-name">biomix-nemo</div>
               <div class="module-desc">NEMO integration method</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-nemo:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-nemo">docker pull ghcr.io/biomix-consortium/biomix-nemo:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-nemo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -238,7 +261,7 @@
               <div class="module-name">biomix-diablo</div>
               <div class="module-desc">DIABLO integration method</div>
             </td>
-            <td><code>docker pull ghcr.io/biomix-consortium/biomix-diablo:latest</code></td>
+            <td><div class="pull-cell"><code id="pull-biomix-diablo">docker pull ghcr.io/biomix-consortium/biomix-diablo:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-diablo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
             <td><span class="tag-optional">Optional</span></td>
           </tr>
           <tr>
@@ -271,10 +294,16 @@
       Once the modules are pulled, start the BiomiX graphical interface directly from the <code>biomix_gui</code> container. From there, you select your analyses and modules before starting execution.
     </p>
 
-    <pre><code># Launch the BiomiX graphical interface
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this, 'launch-code')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span>Copy</span>
+      </button>
+      <pre id="launch-code"><code># Launch the BiomiX graphical interface
 docker run -p 3838:3838 \
   -v /path/to/your/data:/data \
   ghcr.io/biomix-consortium/biomix_gui:latest</code></pre>
+    </div>
 
     <p style="margin-top:14px; font-size:0.875rem; color:var(--muted);">
       Once running, open <code>http://localhost:3838</code> in your browser. From the interface, you can select the modules to use, configure your analysis, and start execution.
@@ -338,6 +367,31 @@ docker run -p 3838:3838 \
     <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
   </div>
 </footer>
+
+<script>
+  function copyCode(btn, elId) {
+    const el = document.getElementById(elId);
+    const text = el.innerText || el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const label = btn.querySelector('span');
+      const originalLabel = label ? label.textContent : null;
+      btn.classList.add('copied');
+      if (label) label.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (label && originalLabel) label.textContent = originalLabel;
+      }, 1500);
+    }).catch(() => {
+      // Fallback for older browsers
+      const range = document.createRange();
+      range.selectNode(el);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+    });
+  }
+</script>
 
 </body>
 </html>
