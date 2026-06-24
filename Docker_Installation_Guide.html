@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Installation Guide — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    code { font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.85em; background: var(--blue-light); padding: 2px 6px; border-radius: 4px; color: var(--blue-dark); }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 28px; list-style: none; }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; transition: background 0.18s; }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
+    .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+
+    /* BREADCRUMB */
+    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 14px; }
+    .breadcrumb a { color: var(--blue); }
+
+    /* LAYOUT */
+    .section { padding: 48px 0; }
+    .section--alt { background: var(--bg); }
+    .container { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+
+    .page-header { padding: 40px 0 8px; }
+    .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--text); margin-bottom: 14px; }
+    .page-header p { color: var(--muted); font-size: 1.02rem; max-width: 68ch; }
+
+    /* PLATFORM SELECT PILLS (jump links) */
+    .platform-jump { display: flex; gap: 12px; flex-wrap: wrap; margin: 28px 0 8px; }
+    .platform-jump a {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 40px; padding: 9px 20px;
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      box-shadow: var(--shadow); transition: all 0.18s;
+    }
+    .platform-jump a:hover { border-color: var(--blue); color: var(--blue); text-decoration: none; transform: translateY(-1px); }
+    .platform-jump .emoji { font-size: 1.1rem; }
+
+    /* ACCORDION (collapsible OS sections) */
+    .accordion { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 18px; scroll-margin-top: 80px; }
+    .accordion__header {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      width: 100%; background: var(--white); border: none; cursor: pointer;
+      padding: 20px 26px; text-align: left;
+      font-family: 'Inter', sans-serif;
+    }
+    .accordion__header:hover { background: var(--bg); }
+    .accordion__title { display: flex; align-items: center; gap: 12px; font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .accordion__title .emoji { font-size: 1.3rem; }
+    .accordion__chevron { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.2s; color: var(--muted); }
+    .accordion.open .accordion__chevron { transform: rotate(180deg); }
+    .accordion__body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: var(--white); }
+    .accordion.open .accordion__body { max-height: 4000px; }
+    .accordion__content { padding: 4px 26px 28px; border-top: 1px solid var(--border); }
+
+    /* REQUIREMENT LIST */
+    .req-list { list-style: none; margin: 14px 0 22px; }
+    .req-list li { display: flex; gap: 10px; padding: 7px 0; font-size: 0.92rem; color: var(--text); }
+    .req-list li::before { content: '•'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+
+    /* STEP LIST */
+    .steps { list-style: none; counter-reset: step; margin: 18px 0; }
+    .steps > li { counter-increment: step; position: relative; padding-left: 42px; margin-bottom: 22px; }
+    .steps > li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 0;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--blue); color: var(--white);
+      font-size: 0.85rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .steps > li strong { color: var(--text); }
+    .steps > li p { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
+
+    /* CODE BLOCKS */
+    .code-block { position: relative; margin: 10px 0 16px; }
+    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius); padding: 16px 20px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.82rem; overflow-x: auto; line-height: 1.65; }
+    pre code { background: none; padding: 0; color: inherit; }
+    .copy-btn {
+      position: absolute; top: 9px; right: 9px;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.08); color: #90caf9;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+      padding: 4px 9px; font-size: 0.72rem; font-family: 'Inter', sans-serif; font-weight: 500;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+    .copy-btn svg { width: 12px; height: 12px; }
+    .copy-btn.copied { color: #66bb6a; border-color: rgba(102,187,106,0.4); }
+
+    /* NOTE / CALLOUT */
+    .note { display: flex; gap: 12px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius); padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; color: var(--blue-dark); }
+    .note__icon { flex-shrink: 0; }
+
+    /* COMPARISON TABLE */
+    .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
+    .compare-table th, .compare-table td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; }
+    .compare-table th { background: var(--blue-light); color: var(--blue-dark); font-weight: 600; }
+    .compare-table tr:nth-child(even) td { background: var(--bg); }
+
+    /* TROUBLESHOOTING */
+    details.ts-item { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 10px; cursor: pointer; }
+    details.ts-item summary { font-weight: 600; font-size: 0.92rem; color: var(--text); }
+    details.ts-item p { margin-top: 8px; color: var(--muted); font-size: 0.88rem; }
+
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 700px) {
+      .nav__links { display: none; }
+      .accordion__content { padding: 4px 18px 22px; }
+      .accordion__header { padding: 16px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Installation.html">Installation</a></li>
+      <li><a href="Tutorial.html">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html">Integration</a></li>
+      <li><a href="about_us.html">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <p class="breadcrumb"><a href="Installation.html">Installation</a> &nbsp;›&nbsp; Docker setup</p>
+    <p class="page-header__eyebrow">Step 0 — Prerequisite</p>
+    <h1>Installing Docker</h1>
+    <p>Before pulling and running BiomiX 3.0, you need Docker installed on your system. The installation process differs by platform: Windows and macOS use <strong>Docker Desktop</strong> (a graphical application), while Linux uses <strong>Docker Engine</strong>, installed from the command line with no GUI.</p>
+
+    <div class="platform-jump">
+      <a href="#windows"><span class="emoji">🪟</span> Windows</a>
+      <a href="#macos"><span class="emoji">🍎</span> macOS</a>
+      <a href="#linux"><span class="emoji">🐧</span> Linux (Ubuntu)</a>
+      <a href="#troubleshooting"><span class="emoji">🛠️</span> Troubleshooting</a>
+    </div>
+  </div>
+</section>
+
+<!-- WINDOWS, MACOS, LINUX ACCORDIONS -->
+<section class="section">
+  <div class="container">
+
+    <!-- WINDOWS -->
+    <div class="accordion" id="windows">
+      <button class="accordion__header" onclick="toggleAccordion(this)">
+        <span class="accordion__title"><span class="emoji">🪟</span> Windows</span>
+        <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion__body">
+        <div class="accordion__content">
+
+          <h3 style="font-size:1rem; margin-bottom:6px;">Requirements</h3>
+          <ul class="req-list">
+            <li>Windows 10 64-bit (build 19045 / 22H2 or newer) or Windows 11 64-bit (build 22631 / 23H2 or newer) — Home, Pro, Enterprise, or Education</li>
+            <li>64-bit processor with SLAT (Second Level Address Translation)</li>
+            <li>Hardware virtualization enabled in BIOS/UEFI</li>
+            <li>8 GB RAM recommended (4 GB is the documented minimum, but limited)</li>
+            <li>WSL 2 (Windows Subsystem for Linux) as the backend</li>
+          </ul>
+
+          <h3 style="font-size:1rem; margin-bottom:6px;">Steps</h3>
+          <ol class="steps">
+            <li>
+              <strong>Enable WSL 2</strong> (if not already installed). Open PowerShell as Administrator and run:
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'win-wsl')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="win-wsl"><code>wsl --install</code></pre>
+              </div>
+              <p>Restart your computer when prompted.</p>
+            </li>
+            <li>
+              <strong>Check virtualization</strong>
+              <p>Make sure hardware virtualization (Intel VT-x or AMD-V) is enabled in the BIOS. On most modern PCs this is already on by default.</p>
+            </li>
+            <li>
+              <strong>Download Docker Desktop</strong>
+              <p>From the official site: <a href="https://www.docker.com/products/docker-desktop/" target="_blank">docker.com/products/docker-desktop</a>. Select the build for Windows (x64 or ARM64, depending on your processor).</p>
+            </li>
+            <li>
+              <strong>Run the installer</strong> (<code>Docker Desktop Installer.exe</code>)
+              <p>Follow the setup wizard. Keep the "Use WSL 2 instead of Hyper-V" option selected when prompted.</p>
+            </li>
+            <li>
+              <strong>Restart your computer</strong> if requested at the end of the installation.
+            </li>
+            <li>
+              <strong>Launch Docker Desktop</strong> from the Start menu and accept the terms of service on first launch.
+            </li>
+            <li>
+              <strong>Verify the installation</strong> by opening a terminal (PowerShell or CMD) and running:
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'win-verify')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="win-verify"><code>docker --version
+docker run hello-world</code></pre>
+              </div>
+              <p>If you see a welcome message from Docker, the installation succeeded.</p>
+            </li>
+          </ol>
+
+          <div class="note">
+            <span class="note__icon">💡</span>
+            <span>A paid subscription is required only for commercial use in larger enterprises (more than 250 employees or more than $10 million USD in annual revenue). It's free for personal use, education, and small businesses.</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- MACOS -->
+    <div class="accordion" id="macos">
+      <button class="accordion__header" onclick="toggleAccordion(this)">
+        <span class="accordion__title"><span class="emoji">🍎</span> macOS</span>
+        <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion__body">
+        <div class="accordion__content">
+
+          <h3 style="font-size:1rem; margin-bottom:6px;">Requirements</h3>
+          <ul class="req-list">
+            <li>macOS 13 (Ventura), 14 (Sonoma), or 15 (Sequoia) — Docker Desktop supports the three most recent macOS major releases</li>
+            <li>At least 8 GB RAM recommended (4 GB documented minimum)</li>
+            <li>Mac with Apple Silicon (M1/M2/M3/M4) or Intel chip — make sure to download the matching build</li>
+          </ul>
+
+          <h3 style="font-size:1rem; margin-bottom:6px;">Steps</h3>
+          <ol class="steps">
+            <li>
+              <strong>Download Docker Desktop</strong>
+              <p>From the official site: <a href="https://www.docker.com/products/docker-desktop/" target="_blank">docker.com/products/docker-desktop</a>. Choose the correct build for your chip — Apple Silicon (M1/M2/M3/M4) or Intel. To check which chip you have: Apple menu → "About This Mac".</p>
+            </li>
+            <li>
+              <strong>Open the downloaded <code>.dmg</code> file</strong>
+              <p>Drag the Docker icon into the Applications folder.</p>
+            </li>
+            <li>
+              <strong>Launch Docker Desktop</strong> from Applications or Launchpad.
+            </li>
+            <li>
+              <strong>Accept the terms of service</strong> on first launch.
+            </li>
+            <li>
+              <strong>Grant the required permissions</strong>
+              <p>Docker Desktop will ask for your system password to install certain privileged components needed for it to run.</p>
+            </li>
+            <li>
+              <strong>(Optional, Apple Silicon) Install Rosetta 2</strong> for compatibility with some command-line tools:
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'mac-rosetta')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="mac-rosetta"><code>softwareupdate --install-rosetta</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>Verify the installation</strong> by opening Terminal and running:
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'mac-verify')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="mac-verify"><code>docker --version
+docker run hello-world</code></pre>
+              </div>
+            </li>
+          </ol>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- LINUX -->
+    <div class="accordion" id="linux">
+      <button class="accordion__header" onclick="toggleAccordion(this)">
+        <span class="accordion__title"><span class="emoji">🐧</span> Linux (Ubuntu)</span>
+        <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion__body">
+        <div class="accordion__content">
+
+          <div class="note">
+            <span class="note__icon">ℹ️</span>
+            <span>On Linux, Docker Desktop is not needed — you install <strong>Docker Engine</strong> directly, which is lighter and native (no virtual machine required, unlike Windows/macOS). This is also the environment BiomiX 3.0 is built and tested for.</span>
+          </div>
+
+          <h3 style="font-size:1rem; margin-bottom:6px;">Requirements</h3>
+          <ul class="req-list">
+            <li>Ubuntu 20.04, 22.04, or 24.04 LTS</li>
+            <li>x86_64 or arm64 architecture</li>
+            <li>Linux kernel 3.10 or later</li>
+            <li>Administrator (sudo) privileges</li>
+          </ul>
+
+          <h3 style="font-size:1rem; margin-bottom:6px;">Steps</h3>
+          <ol class="steps">
+            <li>
+              <strong>Remove any older or conflicting versions</strong> (optional — skip if you've never installed Docker before):
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-remove')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-remove"><code>sudo apt-get remove docker docker-engine docker.io containerd runc</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>Update the package index and install required dependencies</strong>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-deps')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-deps"><code>sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>Add Docker's official GPG key</strong>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-gpg')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-gpg"><code>sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>Add the Docker repository to APT sources</strong>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-repo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-repo"><code>echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>Install Docker Engine, the CLI, and plugins</strong>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-install')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-install"><code>sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>Verify the installation</strong>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-verify')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-verify"><code>sudo docker run hello-world</code></pre>
+              </div>
+            </li>
+            <li>
+              <strong>(Recommended) Run Docker without <code>sudo</code></strong>
+              <p>Add your user to the <code>docker</code> group, so you don't need to type <code>sudo</code> before every command:</p>
+              <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this,'lin-group')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="lin-group"><code>sudo usermod -aG docker $USER</code></pre>
+              </div>
+              <p>Then log out and back in (or restart your terminal session) for the change to take effect. Verify with <code>docker run hello-world</code> (this time without <code>sudo</code>).</p>
+            </li>
+          </ol>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PLATFORM DIFFERENCES TABLE -->
+<section class="section section--alt">
+  <div class="container">
+    <h2 style="font-size:1.3rem; margin-bottom:14px;">Summary of platform differences</h2>
+    <table class="compare-table">
+      <thead>
+        <tr><th>Platform</th><th>Component installed</th><th>Interface</th><th>Requires VM/WSL</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Windows</td><td>Docker Desktop</td><td>GUI + CLI</td><td>Yes (WSL 2)</td></tr>
+        <tr><td>macOS</td><td>Docker Desktop</td><td>GUI + CLI</td><td>Yes (Apple Virtualization Framework)</td></tr>
+        <tr><td>Linux (Ubuntu)</td><td>Docker Engine</td><td>CLI only</td><td>No (native)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FINAL CHECK + NEXT STEP -->
+<section class="section">
+  <div class="container">
+    <h2 style="font-size:1.3rem; margin-bottom:14px;">Final check</h2>
+    <p style="color:var(--muted); margin-bottom:14px;">Once Docker is installed on any platform, confirm everything works with:</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this,'final-check')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+      <pre id="final-check"><code>docker --version
+docker run hello-world</code></pre>
+    </div>
+    <p style="color:var(--muted); margin-top:8px;">If the command returns a welcome message ("Hello from Docker!"), the installation is complete and you're ready to pull the BiomiX modules.</p>
+    <div style="margin-top:24px;">
+      <a href="Installation.html" class="badge badge--new" style="font-size:0.85rem; padding:8px 18px; text-decoration:none;">← Back to BiomiX installation</a>
+    </div>
+  </div>
+</section>
+
+<!-- TROUBLESHOOTING -->
+<section class="section section--alt" id="troubleshooting">
+  <div class="container">
+    <h2 style="font-size:1.3rem; margin-bottom:18px;">Common troubleshooting</h2>
+
+    <details class="ts-item">
+      <summary>"Docker won't start" (Windows)</summary>
+      <p>Make sure WSL 2 is installed and up to date (<code>wsl --update</code>) and that virtualization is enabled in the BIOS.</p>
+    </details>
+
+    <details class="ts-item">
+      <summary>"Cannot connect to the Docker daemon" (Linux)</summary>
+      <p>Make sure the service is running: <code>sudo systemctl start docker</code>, and check its status with <code>sudo systemctl status docker</code>.</p>
+    </details>
+
+    <details class="ts-item">
+      <summary>Permission denied on Linux</summary>
+      <p>If you skipped the step adding your user to the <code>docker</code> group, you'll need <code>sudo</code> before every Docker command.</p>
+    </details>
+
+    <details class="ts-item">
+      <summary>Mac with M1/M2/M3/M4 failing to launch some CLI tools</summary>
+      <p>Install Rosetta 2 — see the macOS section above.</p>
+    </details>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
+
+<script>
+  function toggleAccordion(btn) {
+    const acc = btn.closest('.accordion');
+    acc.classList.toggle('open');
+  }
+
+  function copyCode(btn, elId) {
+    const el = document.getElementById(elId);
+    const text = el.innerText || el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const label = btn.querySelector('span');
+      const originalLabel = label ? label.textContent : null;
+      btn.classList.add('copied');
+      if (label) label.textContent = 'Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (label && originalLabel) label.textContent = originalLabel;
+      }, 1500);
+    }).catch(() => {
+      const range = document.createRange();
+      range.selectNode(el);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+    });
+  }
+
+  // Auto-open the relevant accordion if the page is loaded with a #hash, and scroll to it
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#','');
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el && el.classList.contains('accordion')) {
+        el.classList.add('open');
+        setTimeout(() => el.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
