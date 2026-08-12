@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Installation — BiomiX 3.0</title>
+  <title>Installation, BiomiX 3.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -27,7 +27,7 @@
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
     img { max-width: 100%; display: block; }
-    code { font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.85em; }
+    code { font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.85em; background: var(--blue-light); padding: 2px 6px; border-radius: 4px; color: var(--blue-dark); }
 
     /* NAV */
     .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
@@ -38,11 +38,11 @@
     .nav__links { display: flex; gap: 28px; list-style: none; }
     .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
     .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
-    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; transition: background 0.18s; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; }
     .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
     .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
-    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid #a5d6a7; }
     .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid #a5d6a7; }
 
     /* LAYOUT */
     .section { padding: 56px 0; }
@@ -53,57 +53,68 @@
     .page-header { padding: 48px 0 8px; }
     .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
     .page-header h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--text); margin-bottom: 14px; }
-    .page-header p { color: var(--muted); font-size: 1.02rem; max-width: 64ch; }
+    .page-header p { color: var(--muted); font-size: 1.02rem; max-width: 68ch; }
 
     /* STEP HEADER */
-    .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; flex-wrap: wrap; }
+    .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
     .step-number { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: var(--white); font-weight: 700; font-size: 0.95rem; flex-shrink: 0; }
     .step-header h2 { font-size: 1.4rem; color: var(--text); }
 
-    /* MODULE TABLE */
-    .module-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
-    .module-table th { background: var(--blue-light); color: var(--blue-dark); text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 14px 20px; font-weight: 600; }
-    .module-table td { padding: 16px 20px; border-top: 1px solid var(--border); vertical-align: middle; }
-    .module-table tr:hover td { background: var(--bg); }
-    .module-name { font-weight: 600; color: var(--text); font-size: 0.95rem; }
-    .module-desc { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
-    .module-table code { background: #1e2a3a; color: #90caf9; padding: 4px 10px; border-radius: 6px; display: inline-block; }
-    .tag-required { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 20px; background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
-    .tag-optional { display: inline-block; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 20px; background: #eceff1; color: var(--muted); border: 1px solid var(--border); }
+    /* OS TABS */
+    .os-tabs { display: flex; gap: 10px; margin-bottom: 22px; flex-wrap: wrap; }
+    .os-tab { display: flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 40px; border: 1px solid var(--border); background: var(--white); font-size: 0.875rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+    .os-tab:hover { border-color: var(--blue); color: var(--blue); }
+    .os-tab.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .os-panel { display: none; }
+    .os-panel.active { display: block; }
 
     /* CODE BLOCKS */
-    .code-block { position: relative; }
-    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius-lg); padding: 22px 26px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
-    .copy-btn {
-      position: absolute; top: 12px; right: 12px;
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.08); color: #90caf9;
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
-      padding: 5px 10px; font-size: 0.75rem; font-family: 'Inter', sans-serif; font-weight: 500;
-      cursor: pointer; transition: all 0.15s;
-    }
+    .code-block { position: relative; margin: 12px 0 16px; }
+    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius-lg); padding: 20px 24px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.875rem; overflow-x: auto; line-height: 1.7; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.08); color: #90caf9; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 4px 10px; font-size: 0.72rem; font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.15s; }
     .copy-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
-    .copy-btn svg { width: 13px; height: 13px; }
+    .copy-btn svg { width: 12px; height: 12px; }
     .copy-btn.copied { color: #66bb6a; border-color: rgba(102,187,106,0.4); }
 
-    /* Inline pull-command copy (inside table cells) */
-    .pull-cell { display: flex; align-items: center; gap: 8px; }
-    .pull-cell code { flex: 1; }
-    .copy-btn--inline {
-      position: static; flex-shrink: 0;
-      padding: 4px 6px; background: rgba(33,150,243,0.08); color: var(--blue);
-      border: 1px solid var(--blue-mid);
-    }
-    .copy-btn--inline:hover { background: var(--blue-light); }
-    .copy-btn--inline.copied { color: #2e7d32; border-color: #a5d6a7; background: #f1f8e9; }
+    /* DOWNLOAD BUTTONS */
+    .download-grid { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+    .download-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 22px; font-weight: 600; font-size: 0.9rem; color: var(--text); box-shadow: var(--shadow); transition: all 0.18s; text-decoration: none; }
+    .download-btn:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); text-decoration: none; }
+    .download-btn__icon { font-size: 1.3rem; }
+    .download-btn__sub { font-size: 0.72rem; font-weight: 400; color: var(--muted); display: block; margin-top: 1px; }
 
     /* CALLOUT */
-    .callout { display: flex; gap: 14px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 18px 22px; margin-top: 24px; }
-    .callout__icon { font-size: 1.3rem; flex-shrink: 0; }
-    .callout p { color: var(--blue-dark); font-size: 0.9rem; margin: 0; }
+    .callout { display: flex; gap: 14px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 16px 20px; margin: 20px 0; font-size: 0.9rem; }
+    .callout p { color: var(--blue-dark); margin: 0; }
+    .callout--green { background: #f1f8e9; border-color: #a5d6a7; }
+    .callout--green p { color: #2e7d32; }
 
-    .callout--soon { background: #f1f8e9; border-color: #a5d6a7; }
-    .callout--soon p { color: #2e7d32; }
+    /* ADVANCED (collapsible) */
+    .advanced-toggle { display: flex; align-items: center; gap: 10px; background: none; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 22px; width: 100%; text-align: left; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: all 0.18s; }
+    .advanced-toggle:hover { border-color: var(--blue); color: var(--blue); }
+    .advanced-toggle svg { width: 18px; height: 18px; transition: transform 0.2s; flex-shrink: 0; margin-left: auto; }
+    .advanced-toggle.open svg { transform: rotate(180deg); }
+    .advanced-body { display: none; padding-top: 28px; }
+    .advanced-body.open { display: block; }
+
+    /* MODULE TABLE */
+    .module-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+    .module-table th { background: var(--blue-light); color: var(--blue-dark); text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 13px 20px; font-weight: 600; }
+    .module-table td { padding: 15px 20px; border-top: 1px solid var(--border); vertical-align: middle; }
+    .module-table tr:hover td { background: var(--bg); }
+    .module-name { font-weight: 600; color: var(--text); font-size: 0.95rem; }
+    .module-desc { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+    .module-table td code { background: #1e2a3a; color: #90caf9; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .tag-required { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
+    .tag-optional { display: inline-block; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; background: #eceff1; color: var(--muted); border: 1px solid var(--border); }
+
+    /* PULL CELL */
+    .pull-cell { display: flex; align-items: center; gap: 8px; }
+    .pull-cell code { flex: 1; }
+    .copy-btn--inline { position: static; flex-shrink: 0; padding: 4px 6px; background: rgba(33,150,243,0.08); color: var(--blue); border: 1px solid var(--blue-mid); }
+    .copy-btn--inline:hover { background: var(--blue-light); }
+    .copy-btn--inline.copied { color: #2e7d32; border-color: #a5d6a7; background: #f1f8e9; }
 
     /* FOOTER */
     .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
@@ -119,8 +130,8 @@
       .nav__links { display: none; }
       .module-table, .module-table thead, .module-table tbody, .module-table th, .module-table td, .module-table tr { display: block; }
       .module-table thead { display: none; }
-      .module-table tr { border-top: 1px solid var(--border); padding: 14px 0; }
-      .module-table td { border-top: none; padding: 6px 20px; }
+      .module-table td { border-top: none; padding: 6px 16px; }
+      .module-table tr { border-top: 1px solid var(--border); padding: 10px 0; }
     }
   </style>
 </head>
@@ -151,135 +162,68 @@
   <div class="container">
     <p class="page-header__eyebrow">Installation</p>
     <h1>Get BiomiX 3.0 running</h1>
-    <p>BiomiX 3.0 installs through Docker, replacing the previous Conda-based setup. Each analysis module is distributed as an independent container, so you only download what your analysis actually needs.</p>
+    <p>BiomiX 3.0 uses Docker to ensure a stable, reproducible environment across all platforms. The launcher scripts handle everything automatically, no command-line knowledge required.</p>
   </div>
 </section>
 
-<!-- STEP 0: PREREQUISITES -->
+<!-- STEP 0: DOCKER -->
 <section class="section">
   <div class="container">
     <div class="step-header">
       <span class="step-number">0</span>
       <h2>Install Docker</h2>
     </div>
-    <p style="color:var(--muted); max-width:64ch;">
+    <p style="color:var(--muted); max-width:68ch;">
       BiomiX 3.0 requires Docker to be installed on your system. We recommend
       <a href="https://docs.docker.com/engine/install/" target="_blank">Docker Engine</a> on Linux/Ubuntu,
-      which is the environment BiomiX 3.0 has been built and tested for. New to Docker? Follow our
-      <a href="Docker_Installation_Guide.html">Docker installation guide</a>.
+      which is the environment BiomiX 3.0 has been built and tested for.
+      New to Docker? Follow our <a href="Docker_Installation_Guide.html">Docker installation guide</a>.
+    </p>
+    <p style="color:var(--muted); max-width:68ch; margin-top:10px; font-size:0.9rem;">
+      A local installation without Docker is still possible using the legacy install scripts.
+      See the <a href="#legacy">legacy installation section</a> at the bottom of this page for details.
     </p>
   </div>
 </section>
 
-<!-- STEP 1: PULL MODULES -->
+<!-- STEP 1: DOWNLOAD LAUNCHER -->
 <section class="section section--alt">
   <div class="container">
     <div class="step-header">
       <span class="step-number">1</span>
-      <h2>Pull the modules you need</h2>
+      <h2>Download the BiomiX launcher</h2>
     </div>
-    <p style="color:var(--muted); max-width:70ch; margin-bottom:28px;">
-      <code>biomix_gui</code> and <code>biomix-base</code> are always required — the first provides the BiomiX graphical interface, the second the core R environment used by every analysis module.
-      Add only the single-omics and integration modules relevant to your analysis — each one is an independent container.
+    <p style="color:var(--muted); max-width:68ch; margin-bottom:24px;">
+      Download the launcher script for your operating system from the BiomiX GitHub repository.
+      Place it in a folder of your choice, it will automatically create a <code>biomix_shared</code>
+      folder nearby for your input data and results.
     </p>
 
-    <div style="overflow-x:auto;">
-      <table class="module-table">
-        <thead>
-          <tr>
-            <th>Module</th>
-            <th>Pull command</th>
-            <th>Required</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="module-name">biomix_gui</div>
-              <div class="module-desc">BiomiX graphical interface — Shiny frontend</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix_gui">docker pull ghcr.io/biomix-consortium/biomix_gui:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix_gui')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-required">Always required</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-base</div>
-              <div class="module-desc">Core R environment used by the analysis modules</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-base">docker pull ghcr.io/biomix-consortium/biomix-base:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-base')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-required">Always required</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-transcriptomics</div>
-              <div class="module-desc">Transcriptomics single-omics pipeline</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-transcriptomics">docker pull ghcr.io/biomix-consortium/biomix-transcriptomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-transcriptomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-methylomics</div>
-              <div class="module-desc">Methylomics single-omics pipeline</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-methylomics">docker pull ghcr.io/biomix-consortium/biomix-methylomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-methylomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-metabolomics</div>
-              <div class="module-desc">Metabolomics single-omics pipeline</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-metabolomics">docker pull ghcr.io/biomix-consortium/biomix-metabolomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-metabolomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-mofa</div>
-              <div class="module-desc">MOFA integration method</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-mofa">docker pull ghcr.io/biomix-consortium/biomix-mofa:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-mofa')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-snf</div>
-              <div class="module-desc">SNF integration method</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-snf">docker pull ghcr.io/biomix-consortium/biomix-snf:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-snf')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-nemo</div>
-              <div class="module-desc">NEMO integration method</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-nemo">docker pull ghcr.io/biomix-consortium/biomix-nemo:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-nemo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-diablo</div>
-              <div class="module-desc">DIABLO integration method</div>
-            </td>
-            <td><div class="pull-cell"><code id="pull-biomix-diablo">docker pull ghcr.io/biomix-consortium/biomix-diablo:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this, 'pull-biomix-diablo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
-            <td><span class="tag-optional">Optional</span></td>
-          </tr>
-          <tr>
-            <td>
-              <div class="module-name">biomix-pramigo <span class="badge badge--soon">Soon</span></div>
-              <div class="module-desc">PRAMIGO integration method — not yet released</div>
-            </td>
-            <td><code style="opacity:0.5;">Coming soon</code></td>
-            <td><span class="tag-optional" style="opacity:0.6;">Optional</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="download-grid">
+      <a href="https://github.com/BiomiX-consortium/BiomiX/releases/latest/download/BiomiX_Start.bat"
+         class="download-btn" download>
+        <span class="download-btn__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg></span>
+        <span>
+          BiomiX_Start.bat
+          <span class="download-btn__sub">Windows, double-click to run</span>
+        </span>
+      </a>
+      <a href="https://github.com/BiomiX-consortium/BiomiX/releases/latest/download/BiomiX_Start.sh"
+         class="download-btn" download>
+        <span class="download-btn__icon" style="display:flex;gap:4px;align-items:center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M12 2C8.5 2 7 4.5 7 7c0 1.5.4 2.8 1 3.8C6.2 12 5 13.8 5 16c0 2.8 1.8 4.5 4 5.3V22h6v-.7c2.2-.8 4-2.5 4-5.3 0-2.2-1.2-4-2.98-5.18C16.6 9.8 17 8.5 17 7c0-2.5-1.5-5-5-5zm0 2c2.2 0 3 1.8 3 3 0 1-.3 2-.8 2.7-.4.5-.4 1.2.1 1.6C15.4 12.2 17 13.9 17 16c0 2.2-1.8 3.5-5 3.5S7 18.2 7 16c0-2.1 1.6-3.8 2.7-4.7.5-.4.5-1.1.1-1.6C9.3 9 9 8 9 7c0-1.2.8-3 3-3zm-1 3a1 1 0 100 2 1 1 0 000-2zm2 0a1 1 0 100 2 1 1 0 000-2z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        </span>
+        <span>
+          BiomiX_Start.sh
+          <span class="download-btn__sub">Linux &amp; macOS, run from terminal</span>
+        </span>
+      </a>
     </div>
 
-    <div class="callout">
-      <span class="callout__icon">💡</span>
-      <p>Example: to run a transcriptomics analysis integrated with MOFA, pull <code>biomix_gui</code>, <code>biomix-base</code>, <code>biomix-transcriptomics</code>, and <code>biomix-mofa</code> — nothing else.</p>
+    <div class="callout" style="margin-top:24px;">
+      <span>📦</span>
+      <p>Both scripts are also available in the <a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">BiomiX GitHub repository</a> under the <code>launchers/</code> folder.</p>
     </div>
   </div>
 </section>
@@ -291,39 +235,192 @@
       <span class="step-number">2</span>
       <h2>Launch BiomiX</h2>
     </div>
-    <p style="color:var(--muted); max-width:70ch; margin-bottom:24px;">
-      Once the modules are pulled, start the BiomiX graphical interface directly from the <code>biomix_gui</code> container. From there, you select your analyses and modules before starting execution.
+    <p style="color:var(--muted); max-width:68ch; margin-bottom:24px;">
+      The launcher will automatically pull all required Docker modules on first run and open the BiomiX interface in your browser. Select your platform below.
     </p>
 
-    <div class="code-block">
-      <button class="copy-btn" onclick="copyCode(this, 'launch-code')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        <span>Copy</span>
+    <div class="os-tabs">
+      <button class="os-tab active" onclick="switchTab('windows', this)">
+        <!-- Windows logo SVG -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+        Windows
       </button>
-      <pre id="launch-code"><code># Launch the BiomiX graphical interface
-docker run -p 3838:3838 \
-  -v /path/to/your/data:/data \
-  ghcr.io/biomix-consortium/biomix_gui:latest</code></pre>
+      <button class="os-tab" onclick="switchTab('linux', this)">
+        <!-- Tux/Linux penguin simplified SVG -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.5 2 7 4.5 7 7c0 1.5.4 2.8 1 3.8C6.2 12 5 13.8 5 16c0 2.8 1.8 4.5 4 5.3V22h6v-.7c2.2-.8 4-2.5 4-5.3 0-2.2-1.2-4-2.98-5.18C16.6 9.8 17 8.5 17 7c0-2.5-1.5-5-5-5zm0 2c2.2 0 3 1.8 3 3 0 1-.3 2-.8 2.7-.4.5-.4 1.2.1 1.6C15.4 12.2 17 13.9 17 16c0 2.2-1.8 3.5-5 3.5S7 18.2 7 16c0-2.1 1.6-3.8 2.7-4.7.5-.4.5-1.1.1-1.6C9.3 9 9 8 9 7c0-1.2.8-3 3-3zm-1 3a1 1 0 100 2 1 1 0 000-2zm2 0a1 1 0 100 2 1 1 0 000-2z"/></svg>
+        Linux
+      </button>
+      <button class="os-tab" onclick="switchTab('macos', this)">
+        <!-- Apple logo SVG -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        macOS
+      </button>
     </div>
 
-    <p style="margin-top:14px; font-size:0.875rem; color:var(--muted);">
-      Once running, open <code>http://localhost:3838</code> in your browser. From the interface, you can select the modules to use, configure your analysis, and start execution.
-    </p>
+    <!-- WINDOWS -->
+    <div class="os-panel active" id="tab-windows">
+      <ol style="color:var(--muted); font-size:0.95rem; padding-left:20px; display:flex; flex-direction:column; gap:10px;">
+        <li>Make sure <strong style="color:var(--text);">Docker Desktop is open and running</strong> (look for the whale icon in the system tray).</li>
+        <li><strong style="color:var(--text);">Double-click <code>BiomiX_Start.bat</code></strong>, a setup window will appear.</li>
+        <li>Choose the <strong style="color:var(--text);">folder</strong> where your input data is located and where results will be saved.</li>
+        <li>Optionally, enter your <strong style="color:var(--text);">NCBI API key</strong> to enhance PubMed search in the biological interpretation module. This is not required, BiomiX works fully without it.</li>
+        <li>Click <strong style="color:var(--text);">Start</strong>. BiomiX will open automatically in your browser at <code>http://localhost:3838</code>.</li>
+      </ol>
+      <div class="callout" style="margin-top:20px;">
+        <span>💡</span>
+        <p>Keep the terminal window open while using BiomiX. Closing it will stop the application.</p>
+      </div>
+    </div>
+
+    <!-- LINUX -->
+    <div class="os-panel" id="tab-linux">
+      <ol style="color:var(--muted); font-size:0.95rem; padding-left:20px; display:flex; flex-direction:column; gap:10px;">
+        <li>Make sure <strong style="color:var(--text);">Docker Engine is running</strong>: <code>sudo systemctl start docker</code></li>
+        <li>Open a terminal, navigate to the folder containing <code>BiomiX_Start.sh</code>, and make it executable (first time only):
+          <div class="code-block" style="margin-top:10px;">
+            <button class="copy-btn" onclick="copyCode(this,'linux-chmod')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="linux-chmod"><code>chmod +x BiomiX_Start.sh</code></pre>
+          </div>
+        </li>
+        <li>Run the launcher:
+          <div class="code-block" style="margin-top:10px;">
+            <button class="copy-btn" onclick="copyCode(this,'linux-run')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="linux-run"><code>./BiomiX_Start.sh</code></pre>
+          </div>
+        </li>
+        <li>When prompted, choose your <strong style="color:var(--text);">data folder</strong> and optionally enter your <strong style="color:var(--text);">NCBI API key</strong> (optional, enhances PubMed search in the interpretation module).</li>
+        <li>BiomiX will open in your browser at <code>http://localhost:3838</code>.</li>
+      </ol>
+      <div class="callout" style="margin-top:20px;">
+        <span>💡</span>
+        <p>Keep the terminal open while using BiomiX. Press <code>Ctrl+C</code> to stop it when done.</p>
+      </div>
+    </div>
+
+    <!-- MACOS -->
+    <div class="os-panel" id="tab-macos">
+      <ol style="color:var(--muted); font-size:0.95rem; padding-left:20px; display:flex; flex-direction:column; gap:10px;">
+        <li>Make sure <strong style="color:var(--text);">Docker Desktop is open and running</strong> (look for the whale icon in the menu bar).</li>
+        <li>Open Terminal, navigate to the folder containing <code>BiomiX_Start.sh</code>, and make it executable (first time only):
+          <div class="code-block" style="margin-top:10px;">
+            <button class="copy-btn" onclick="copyCode(this,'mac-chmod')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="mac-chmod"><code>chmod +x BiomiX_Start.sh</code></pre>
+          </div>
+        </li>
+        <li>Run the launcher:
+          <div class="code-block" style="margin-top:10px;">
+            <button class="copy-btn" onclick="copyCode(this,'mac-run')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="mac-run"><code>./BiomiX_Start.sh</code></pre>
+          </div>
+        </li>
+        <li>When prompted, choose your <strong style="color:var(--text);">data folder</strong> and optionally enter your <strong style="color:var(--text);">NCBI API key</strong> (optional, enhances PubMed search in the interpretation module).</li>
+        <li>BiomiX will open in your browser at <code>http://localhost:3838</code>.</li>
+      </ol>
+      <div class="callout" style="margin-top:20px;">
+        <span>💡</span>
+        <p>Keep the terminal open while using BiomiX. Press <code>Ctrl+C</code> to stop it when done.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- PRAMIGO COMING SOON -->
+<!-- STEP 3: ADVANCED -->
 <section class="section section--alt">
   <div class="container">
-    <div class="callout callout--soon">
-      <span class="callout__icon">🚧</span>
-      <p><strong>PRAMIGO</strong> will be released as a separate module shortly after BiomiX 3.0. This page will be updated with its pull command as soon as it becomes available.</p>
+
+    <button class="advanced-toggle" onclick="toggleAdvanced(this)">
+      <span>⚙️</span>
+      Advanced: manual Docker pull
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="advanced-body" id="advanced-body">
+      <p style="color:var(--muted); max-width:70ch; margin-bottom:24px;">
+        For advanced users who prefer to pull each module manually. <code>biomix_gui</code> and <code>biomix-base</code>
+        are always required. Add only the analysis modules relevant to your workflow.
+      </p>
+
+      <div style="overflow-x:auto;">
+        <table class="module-table">
+          <thead>
+            <tr><th>Module</th><th>Pull command</th><th>Required</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="module-name">biomix_gui</div><div class="module-desc">BiomiX graphical interface, Shiny frontend</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix_gui">docker pull ghcr.io/biomix-consortium/biomix_gui:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix_gui')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-required">Always required</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-base</div><div class="module-desc">Core R environment used by all analysis modules</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-base">docker pull ghcr.io/biomix-consortium/biomix-base:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-base')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-required">Always required</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-transcriptomics</div><div class="module-desc">Transcriptomics single-omics pipeline</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-transcriptomics">docker pull ghcr.io/biomix-consortium/biomix-transcriptomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-transcriptomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-methylomics</div><div class="module-desc">Methylomics single-omics pipeline</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-methylomics">docker pull ghcr.io/biomix-consortium/biomix-methylomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-methylomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-metabolomics</div><div class="module-desc">Metabolomics single-omics pipeline</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-metabolomics">docker pull ghcr.io/biomix-consortium/biomix-metabolomics:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-metabolomics')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-mofa</div><div class="module-desc">MOFA integration method</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-mofa">docker pull ghcr.io/biomix-consortium/biomix-mofa:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-mofa')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-snf</div><div class="module-desc">SNF integration method</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-snf">docker pull ghcr.io/biomix-consortium/biomix-snf:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-snf')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-nemo</div><div class="module-desc">NEMO integration method</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-nemo">docker pull ghcr.io/biomix-consortium/biomix-nemo:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-nemo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-diablo</div><div class="module-desc">DIABLO integration method</div></td>
+              <td><div class="pull-cell"><code id="pull-biomix-diablo">docker pull ghcr.io/biomix-consortium/biomix-diablo:latest</code><button class="copy-btn copy-btn--inline" onclick="copyCode(this,'pull-biomix-diablo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div></td>
+              <td><span class="tag-optional">Optional</span></td>
+            </tr>
+            <tr>
+              <td><div class="module-name">biomix-pramigo <span class="badge badge--soon">Soon</span></div><div class="module-desc">PRAMIGO integration method, not yet released</div></td>
+              <td><code style="opacity:0.45;">Coming soon</code></td>
+              <td><span class="tag-optional" style="opacity:0.6;">Optional</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:20px;">
+        <span>💡</span>
+        <p>Once pulled manually, launch the interface with: <code style="background:rgba(33,150,243,0.12);">docker run -p 3838:3838 -v /path/to/data:/shared ghcr.io/biomix-consortium/biomix_gui:latest</code></p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TROUBLESHOOTING -->
+<!-- PRAMIGO SOON -->
 <section class="section">
+  <div class="container">
+    <div class="callout callout--green">
+      <span>🚧</span>
+      <p><strong>PRAMIGO</strong> will be released as a separate module shortly after BiomiX 3.0. The launcher will update automatically once it becomes available.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEED HELP -->
+<section class="section section--alt">
   <div class="container">
     <div class="step-header">
       <h2 style="font-size:1.4rem;">Need help?</h2>
@@ -333,6 +430,194 @@ docker run -p 3838:3838 \
       <a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">consortium's issue tracker</a>
       or contact us directly at <a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a>.
     </p>
+  </div>
+</section>
+
+<!-- LEGACY INSTALLATION -->
+<section class="section" id="legacy">
+  <div class="container">
+
+    <button class="advanced-toggle" onclick="toggleSection('legacy-body', this)">
+      <span>🗂</span>
+      Legacy installation (without Docker, not recommended)
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="advanced-body" id="legacy-body">
+      <div class="callout" style="margin-bottom:24px;">
+        <span>⚠️</span>
+        <p>This installation method is <strong>no longer actively maintained</strong> and may be unstable due to dependency conflicts across platforms. It is preserved for users who cannot use Docker. For all new installations, the Docker-based approach above is strongly recommended.</p>
+      </div>
+
+      <p style="color:var(--muted); max-width:70ch; margin-bottom:8px; font-size:0.9rem;">
+        The local installation creates isolated Python (pyenv) and R (renv) environments and installs all required packages into them, without affecting your system-wide installations. It relies on PyQt5 for the graphical interface.
+      </p>
+      <p style="color:var(--muted); max-width:70ch; margin-bottom:24px; font-size:0.9rem;">
+        Download the BiomiX 2.5 release archive from the
+        <a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank">BiomiX2.5 GitHub repository</a>,
+        unzip it, then run the five installation scripts in order from the <code>_INSTALL/</code> folder.
+      </p>
+
+      <!-- OS tabs for legacy -->
+      <div class="os-tabs" style="margin-bottom:20px;">
+        <button class="os-tab active" onclick="switchTabLegacy('leg-linux', this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.5 2 7 4.5 7 7c0 1.5.4 2.8 1 3.8C6.2 12 5 13.8 5 16c0 2.8 1.8 4.5 4 5.3V22h6v-.7c2.2-.8 4-2.5 4-5.3 0-2.2-1.2-4-2.98-5.18C16.6 9.8 17 8.5 17 7c0-2.5-1.5-5-5-5zm0 2c2.2 0 3 1.8 3 3 0 1-.3 2-.8 2.7-.4.5-.4 1.2.1 1.6C15.4 12.2 17 13.9 17 16c0 2.2-1.8 3.5-5 3.5S7 18.2 7 16c0-2.1 1.6-3.8 2.7-4.7.5-.4.5-1.1.1-1.6C9.3 9 9 8 9 7c0-1.2.8-3 3-3zm-1 3a1 1 0 100 2 1 1 0 000-2zm2 0a1 1 0 100 2 1 1 0 000-2z"/></svg>
+          Linux
+        </button>
+        <button class="os-tab" onclick="switchTabLegacy('leg-windows', this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+          Windows
+        </button>
+      </div>
+
+      <!-- Linux legacy -->
+      <div class="os-panel active" id="leg-linux">
+        <p style="color:var(--muted); font-size:0.88rem; margin-bottom:16px;">Run each script in sequence from the <code>_INSTALL/</code> folder. Each step must complete successfully before moving to the next.</p>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 1 of 5 — Python environment</div>
+            <div style="font-weight:600; color:var(--text); margin-bottom:4px;">01_BiomiX_install_Python.sh</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-bottom:10px;">Creates an isolated Python environment and installs the PyQt5 interface and its dependencies.</div>
+            <div class="code-block" style="margin:0;">
+              <button class="copy-btn" onclick="copyCode(this,'leg-lin-01')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+              <pre id="leg-lin-01"><code>bash _INSTALL/01_BiomiX_install_Python.sh</code></pre>
+            </div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 2 of 5 — R environment</div>
+            <div style="font-weight:600; color:var(--text); margin-bottom:4px;">02_BiomiX_install_R.sh</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-bottom:10px;">Creates an isolated R environment via renv, separate from any system-wide R installation.</div>
+            <div class="code-block" style="margin:0;">
+              <button class="copy-btn" onclick="copyCode(this,'leg-lin-02')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+              <pre id="leg-lin-02"><code>bash _INSTALL/02_BiomiX_install_R.sh</code></pre>
+            </div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 3 of 5 — Core R packages</div>
+            <div style="font-weight:600; color:var(--text); margin-bottom:4px;">03_BiomiX_install_R_Packages.sh</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-bottom:10px;">Installs the core R packages required for single-omics analysis and MOFA/DIABLO integration.</div>
+            <div class="code-block" style="margin:0;">
+              <button class="copy-btn" onclick="copyCode(this,'leg-lin-03')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+              <pre id="leg-lin-03"><code>bash _INSTALL/03_BiomiX_install_R_Packages.sh</code></pre>
+            </div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 4 of 5 — SNF and NEMO packages</div>
+            <div style="font-weight:600; color:var(--text); margin-bottom:4px;">04_BiomiX_install_Extension_R_SNF_NEMO.sh</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-bottom:10px;">Installs the R packages required for the SNF and NEMO integration methods.</div>
+            <div class="code-block" style="margin:0;">
+              <button class="copy-btn" onclick="copyCode(this,'leg-lin-04')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+              <pre id="leg-lin-04"><code>bash _INSTALL/04_BiomiX_install_Extension_R_SNF_NEMO.sh</code></pre>
+            </div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 5 of 5 — MintTea packages</div>
+            <div style="font-weight:600; color:var(--text); margin-bottom:4px;">05_BiomiX_install_Extension_R_MintTea.sh</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-bottom:10px;">Installs the R packages required for the MintTea integration method.</div>
+            <div class="code-block" style="margin:0;">
+              <button class="copy-btn" onclick="copyCode(this,'leg-lin-05')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+              <pre id="leg-lin-05"><code>bash _INSTALL/05_BiomiX_install_Extension_R_MintTea.sh</code></pre>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:20px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+          <div style="font-weight:600; color:var(--text); margin-bottom:8px;">Launch BiomiX</div>
+          <div style="font-size:0.85rem; color:var(--muted); margin-bottom:10px;">Once all five steps are complete, launch BiomiX with:</div>
+          <div class="code-block" style="margin:0;">
+            <button class="copy-btn" onclick="copyCode(this,'leg-lin-launch')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="leg-lin-launch"><code>./LaunchApp_BiomiX_Linux.sh</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Windows legacy -->
+      <div class="os-panel" id="leg-windows">
+        <p style="color:var(--muted); font-size:0.88rem; margin-bottom:16px;">Double-click each <code>.bat</code> file in order from the <code>_INSTALL\</code> folder. Each step must complete successfully before moving to the next.</p>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 1 of 5 — Python environment</div>
+            <div style="font-weight:600; color:var(--text);">01_BiomiX_install_Python.bat</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Creates an isolated Python environment and installs the PyQt5 interface and its dependencies.</div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 2 of 5 — R environment</div>
+            <div style="font-weight:600; color:var(--text);">02_BiomiX_install_R.bat</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Creates an isolated R environment via renv.</div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 3 of 5 — Core R packages</div>
+            <div style="font-weight:600; color:var(--text);">03_BiomiX_install_R_Packages.bat</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Installs core R packages for single-omics analysis and MOFA/DIABLO integration.</div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 4 of 5 — SNF and NEMO packages</div>
+            <div style="font-weight:600; color:var(--text);">04_BiomiX_install_Extension_R_SNF_NEMO.bat</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Installs R packages for the SNF and NEMO integration methods.</div>
+          </div>
+
+          <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+            <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--blue); margin-bottom:6px;">Step 5 of 5 — MintTea packages</div>
+            <div style="font-weight:600; color:var(--text);">05_BiomiX_install_Extension_R_MintTea.bat</div>
+            <div style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Installs R packages for the MintTea integration method. On Windows, this step is available only via the <code>.sh</code> script under WSL.</div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:20px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px 20px;">
+          <div style="font-weight:600; color:var(--text); margin-bottom:8px;">Launch BiomiX</div>
+          <div style="font-size:0.85rem; color:var(--muted);">Once all steps are complete, double-click <code>LaunchApp_BiomiX_Windows.bat</code> to start BiomiX.</div>
+        </div>
+      </div>
+
+      <!-- TROUBLESHOOTING -->
+      <div style="margin-top:32px;">
+        <h3 style="font-size:1rem; color:var(--text); margin-bottom:14px;">Troubleshooting the local installation</h3>
+        <p style="color:var(--muted); font-size:0.88rem; margin-bottom:14px; max-width:68ch;">
+          Dependency issues are common with the local installation. The most reliable fix is to open an R session inside the BiomiX renv environment, activate renv, and install the missing packages manually.
+        </p>
+
+        <details style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; margin-bottom:10px; cursor:pointer;">
+          <summary style="font-weight:600; font-size:0.9rem; color:var(--text);">ModuleNotFoundError: No module named 'package'</summary>
+          <p style="margin-top:8px; color:var(--muted); font-size:0.875rem;">Activate the BiomiX Python environment and install the missing package:</p>
+          <div class="code-block" style="margin-top:8px;">
+            <button class="copy-btn" onclick="copyCode(this,'ts-python')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="ts-python"><code>pip install package-name</code></pre>
+          </div>
+        </details>
+
+        <details style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; margin-bottom:10px; cursor:pointer;">
+          <summary style="font-weight:600; font-size:0.9rem; color:var(--text);">Error in library("Package"): no package named "Package"</summary>
+          <p style="margin-top:8px; color:var(--muted); font-size:0.875rem;">Open R inside the BiomiX renv environment and install the missing package:</p>
+          <div class="code-block" style="margin-top:8px;">
+            <button class="copy-btn" onclick="copyCode(this,'ts-renv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="ts-renv"><code>R
+# Inside R:
+renv::activate()
+renv::install("PackageName")</code></pre>
+          </div>
+        </details>
+
+        <details style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; margin-bottom:10px; cursor:pointer;">
+          <summary style="font-weight:600; font-size:0.9rem; color:var(--text);">fontconfig / freetype error (Linux)</summary>
+          <div class="code-block" style="margin-top:8px;">
+            <button class="copy-btn" onclick="copyCode(this,'ts-font')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+            <pre id="ts-font"><code>sudo apt-get install libfontconfig1-dev</code></pre>
+          </div>
+        </details>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -364,32 +649,52 @@ docker run -p 3838:3838 \
     </div>
   </div>
   <div class="footer__bottom">
-    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>© 2025 BiomiX Consortium, LBAI, UMR 1227, Inserm, Univ Brest</span>
     <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
   </div>
 </footer>
 
 <script>
+  function switchTab(id, btn) {
+    // Only toggle panels within the main step 2 section
+    const panels = ['tab-windows','tab-linux','tab-macos'];
+    panels.forEach(p => { const el = document.getElementById(p); if(el) el.classList.remove('active'); });
+    btn.closest('.os-tabs').querySelectorAll('.os-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function switchTabLegacy(id, btn) {
+    const panels = ['leg-linux','leg-windows','leg-macos'];
+    panels.forEach(p => { const el = document.getElementById(p); if(el) el.classList.remove('active'); });
+    btn.closest('.os-tabs').querySelectorAll('.os-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleAdvanced(btn) {
+    btn.classList.toggle('open');
+    document.getElementById('advanced-body').classList.toggle('open');
+  }
+
+  function toggleSection(id, btn) {
+    btn.classList.toggle('open');
+    document.getElementById(id).classList.toggle('open');
+  }
+
   function copyCode(btn, elId) {
     const el = document.getElementById(elId);
     const text = el.innerText || el.textContent;
     navigator.clipboard.writeText(text).then(() => {
       const label = btn.querySelector('span');
-      const originalLabel = label ? label.textContent : null;
+      const orig = label ? label.textContent : null;
       btn.classList.add('copied');
       if (label) label.textContent = 'Copied!';
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        if (label && originalLabel) label.textContent = originalLabel;
-      }, 1500);
+      setTimeout(() => { btn.classList.remove('copied'); if (label && orig) label.textContent = orig; }, 1500);
     }).catch(() => {
-      // Fallback for older browsers
-      const range = document.createRange();
-      range.selectNode(el);
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(range);
-      document.execCommand('copy');
-      window.getSelection().removeAllRanges();
+      const r = document.createRange(); r.selectNode(el);
+      window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+      document.execCommand('copy'); window.getSelection().removeAllRanges();
     });
   }
 </script>

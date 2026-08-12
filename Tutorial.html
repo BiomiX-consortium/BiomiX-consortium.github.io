@@ -1,269 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-   <title>BiomiX</title>
-   <!-- Add your other head content here -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-   <!-- Styles for the banner and content -->
-   <style>
-      body {
-         margin: 0;
-         padding: 0;
-         font-family: 'Lato', sans-serif;
-      }
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 28px; list-style: none; }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
+    .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid #a5d6a7; }
+    .badge--v24  { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
 
-      .banner {
-         background-color: #3498db; /* Blue background color */
-         padding: 10px;
-         text-align: left;
-         color: white;
-      }
+    /* LAYOUT */
+    .section { padding: 64px 0; }
+    .section--alt { background: var(--bg); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
 
-      .banner a {
-         color: white;
-         margin-right: 15px;
-         text-decoration: none;
-      }
+    /* PAGE HEADER */
+    .page-header { padding: 48px 0 16px; }
+    .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); color: var(--text); margin-bottom: 14px; }
+    .page-header p { color: var(--muted); font-size: 1rem; max-width: 68ch; }
 
-      .header-section {
-         font-family: Arial, sans-serif;
-         text-align: center;
-         position: relative;
-         background-color: #f1f1f1; /* Light gray background color */
-         margin-bottom: 20px;
-      }
+    /* SECTION HEADER */
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+    .section-header p { color: var(--muted); font-size: 0.95rem; max-width: 68ch; }
 
-      .header-section figure {
-         margin: 0;
-         position: relative;
-         overflow: hidden; /* Ensure the image does not overflow */
-      }
+    /* VIDEO ROWS */
+    .video-row { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 64px; }
+    .video-row:last-child { margin-bottom: 0; }
+    .video-row--reverse .video-wrap { order: 2; }
+    .video-row--reverse .video-text { order: 1; }
 
-      .header-section img {
-         width: 100%;
-         height: 50vh; /* 50% of the viewport height */
-         object-fit: cover; /* Cover the entire figure with the image */
-         display: block;
-      }
+    .video-wrap { border-radius: var(--radius-lg); overflow: hidden; background: var(--blue-light); border: 1px solid var(--border); box-shadow: var(--shadow); aspect-ratio: 16/9; }
+    .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
 
-      .header-overlay {
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         color: white;
-         text-align: center;
-         width: 100%;
-         padding: 20px;
-         box-sizing: border-box;
-      }
+    .video-text h3 { font-size: 1.2rem; color: var(--text); margin-bottom: 12px; }
+    .video-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+    .video-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--blue); color: var(--white); font-size: 0.8rem; font-weight: 700; margin-right: 8px; flex-shrink: 0; }
 
-      .header-overlay h1 {
-         font-size: 60px; /* Adjust the font size as needed */
-         margin-bottom: 10px;
-      }
+    /* COMING SOON CARDS */
+    .coming-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .coming-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow); opacity: 0.75; }
+    .coming-card__icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .coming-card h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 8px; }
+    .coming-card p { font-size: 0.82rem; color: var(--muted); }
 
-      .header-overlay p {
-         font-size: 20px;
-         margin-bottom: 20px;
-      }
+    /* NOTE */
+    .note { display: flex; gap: 14px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 48px; font-size: 0.88rem; }
+    .note p { color: var(--blue-dark); margin: 0; }
 
-      .install-button {
-         display: inline-block;
-         padding: 15px 30px;
-         background-color: #ffd700;
-         text-decoration: none;
-         border-radius: 5px;
-         font-size: 18px;
-         color: white; /* Text color */
-      }
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
-      .content-section {
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         padding: 20px;
-         box-sizing: border-box;
-      }
-
-      .content-section .text-content {
-         flex: 1;
-         padding-right: 20px;
-      }
-
-      .content-section .text-content h2 {
-         font-size: 30px;
-         color: #3498db; /* Blue color for title */
-         font-weight: bold;
-         margin-left: 60px; /* Adjust the left margin of the text */
-         text-align: center; /* Center the content */
-      }
-
-      .content-section .text-content p {
-         font-size: 22px;
-         margin-left: 60px; /* Adjust the left margin of the text */
-         text-align: center; /* Center the content */
-      }
-
-      .content-section .image-content {
-         flex: 1;
-         max-width: 600px; /* Limit the width of the figure */
-         margin-right: 50px; /* Adjust the left margin of the figure */
-      }
-
-      .content-section .image-content iframe {
-         width: 100%;
-         height: 350px;
-      }
-
-      .inline-figures {
-         display: flex;
-         justify-content: space-between;
-         margin-bottom: 10px; /* Reduced separation between inline figures */
-      }
-
-      .inline-figure {
-         flex: 1;
-         max-width: 400px; /* Increase the width of each inline figure */
-         text-align: center; /* Center the content */
-         margin: 20px; /* Add margin to each inline figure */
-      }
-
-      .inline-figure:first-child {
-         margin-left: 100px; /* Adjust the left margin of the first figure */
-      }
-
-      .inline-figure:last-child {
-         margin-right: 100px; /* Adjust the right margin of the last figure */
-      }
-
-      .inline-figure iframe {
-         width: 100%;
-         height: 300px;
-      }
-
-      .inline-figure h2 {
-         font-size: 20px;
-         color: #3498db; /* Blue color for title */
-         font-weight: bold;
-      }
-
-      .inline-figure p {
-         font-size: 14px;
-         max-width: 400px; /* Adjust the max-width as needed */
-         text-align: center; /* Center the content */
-         margin: 0px; /* Add margin to each inline figure */
-      }
-      
-      .final-content {
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         padding: 50px;
-         box-sizing: border-box;
-      }
-
-      .final-content .text-content {
-         flex: 1;
-         padding-left: 50px; /* Add left padding to create space between image and text */
-      }
-
-      .final-content .text-content h2 {
-         font-size: 30px;
-         color: #3498db; /* Blue color for title */
-         font-weight: bold;
-         text-align: center; /* Center the content */
-      }
-
-      .final-content .text-content p {
-         font-size: 22px;
-         text-align: center; /* Center the content */
-      }
-
-      .final-content .image-content {
-         flex: 1;
-         max-width: 600px; /* Limit the width of the figure */
-      }
-
-      .final-content .image-content iframe {
-         width: 100%;
-         height: 350px;
-      }
-   </style>
+    @media (max-width: 860px) {
+      .nav__links { display: none; }
+      .video-row { grid-template-columns: 1fr; }
+      .video-row--reverse .video-wrap,
+      .video-row--reverse .video-text { order: unset; }
+      .coming-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- Banner with Navigation Links -->
-<div class="banner">
-   <a href="index.html">BiomiX</a>
-   <a href="Installation.html">Installation</a>
-   <a href="Tutorial.html">Tutorial</a>
-   <a href="Single-omics_analysis.html">Single-omics analysis</a>
-   <a href="Integration_analysis.html">Integration</a>
-   <a href="Parameters_and_interface.html">Parameters and interface</a>
-   <a href="about_us.html">About us</a>
-</div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Installation.html">Installation</a></li>
+      <li><a href="Tutorial.html" class="active">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html">Integration</a></li>
+      <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      <li><a href="about_us.html">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
 
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <p class="page-header__eyebrow">Tutorial</p>
+    <h1>Learn BiomiX step by step</h1>
+    <p>Video tutorials walking through the BiomiX interface, analysis pipelines, and integration methods. BiomiX 3.0 tutorials are coming soon.</p>
+  </div>
+</section>
 
-<!-- Content Section with Title, Text, and Figures -->
-<div class="content-section">
-   <div class="text-content">
-      <h2>Tutorial 1 Introduction</h2>
-      <p> The first part includes a description of the BiomiX tool and details about the bioinformatics pipeline used in the analysis.</p>
+<!-- BIOMIX 3.0 COMING SOON -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>BiomiX 3.0 tutorials <span class="badge badge--soon">Coming soon</span></h2>
+      <p>New video tutorials covering the Docker-based setup, the new Shiny interface, and the new integration methods are currently in preparation.</p>
+    </div>
+    <div class="coming-grid">
+      <div class="coming-card">
+        <div class="coming-card__icon">🐳</div>
+        <h3>Getting started with Docker</h3>
+        <p>Installation, first launch, and folder setup using the BiomiX launcher scripts.</p>
+      </div>
+      <div class="coming-card">
+        <div class="coming-card__icon">🧬</div>
+        <h3>Single-omics analysis</h3>
+        <p>Step-by-step walkthrough of the transcriptomics, metabolomics, and methylomics pipelines in the new Shiny interface.</p>
+      </div>
+      <div class="coming-card">
+        <div class="coming-card__icon">🔗</div>
+        <h3>Multi-omics integration</h3>
+        <p>Running and interpreting MOFA, SNF, NEMO, and DIABLO from the integration module.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-   </div>
-   <div class="image-content">
-      <!-- Replace the src attribute with the YouTube embed code -->
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/JI-WUzIEO2s" frameborder="0" allowfullscreen></iframe>
-   </div>
-</div>
+<!-- BIOMIX 2.4 TUTORIALS -->
+<section class="section">
+  <div class="container">
 
-<!-- Final Content Section with Title, Text, and Figure -->
-<div class="final-content">
-   <div class="image-content">
-      <!-- Replace the src attribute with the YouTube embed code -->
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/fkW1LRW-v1Q" frameborder="0" allowfullscreen></iframe>
-   </div>
-   <div class="text-content">
-      <h2>Tutorial 2 Analysis, data and advanced options</h2>
-      <p> This second section of the video shows an example of BiomiX analysis using transcriptomic data. This section explores the metadata format, sample selection, advance options and results visualization. </p>
-   </div>
-</div>
+    <div class="section-header">
+      <h2>BiomiX 2.4 tutorials <span class="badge badge--v24">v2.4</span></h2>
+      <p>These tutorials refer to BiomiX v2.4. The interface has changed in version 3.0, but the core analysis workflow and biological logic remain the same.</p>
+    </div>
 
-<!-- Content Section with Title, Text, and Figures -->
-<div class="content-section">
-   <div class="text-content">
-      <h2>Assisted format conversion, metabolomics, results</h2>
-      <p> The third section of the video shows how to modify the data frame to the .tsv format required in BiomiX using the assisted format converter. Examples of metabolomics analysis using annotated and not annotated data are shown.</p>
-   </div>
-   <div class="image-content">
-      <!-- Replace the src attribute with the YouTube embed code -->
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/hJ3QKjOJSG0" frameborder="0" allowfullscreen></iframe>
-   </div>
-</div>
+    <div class="note">
+      <span>ℹ️</span>
+      <p>For a detailed description of all interface parameters, see the <a href="Parameters_and_interface.html">Parameters and interface</a> reference page.</p>
+    </div>
 
-<!-- Final Content Section with Title, Text, and Figure -->
-<div class="final-content">
-   <div class="image-content">
-      <!-- Replace the src attribute with the YouTube embed code -->
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/58f8uqELUo8" frameborder="0" allowfullscreen></iframe>
-   </div>
-   <div class="text-content">
-      <h2>MOFA integration, results, factor interpretation </h2>
-      <p>This last section will explore the MOFA integration and the implementation added within BiomiX, including the automatic research of the best number of factors and the interpretation of the significant MOFA factors. It will explore the interpretation by abstract match research, pathway analysis of the top contributors and clinical correlation analysis with the factors.</p>
-   </div>
-</div>
+    <!-- Video 1 -->
+    <div class="video-row">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/JI-WUzIEO2s" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-text">
+        <h3><span class="video-num">1</span>Introduction to BiomiX</h3>
+        <p>An overview of the BiomiX tool and the bioinformatics pipelines used in the analysis. Covers the general structure of the interface, input data requirements, and the main analysis workflow.</p>
+      </div>
+    </div>
 
-<!-- Main content of your page goes here -->
+    <!-- Video 2 -->
+    <div class="video-row video-row--reverse">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/fkW1LRW-v1Q" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-text">
+        <h3><span class="video-num">2</span>Analysis, data and advanced options</h3>
+        <p>A practical example of BiomiX analysis using transcriptomic data. Covers metadata format, sample selection, advanced options, and results visualization.</p>
+      </div>
+    </div>
+
+    <!-- Video 3 -->
+    <div class="video-row">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/hJ3QKjOJSG0" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-text">
+        <h3><span class="video-num">3</span>Format conversion, metabolomics, results</h3>
+        <p>How to convert data to the BiomiX format using the assisted format converter. Includes examples of metabolomics analysis with both annotated and unannotated data.</p>
+      </div>
+    </div>
+
+    <!-- Video 4 -->
+    <div class="video-row video-row--reverse">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/58f8uqELUo8" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-text">
+        <h3><span class="video-num">4</span>MOFA integration, results and factor interpretation</h3>
+        <p>A deep dive into MOFA integration within BiomiX, including automatic factor selection, factor interpretation through pathway enrichment, PubMed bibliography search, and clinical correlation analysis.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Analysis</h4>
+      <ul>
+        <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+        <li><a href="Integration_analysis.html">Integration</a></li>
+        <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank">Publication (v1)</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">Report a bug</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
 
 </body>
-
 </html>
