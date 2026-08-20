@@ -1,89 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOFA Integration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integration Analysis — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --green:      #43a047;
+      --green-light:#e8f5e9;
+      --green-mid:  #a5d6a7;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; display: block; }
 
-        h2, h3, h4 {
-            color: #3498db;
-        }
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 24px; list-style: none; }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
+    .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid var(--green-mid); }
 
-        .center {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+    /* LAYOUT */
+    .section { padding: 56px 0; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
 
-        .center img {
-            display: block;
-            margin: 0 auto;
-        }
+    /* PAGE HEADER */
+    .page-header { padding: 48px 0 40px; }
+    .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(1.9rem,4vw,2.6rem); color: var(--text); margin-bottom: 14px; }
+    .page-header p { color: var(--muted); font-size: 1rem; max-width: 68ch; }
 
-        .banner {
-            background-color: #3498db; /* Blue background color */
-            padding: 10px;
-            text-align: left;
-            color: white;
-        }
+    /* METHOD PILLS LEGEND */
+    .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 24px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot--supervised   { background: var(--blue); }
+    .legend-dot--unsupervised { background: var(--green); }
 
-        .banner a {
-            color: white;
-            margin-right: 15px;
-            text-decoration: none;
-        }
-    </style>
+    /* ACCORDION */
+    .accordion-list { display: flex; flex-direction: column; gap: 12px; }
+    .accordion { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); scroll-margin-top: 80px; }
+    .accordion--supervised   { border-left: 4px solid var(--blue); }
+    .accordion--unsupervised { border-left: 4px solid var(--green); }
+    .accordion--soon         { border-left: 4px solid #bdbdbd; opacity: 0.78; }
+    .accordion__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; background: var(--white); border: none; cursor: pointer; padding: 20px 26px; text-align: left; font-family: 'Inter', sans-serif; transition: background 0.15s; }
+    .accordion__header:hover { background: var(--bg); }
+    .accordion.open .accordion__header { background: var(--bg); border-bottom: 1px solid var(--border); }
+    .accordion__title { display: flex; align-items: center; gap: 14px; }
+    .accordion__title h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .accordion__meta { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+    .accordion__chevron { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.2s; color: var(--muted); }
+    .accordion.open .accordion__chevron { transform: rotate(180deg); }
+    .accordion__body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .accordion.open .accordion__body { max-height: 6000px; }
+    .accordion__content { padding: 28px 32px 36px; }
+
+    /* TAG PILLS */
+    .tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 10px; border-radius: 20px; }
+    .tag--supervised   { background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
+    .tag--unsupervised { background: var(--green-light); color: #2e7d32; border: 1px solid var(--green-mid); }
+    .tag--soon         { background: #f5f5f5; color: #757575; border: 1px solid #e0e0e0; }
+
+    /* CONTENT TYPOGRAPHY */
+    h3 { font-size: 1rem; color: var(--blue-dark); margin: 22px 0 8px; font-weight: 600; }
+    h4 { font-size: 0.95rem; color: var(--text); margin: 16px 0 6px; font-weight: 600; }
+    p { color: var(--muted); font-size: 0.93rem; margin-bottom: 10px; max-width: 75ch; }
+    strong { color: var(--text); }
+    code { font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.82em; background: var(--blue-light); padding: 2px 6px; border-radius: 4px; color: var(--blue-dark); }
+
+    /* SPEC GRID */
+    .spec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 10px; margin: 16px 0 20px; }
+    .spec-item { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; }
+    .spec-item__label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 3px; }
+    .spec-item__value { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+
+    /* LIST */
+    .content-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 10px 0 18px; }
+    .content-list li { display: flex; gap: 10px; font-size: 0.9rem; color: var(--muted); }
+    .content-list li::before { content: '•'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+    .content-list li strong { color: var(--text); }
+
+    /* FIGURE */
+    .figure { margin: 20px 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px; text-align: center; }
+    .figure img { margin: 0 auto; border-radius: var(--radius); }
+    .figure figcaption { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+
+    /* CALLOUT */
+    .callout { display: flex; gap: 12px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius); padding: 12px 16px; margin: 14px 0; font-size: 0.87rem; }
+    .callout p { color: var(--blue-dark); margin: 0; max-width: none; font-size: inherit; }
+
+    /* WHICH METHOD GUIDE */
+    .guide-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.875rem; }
+    .guide-table th { background: var(--blue-light); color: var(--blue-dark); text-align: left; padding: 10px 14px; font-weight: 600; border: 1px solid var(--border); }
+    .guide-table td { padding: 10px 14px; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+    .guide-table tr:nth-child(even) td { background: var(--bg); }
+    .guide-table td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; font-weight: 600; }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 860px) { .nav__links { display: none; } .accordion__content { padding: 20px 18px 28px; } }
+  </style>
 </head>
-
 <body>
 
-    <!-- Banner with Navigation Links -->
-    <div class="banner">
-       <a href="index.html">BiomiX</a>
-       <a href="Installation.html">Installation</a>
-       <a href="Tutorial.html">Tutorial</a>
-       <a href="Single-omics_analysis.html">Single-omics analysis</a>
-       <a href="Integration_analysis.html">Integration</a>
-       <a href="Parameters_and_interface.html">Parameters and interface</a>
-       <a href="about_us.html">About us</a>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Installation.html">Installation</a></li>
+      <li><a href="Tutorial.html">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html" class="active">Integration</a></li>
+      <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      <li><a href="about_us.html">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <p class="page-header__eyebrow">Integration analysis</p>
+    <h1>Multi-omics integration methods</h1>
+    <p>BiomiX 3.0 provides five methodologically diverse integration strategies. Each captures a different aspect of multi-omics data — run one or compare several. Click any method below to expand it.</p>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot legend-dot--unsupervised"></span>Unsupervised</div>
+      <div class="legend-item"><span class="legend-dot legend-dot--supervised"></span>Supervised</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCORDION LIST -->
+<section class="section">
+  <div class="container">
+    <div class="accordion-list">
+
+      <!-- MOFA -->
+      <div class="accordion accordion--unsupervised" id="mofa">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <div>
+              <h2>MOFA <span class="tag tag--unsupervised">Unsupervised</span></h2>
+              <div class="accordion__meta">Multi-Omics Factor Analysis — matrix factorization</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
+
+            <div class="spec-grid">
+              <div class="spec-item"><div class="spec-item__label">Type</div><div class="spec-item__value">Matrix factorization</div></div>
+              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Multi-dimensional biological coverage</div></div>
+              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Latent factors + loadings</div></div>
+              <div class="spec-item"><div class="spec-item__label">Missing data</div><div class="spec-item__value">Supported</div></div>
+            </div>
+
+            <h3>Analysis</h3>
+            <p>MOFA is implemented in BiomiX following developer guidelines (<a href="https://biofam.github.io/MOFA2/" target="_blank">biofam.github.io/MOFA2</a>), with transformed data inputs and reduced feature size. Transformation methods depend on the omics type: transcriptomics data use variance-stabilizing transformation, metabolomics data use log transformation to approximate Gaussian distribution, and methylomics data require no transformation. Top genes and CpG islands with the highest variance are selected as integration input, except for metabolomics where fewer peaks are typically included.</p>
+            <p>BiomiX's MOFA implementation allows customization of convergence speed, Evidence Lower Bound frequency, and maximum iterations. An automated tuning mode optimizes the total factor count, stopping when three consecutive models produce a factor explaining less than 1% of variance. The top three models, prioritizing those with more statistically significant discriminant factors, are selected. Each model's factors are tested with a Mann-Whitney test, with p-values adjusted by the FDR method.</p>
+
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/disegno.svg?raw=true" alt="MOFA integration pipeline">
+              <figcaption>MOFA integration pipeline overview.</figcaption>
+            </figure>
+
+            <h3>Factor interpretation</h3>
+            <p>Both automatic and manual MOFA analyses include three methods to support interpretation of discriminating factors.</p>
+
+            <h4>Correlation analysis</h4>
+            <p>Users can upload a matrix of binary or numerical clinical features to integrate into the MOFA model. Numerical data are correlated with each factor using Pearson correlation; binary data are analyzed using the Wilcoxon test after dividing groups into positive and negative categories. Nominal p-values are corrected using the Benjamini-Hochberg method.</p>
+
+            <h4>Pathway analysis</h4>
+            <p>BiomiX identifies the top contributing genes, metabolites, and CpG islands for each discriminating factor. Genes are analyzed with EnrichR using Reactome, Biological Process, ENCODE, and ChEA transcription factor libraries. Metabolites are assessed via MetPath using the KEGG and HMDB databases. CpG islands linked to associated genes are also analyzed using EnrichR.</p>
+
+            <h4>PubMed bibliography search</h4>
+            <p>For each discriminating factor, top contributing features are used for PubMed searches across three priority levels: abstracts combining contributors from multiple omics are prioritized first. The output is a TSV file with PubMed articles, contributor matches, DOIs, and keywords. BiomiX also performs text-mining with litsearchr v1.0.0 to generate a vocabulary of frequent word combinations filtered against Gene Ontology and human phenotype terms.</p>
+
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/MOFA2.svg?raw=true" alt="MOFA factor interpretation outputs">
+              <figcaption>MOFA factor interpretation outputs: pathway enrichment, clinical correlation, and PubMed search.</figcaption>
+            </figure>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- SNF -->
+      <div class="accordion accordion--unsupervised" id="snf">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <div>
+              <h2>SNF <span class="tag tag--unsupervised">Unsupervised</span></h2>
+              <div class="accordion__meta">Similarity Network Fusion — network-based patient stratification</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
+
+            <div class="spec-grid">
+              <div class="spec-item"><div class="spec-item__label">Type</div><div class="spec-item__value">Network-based</div></div>
+              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Patient stratification</div></div>
+              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Fused network + clusters</div></div>
+              <div class="spec-item"><div class="spec-item__label">Missing data</div><div class="spec-item__value">Not supported</div></div>
+            </div>
+
+            <h3>Analysis</h3>
+            <p>SNF constructs a patient similarity network for each omics layer independently, then iteratively fuses them into a single integrated network that captures complementary cross-modal information. Spectral clustering is then applied to the fused network to identify patient subgroups.</p>
+            <p>In BiomiX 3.0, SNF is implemented via the SNFtool R package. The number of clusters is selected automatically via the eigen-gap heuristic, but can also be set manually. Cluster quality is evaluated using the Average Silhouette Width (ASW), Adjusted Rand Index (ARI), Adjusted Mutual Information (AMI), and Calinski-Harabasz (CH) index.</p>
+
+            <div class="callout">
+              <span>💡</span>
+              <p>SNF requires complete data across all omics layers. Samples with missing data in any layer are excluded before analysis. If your dataset has partial overlap between omics, consider NEMO instead.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- NEMO -->
+      <div class="accordion accordion--unsupervised" id="nemo">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <div>
+              <h2>NEMO <span class="tag tag--unsupervised">Unsupervised</span></h2>
+              <div class="accordion__meta">NEighborhood-based Multi-Omics clustering — partial overlap support</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
+
+            <div class="spec-grid">
+              <div class="spec-item"><div class="spec-item__label">Type</div><div class="spec-item__value">Network-based</div></div>
+              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Partially overlapping datasets</div></div>
+              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Affinity matrix + clusters</div></div>
+              <div class="spec-item"><div class="spec-item__label">Missing data</div><div class="spec-item__value">Natively supported</div></div>
+            </div>
+
+            <h3>Analysis</h3>
+            <p>NEMO is specifically designed for datasets where samples are not fully overlapping across omics layers, without requiring imputation. It constructs affinity scores from nearest-neighbor relationships within each omics layer, using only the available modalities for each sample.</p>
+            <p>In BiomiX 3.0, NEMO is implemented via the NEMO R package. Like SNF, cluster quality is assessed using ASW, ARI, AMI, and CH metrics, and the number of clusters can be determined automatically or set manually.</p>
+
+            <div class="callout">
+              <span>💡</span>
+              <p>NEMO is the recommended choice when your omics layers do not share the same set of samples — for example, when transcriptomics and methylomics were profiled on different subsets of the same cohort.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- DIABLO -->
+      <div class="accordion accordion--supervised" id="diablo">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <div>
+              <h2>DIABLO <span class="tag tag--supervised">Supervised</span></h2>
+              <div class="accordion__meta">Data Integration Analysis for Biomarker discovery — sparse CCA</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
+
+            <div class="spec-grid">
+              <div class="spec-item"><div class="spec-item__label">Type</div><div class="spec-item__value">Sparse CCA</div></div>
+              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Biomarker discovery</div></div>
+              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Components + feature weights</div></div>
+              <div class="spec-item"><div class="spec-item__label">Missing data</div><div class="spec-item__value">Excluded before analysis</div></div>
+            </div>
+
+            <h3>Analysis</h3>
+            <p>DIABLO is a supervised integration method from the MixOmics framework that extends sparse canonical correlation analysis to multiple omics layers. It identifies correlated latent components across modalities while optimizing discrimination between predefined groups, making it well-suited for multi-omics biomarker discovery.</p>
+            <p>In BiomiX 3.0, DIABLO components are selected automatically via Mann-Whitney test with FDR correction, mirroring the MOFA factor selection strategy. Significant components are then interpreted through pathway enrichment and clinical correlation, using the same interpretation pipeline as MOFA.</p>
+
+            <div class="callout">
+              <span>💡</span>
+              <p>DIABLO requires a known group label (condition) for each sample. Unlike the unsupervised methods, it uses this label to maximize between-group discrimination, which makes it particularly powerful for biomarker discovery but requires a clear experimental design.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PRAMIGO -->
+      <div class="accordion accordion--soon" id="pramigo">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <div>
+              <h2>PRAMIGO <span class="tag tag--supervised">Supervised</span> <span class="badge badge--soon">Coming soon</span></h2>
+              <div class="accordion__meta">Phenotyping netwoRk Application for Multi-omics InteGratiOn — graph transformer</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
+
+            <div class="spec-grid">
+              <div class="spec-item"><div class="spec-item__label">Type</div><div class="spec-item__value">Heterogeneous Graph Transformer</div></div>
+              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Cross-modal regulatory discovery</div></div>
+              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Attention scores + multi-omics programs</div></div>
+              <div class="spec-item"><div class="spec-item__label">Status</div><div class="spec-item__value">Coming soon</div></div>
+            </div>
+
+            <h3>Analysis</h3>
+            <p>PRAMIGO is a novel supervised Heterogeneous Graph Transformer (HGT) that models cross-modal molecular interactions explicitly. It constructs a heterogeneous graph where nodes represent both samples and molecular features, and edges capture within-omic, between-omic, and sample-feature relationships.</p>
+            <p>Unlike other integration methods that summarize variation at the sample level, PRAMIGO uncovers biologically interpretable multi-omics programs and feature-level interactions — including ncRNA hubs, immunoglobulin repertoire diversity, and epigenetic co-regulation programs — that are inaccessible to conventional integration approaches.</p>
+            <p>PRAMIGO is currently available as a standalone tool at <a href="https://github.com/iclemente99/PRAMIGO" target="_blank">github.com/iclemente99/PRAMIGO</a> and will be integrated into BiomiX in a future release.</p>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion-list -->
+
+    <!-- WHICH METHOD GUIDE -->
+    <div style="margin-top:48px;">
+      <h2 style="font-size:1.3rem; color:var(--text); margin-bottom:14px;">Which method should I use?</h2>
+      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Each method is designed for a different analytical objective. When in doubt, run multiple methods and compare results.</p>
+      <table class="guide-table">
+        <thead>
+          <tr><th>Method</th><th>Choose it when...</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>MOFA</td><td>Your goal is multi-dimensional coverage of independent biological axes and you do not have a predefined group label, or you want to explore latent structure across omics without supervision.</td></tr>
+          <tr><td>SNF</td><td>Your goal is patient stratification and all samples are profiled across all omics layers (no missing samples between layers).</td></tr>
+          <tr><td>NEMO</td><td>Your goal is patient stratification but your omics layers do not share the same set of samples — NEMO handles partial overlap natively.</td></tr>
+          <tr><td>DIABLO</td><td>Your primary goal is biomarker discovery with cross-omic co-variation, and you have a known condition label for each sample.</td></tr>
+          <tr><td>PRAMIGO</td><td>Your goal is discovering cross-modal regulatory mechanisms, especially structural multi-omics features such as ncRNA hubs or epigenetic co-regulation programs. <span class="badge badge--soon">Soon</span></td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <h2 id="mofa-integration">MOFA Integration</h2>
+  </div>
+</section>
 
-    <h3 id="mofa-analysis">MOFA Analysis</h3>
-    <p>MOFA is used in BiomiX following developer guidelines,
-        (<a href="https://biofam.github.io/MOFA2/">https://biofam.github.io/MOFA2/</a>) with transformed data inputs and reduced feature size. Transformation methods depend on the omics type: transcriptomics data use variance-stabilizing transformation, metabolomics data use log transformation to approximate Gaussian distribution, and methylomics data need no transformation. Top genes and CpG islands with the highest variance are selected for MOFA integration, except for metabolomics, where fewer peaks are typically included.</p>
-
-    <p>BiomiX’s MOFA implementation allows customization of parameters like convergence speed, Evidence Lower Bound frequency, and maximum iterations. An automated tuning mode optimizes the total factor count, stopping when three models have a factor explaining less than 1% of variance. The top three models, prioritizing those with more statistically significant discriminant factors, are selected. Each model’s factors are tested with a Mann–Whitney test, with p-values adjusted by FDR method.</p>
-
-    <div class="center">
-        <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/disegno.svg?raw=true" alt="MOFA Image">
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank">GitHub ↗</a></li>
+      </ul>
     </div>
-
-    
-    <h2 id="mofa-factors-interpretation">MOFA Factors Interpretation</h2>
-
-    <p>Both automatic and not automatic MOFA analysis
-        includes three methods to ease the user interpretation of the discriminating MOFA factors.</p>
-
-    <p><strong>Correlation analysis:</strong> Users can upload a matrix containing binary or numerical clinical features to integrate into the MOFA model. The numerical data are correlated through a Pearson correlation with each MOFA factor, while the binary clinical data are analyzed using the Wilcoxon test after dividing the groups into positive and negative categories. The nominal p-values are corrected using the Benjamini–Hochberg method.</p>
-
-    <p><strong>Pathway analysis:</strong>BiomiX identifies the top contributing genes, metabolites, and CpG islands for discriminating factors in each MOFA model. According to the omics data type, BiomiX selects an R package to determine if a biological or metabolic pathway is enriched within these genes, metabolites, or CpG islands. Genes are analyzed with EnrichR using Reactome, Biological Process, Encyclopedia of DNA Elements (ENCODE), and ChIP-X Enrichment Analysis (ChEA) transcription factor libraries. Metabolites are assessed via MetPath using the KEGG and HMDB databases. CpG islands, when linked to associated genes, are also analyzed using EnrichR.</p>
-
-    <p><strong>Pubmed bibliography research:</strong> For each discriminating factor in each MOFA model, top contributing genes, metabolites, and CpG island genes are used for PubMed searches to gain insights into factor identities. The search algorithm operates on three levels, prioritizing abstracts that combine more multiomic contributors. At the first level, abstracts include at least one of the top ten contributors; at the second level, abstracts contain at least one contributor from any two omics (e.g., transcriptomics–metabolomics); and the third level includes abstracts with at least one contributor from a single omics.</p>
-    <p>The output is a .TSV file with PubMed articles, total and individual contributor matches, DOIs, and keywords. Since author-provided keywords are limited, BiomiX performs additional text-mining with litsearchr v1.0.0, generating a vocabulary of frequent word combinations filtered against Gene Ontology and human phenotype terms. The top 15 terms are included in the .TSV file, along with a final word frequency analysis across all abstracts retrieved from each level.</p>
-
-    <div class="center">
-        <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/MOFA2.svg?raw=true" alt="MOFA2 Image" width="1100" height="700">
+    <div class="footer__col">
+      <h4>Analysis</h4>
+      <ul>
+        <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+        <li><a href="Integration_analysis.html">Integration</a></li>
+        <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      </ul>
     </div>
+    <div class="footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank">Publication (v1)</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5/issues" target="_blank">Report a bug</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
+
+<script>
+  function toggle(btn) {
+    btn.closest('.accordion').classList.toggle('open');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el && el.classList.contains('accordion')) {
+        el.classList.add('open');
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  });
+</script>
 
 </body>
-
 </html>
