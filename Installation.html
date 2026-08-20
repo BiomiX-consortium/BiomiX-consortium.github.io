@@ -152,7 +152,7 @@
       <li><a href="Single-omics_analysis.html">Single-omics</a></li>
       <li><a href="Integration_analysis.html">Integration</a></li>
       <li><a href="about_us.html">About</a></li>
-      <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank" class="nav__cta">GitHub ↗</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank" class="nav__cta">GitHub ↗</a></li>
     </ul>
   </div>
 </nav>
@@ -199,31 +199,53 @@
       folder nearby for your input data and results.
     </p>
 
-    <div class="download-grid">
-      <a href="https://github.com/BiomiX-consortium/BiomiX/releases/latest/download/BiomiX_Start.bat"
-         class="download-btn" download>
-        <span class="download-btn__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg></span>
-        <span>
-          BiomiX_Start.bat
-          <span class="download-btn__sub">Windows, double-click to run</span>
-        </span>
-      </a>
-      <a href="https://github.com/BiomiX-consortium/BiomiX/releases/latest/download/BiomiX_Start.sh"
-         class="download-btn" download>
-        <span class="download-btn__icon" style="display:flex;gap:4px;align-items:center;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M12 2C8.5 2 7 4.5 7 7c0 1.5.4 2.8 1 3.8C6.2 12 5 13.8 5 16c0 2.8 1.8 4.5 4 5.3V22h6v-.7c2.2-.8 4-2.5 4-5.3 0-2.2-1.2-4-2.98-5.18C16.6 9.8 17 8.5 17 7c0-2.5-1.5-5-5-5zm0 2c2.2 0 3 1.8 3 3 0 1-.3 2-.8 2.7-.4.5-.4 1.2.1 1.6C15.4 12.2 17 13.9 17 16c0 2.2-1.8 3.5-5 3.5S7 18.2 7 16c0-2.1 1.6-3.8 2.7-4.7.5-.4.5-1.1.1-1.6C9.3 9 9 8 9 7c0-1.2.8-3 3-3zm-1 3a1 1 0 100 2 1 1 0 000-2zm2 0a1 1 0 100 2 1 1 0 000-2z"/></svg>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        </span>
+    <div class="download-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+
+      <!-- Windows: two files -->
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="https://github.com/BiomiX-consortium/biomix_docker_integration/blob/main/launchers/Windows/BiomiX_Start.bat"
+           target="_blank" class="download-btn">
+          <span class="download-btn__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg></span>
+          <span>
+            BiomiX_Start.bat
+            <span class="download-btn__sub">Windows, double-click to run</span>
+          </span>
+        </a>
+        <a href="https://github.com/BiomiX-consortium/biomix_docker_integration/blob/main/launchers/Windows/BiomiX_Start.ps1"
+           target="_blank" class="download-btn">
+          <span class="download-btn__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg></span>
+          <span>
+            BiomiX_Start.ps1
+            <span class="download-btn__sub">Windows, PowerShell script</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Linux -->
+      <a href="https://github.com/BiomiX-consortium/biomix_docker_integration/blob/main/launchers/Linux/BiomiX_Start.sh"
+         target="_blank" class="download-btn">
+        <span class="download-btn__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M12 2C8.5 2 7 4.5 7 7c0 1.5.4 2.8 1 3.8C6.2 12 5 13.8 5 16c0 2.8 1.8 4.5 4 5.3V22h6v-.7c2.2-.8 4-2.5 4-5.3 0-2.2-1.2-4-2.98-5.18C16.6 9.8 17 8.5 17 7c0-2.5-1.5-5-5-5zm0 2c2.2 0 3 1.8 3 3 0 1-.3 2-.8 2.7-.4.5-.4 1.2.1 1.6C15.4 12.2 17 13.9 17 16c0 2.2-1.8 3.5-5 3.5S7 18.2 7 16c0-2.1 1.6-3.8 2.7-4.7.5-.4.5-1.1.1-1.6C9.3 9 9 8 9 7c0-1.2.8-3 3-3zm-1 3a1 1 0 100 2 1 1 0 000-2zm2 0a1 1 0 100 2 1 1 0 000-2z"/></svg></span>
         <span>
           BiomiX_Start.sh
-          <span class="download-btn__sub">Linux &amp; macOS, run from terminal</span>
+          <span class="download-btn__sub">Linux, run from terminal</span>
         </span>
       </a>
+
+      <!-- macOS -->
+      <a href="https://github.com/BiomiX-consortium/biomix_docker_integration/blob/main/launchers/macOS/BiomiX-Launcher-1.0.0.dmg"
+         target="_blank" class="download-btn">
+        <span class="download-btn__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--blue)"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></span>
+        <span>
+          BiomiX-Launcher-1.0.0.dmg
+          <span class="download-btn__sub">macOS, open and install</span>
+        </span>
+      </a>
+
     </div>
 
     <div class="callout" style="margin-top:24px;">
       <span>📦</span>
-      <p>Both scripts are also available in the <a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">BiomiX GitHub repository</a> under the <code>launchers/</code> folder.</p>
+      <p>All launchers are also available in the <a href="https://github.com/BiomiX-consortium/biomix_docker_integration" target="_blank">BiomiX GitHub repository</a> under the <code>launchers/</code> folder.</p>
     </div>
   </div>
 </section>
@@ -301,24 +323,15 @@
     <div class="os-panel" id="tab-macos">
       <ol style="color:var(--muted); font-size:0.95rem; padding-left:20px; display:flex; flex-direction:column; gap:10px;">
         <li>Make sure <strong style="color:var(--text);">Docker Desktop is open and running</strong> (look for the whale icon in the menu bar).</li>
-        <li>Open Terminal, navigate to the folder containing <code>BiomiX_Start.sh</code>, and make it executable (first time only):
-          <div class="code-block" style="margin-top:10px;">
-            <button class="copy-btn" onclick="copyCode(this,'mac-chmod')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-            <pre id="mac-chmod"><code>chmod +x BiomiX_Start.sh</code></pre>
-          </div>
-        </li>
-        <li>Run the launcher:
-          <div class="code-block" style="margin-top:10px;">
-            <button class="copy-btn" onclick="copyCode(this,'mac-run')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
-            <pre id="mac-run"><code>./BiomiX_Start.sh</code></pre>
-          </div>
-        </li>
-        <li>When prompted, choose your <strong style="color:var(--text);">data folder</strong> and optionally enter your <strong style="color:var(--text);">NCBI API key</strong> (optional, enhances PubMed search in the interpretation module).</li>
-        <li>BiomiX will open in your browser at <code>http://localhost:3838</code>.</li>
+        <li><strong style="color:var(--text);">Open the downloaded <code>BiomiX-Launcher-1.0.0.dmg</code></strong> and follow the installation steps.</li>
+        <li>Launch the BiomiX app from your Applications folder. A setup window will appear.</li>
+        <li>Choose the <strong style="color:var(--text);">folder</strong> where your input data is located and where results will be saved.</li>
+        <li>Optionally, enter your <strong style="color:var(--text);">NCBI API key</strong> to enhance PubMed search in the biological interpretation module. This is not required, BiomiX works fully without it.</li>
+        <li>Click <strong style="color:var(--text);">Start</strong>. BiomiX will open automatically in your browser at <code>http://localhost:3838</code>.</li>
       </ol>
       <div class="callout" style="margin-top:20px;">
         <span>💡</span>
-        <p>Keep the terminal open while using BiomiX. Press <code>Ctrl+C</code> to stop it when done.</p>
+        <p>Keep the launcher window open while using BiomiX. Closing it will stop the application.</p>
       </div>
     </div>
 
@@ -630,7 +643,7 @@ renv::install("PackageName")</code></pre>
         <li><a href="index.html">Home</a></li>
         <li><a href="Installation.html">Installation</a></li>
         <li><a href="Tutorial.html">Tutorial</a></li>
-        <li><a href="https://github.com/BiomiX-consortium/BiomiX" target="_blank">GitHub ↗</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank">GitHub ↗</a></li>
       </ul>
     </div>
     <div class="footer__col">

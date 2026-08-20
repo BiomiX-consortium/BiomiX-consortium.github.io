@@ -44,73 +44,80 @@
 
     /* LAYOUT */
     .section { padding: 56px 0; }
-    .section--alt { background: var(--bg); }
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
-    .content-col { max-width: 820px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
 
     /* PAGE HEADER */
-    .page-header { padding: 48px 0 8px; }
+    .page-header { padding: 48px 0 40px; }
     .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
     .page-header h1 { font-size: clamp(1.9rem,4vw,2.6rem); color: var(--text); margin-bottom: 14px; }
     .page-header p { color: var(--muted); font-size: 1rem; max-width: 68ch; }
 
-    /* JUMP NAV */
-    .jump-nav { display: flex; gap: 10px; flex-wrap: wrap; padding: 20px 0 0; border-top: 1px solid var(--border); margin-top: 28px; }
-    .jump-nav a { font-size: 0.85rem; font-weight: 600; color: var(--blue); background: var(--blue-light); padding: 5px 14px; border-radius: 20px; border: 1px solid var(--blue-mid); }
-    .jump-nav a:hover { background: var(--blue-mid); text-decoration: none; }
+    /* ACCORDION */
+    .accordion-list { display: flex; flex-direction: column; gap: 12px; }
 
-    /* SECTION TITLES */
-    .omics-title { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; scroll-margin-top: 80px; }
-    .omics-title h2 { font-size: 1.6rem; color: var(--text); }
-    .omics-icon { font-size: 1.6rem; }
+    .accordion { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); scroll-margin-top: 80px; }
+    .accordion__header { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; background: var(--white); border: none; cursor: pointer; padding: 20px 26px; text-align: left; font-family: 'Inter', sans-serif; transition: background 0.15s; }
+    .accordion__header:hover { background: var(--bg); }
+    .accordion.open .accordion__header { background: var(--bg); border-bottom: 1px solid var(--border); }
+    .accordion__title { display: flex; align-items: center; gap: 12px; }
+    .accordion__title .icon { font-size: 1.3rem; }
+    .accordion__title h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .accordion__subtitle { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+    .accordion__chevron { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.2s; color: var(--muted); }
+    .accordion.open .accordion__chevron { transform: rotate(180deg); }
+    .accordion__body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .accordion.open .accordion__body { max-height: 8000px; }
+    .accordion__content { padding: 28px 32px 36px; }
 
-    h3 { font-size: 1.05rem; color: var(--blue-dark); margin: 28px 0 10px; }
-    h4 { font-size: 0.95rem; color: var(--text); margin: 20px 0 8px; font-weight: 600; }
-    p { color: var(--muted); font-size: 0.95rem; margin-bottom: 12px; max-width: 78ch; }
+    /* CONTENT TYPOGRAPHY */
+    h3 { font-size: 1rem; color: var(--blue-dark); margin: 24px 0 8px; font-weight: 600; }
+    h4 { font-size: 0.95rem; color: var(--text); margin: 18px 0 6px; font-weight: 600; }
+    p { color: var(--muted); font-size: 0.93rem; margin-bottom: 10px; max-width: 75ch; }
     strong { color: var(--text); }
+    code { font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.82em; background: var(--blue-light); padding: 2px 6px; border-radius: 4px; color: var(--blue-dark); }
 
     /* METADATA TABLE */
-    .meta-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.88rem; }
-    .meta-table th { background: var(--blue-light); color: var(--blue-dark); text-align: left; padding: 10px 16px; font-weight: 600; border: 1px solid var(--border); }
-    .meta-table td { padding: 10px 16px; border: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+    .meta-table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; font-size: 0.86rem; }
+    .meta-table th { background: var(--blue-light); color: var(--blue-dark); text-align: left; padding: 10px 14px; font-weight: 600; border: 1px solid var(--border); }
+    .meta-table td { padding: 10px 14px; border: 1px solid var(--border); vertical-align: top; color: var(--muted); }
     .meta-table tr:nth-child(even) td { background: var(--bg); }
-    .tag-mandatory { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); margin-left: 6px; }
-    .tag-optional  { display: inline-block; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; padding: 2px 7px; border-radius: 10px; background: #eceff1; color: var(--muted); border: 1px solid var(--border); margin-left: 6px; }
+    .tag-m { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 10px; background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); margin-left: 5px; }
+    .tag-o { display: inline-block; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; padding: 2px 6px; border-radius: 10px; background: #eceff1; color: var(--muted); border: 1px solid var(--border); margin-left: 5px; }
 
     /* LIST */
-    .content-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 12px 0 20px; }
-    .content-list li { display: flex; gap: 10px; font-size: 0.92rem; color: var(--muted); }
+    .content-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 10px 0 18px; }
+    .content-list li { display: flex; gap: 10px; font-size: 0.9rem; color: var(--muted); }
     .content-list li::before { content: '•'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
     .content-list li strong { color: var(--text); }
 
     /* CODE BLOCK */
-    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius); padding: 16px 20px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.82rem; overflow-x: auto; line-height: 1.65; margin: 12px 0 20px; }
+    pre { background: #1e2a3a; color: #90caf9; border-radius: var(--radius); padding: 14px 18px; font-family: 'JetBrains Mono','Fira Code',monospace; font-size: 0.82rem; overflow-x: auto; line-height: 1.65; margin: 10px 0 18px; }
+    pre code { background: none; padding: 0; color: inherit; }
 
     /* CALLOUT */
-    .callout { display: flex; gap: 14px; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; }
-    .callout p { color: var(--blue-dark); margin: 0; max-width: none; }
-    .callout--warn { background: #fff8e1; border-color: #ffe082; }
+    .callout { display: flex; gap: 12px; border-radius: var(--radius); padding: 12px 16px; margin: 14px 0; font-size: 0.87rem; }
+    .callout p { color: inherit; margin: 0; max-width: none; font-size: inherit; }
+    .callout--info { background: var(--blue-light); border: 1px solid var(--blue-mid); color: var(--blue-dark); }
+    .callout--info p { color: var(--blue-dark); }
+    .callout--warn { background: #fff8e1; border: 1px solid #ffe082; }
     .callout--warn p { color: #e65100; }
 
     /* FIGURE */
-    .figure { margin: 28px 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; text-align: center; }
+    .figure { margin: 20px 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px; text-align: center; }
     .figure img { margin: 0 auto; border-radius: var(--radius); }
-    .figure figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
-
-    /* DIVIDER */
-    .divider { height: 1px; background: var(--border); margin: 48px 0; }
+    .figure figcaption { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
 
     /* FOOTER */
     .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
     .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; font-weight: 600; }
     .footer__col ul { list-style: none; }
     .footer__col ul li { margin-bottom: 10px; }
     .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
     .footer__col ul a:hover { color: var(--white); text-decoration: none; }
     .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
-    @media (max-width: 860px) { .nav__links { display: none; } }
+    @media (max-width: 860px) { .nav__links { display: none; } .accordion__content { padding: 20px 18px 28px; } }
   </style>
 </head>
 <body>
@@ -141,141 +148,135 @@
   <div class="container">
     <p class="page-header__eyebrow">Single-omics analysis</p>
     <h1>Single-omics pipelines</h1>
-    <p>BiomiX provides ready-to-use pipelines for transcriptomics, metabolomics, and methylomics analysis. This page describes the input format requirements, the Preview-QC tool, and each omics pipeline in detail.</p>
-    <div class="jump-nav">
-      <a href="#guidelines">General guidelines</a>
-      <a href="#preview-qc">Preview-QC</a>
-      <a href="#transcriptomics">Transcriptomics</a>
-      <a href="#metabolomics">Metabolomics</a>
-      <a href="#methylomics">Methylomics</a>
-    </div>
+    <p>BiomiX provides ready-to-use pipelines for transcriptomics, metabolomics, and methylomics. Click any section below to expand it.</p>
   </div>
 </section>
 
-<!-- GENERAL GUIDELINES -->
-<section class="section" id="guidelines">
-  <div class="container content-col">
+<!-- ACCORDION LIST -->
+<section class="section">
+  <div class="container">
+    <div class="accordion-list">
 
-    <div class="omics-title">
-      <span class="omics-icon">📋</span>
-      <h2>General guidelines</h2>
-    </div>
+      <!-- 1. GENERAL GUIDELINES -->
+      <div class="accordion" id="guidelines">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <span class="icon">📋</span>
+            <div>
+              <h2>General guidelines</h2>
+              <div class="accordion__subtitle">Input format, metadata, matrix structure, reproducibility</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
 
-    <p>BiomiX compares two groups using single and multiple omics. To work correctly, input files must follow a specific format.</p>
+            <p>BiomiX compares two groups using single and multiple omics. Input files must follow a specific format to work correctly.</p>
 
-    <h3>Metadata file</h3>
-    <p>A metadata file must be provided. The first column must contain the sample ID, while the remaining columns contain sample variables.</p>
+            <h3>Metadata file</h3>
+            <p>A metadata file must be provided at launch. The first column must contain the sample ID; remaining columns contain sample variables.</p>
 
-    <table class="meta-table">
-      <thead>
-        <tr><th>Column</th><th>Description</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>ID</strong> <span class="tag-mandatory">Mandatory</span></td>
-          <td>First column. Contains the unique sample identifier.</td>
-        </tr>
-        <tr>
-          <td><strong>CONDITION</strong> <span class="tag-mandatory">Mandatory</span></td>
-          <td>Sample condition. These values will be available for group selection in the main interface.</td>
-        </tr>
-        <tr>
-          <td><strong>SAMPLE_TYPE</strong> <span class="tag-optional">Optional</span></td>
-          <td>For convoluted matrices containing samples from different tissues or cell types. If the tissue/cell type is encoded in the sample ID (e.g., <code>25658_BLymphocyte</code>), this column allows analysis on a specific subset.</td>
-        </tr>
-        <tr>
-          <td><strong>GENDER</strong> <span class="tag-optional">Optional</span></td>
-          <td>Used to adjust the Limma or DESeq2 model in transcriptomics analysis.</td>
-        </tr>
-        <tr>
-          <td><strong>AGE</strong> <span class="tag-optional">Optional</span></td>
-          <td>Used to adjust the Limma or DESeq2 model in transcriptomics analysis.</td>
-        </tr>
-        <tr>
-          <td><strong>Any other column</strong> <span class="tag-optional">Optional</span></td>
-          <td>Can be used to filter samples via the Metadata section in advanced options, or for PCA and UMAP visualization in Preview-QC.</td>
-        </tr>
-      </tbody>
-    </table>
+            <table class="meta-table">
+              <thead><tr><th>Column</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><strong>ID</strong> <span class="tag-m">Mandatory</span></td><td>First column. Unique sample identifier.</td></tr>
+                <tr><td><strong>CONDITION</strong> <span class="tag-m">Mandatory</span></td><td>Sample condition. These values will be available for group selection in the main interface.</td></tr>
+                <tr><td><strong>SAMPLE_TYPE</strong> <span class="tag-o">Optional</span></td><td>For convoluted matrices containing samples from different tissues or cell types (e.g., <code>25658_BLymphocyte</code>). Allows analysis on a specific subset.</td></tr>
+                <tr><td><strong>GENDER</strong> <span class="tag-o">Optional</span></td><td>Used to adjust the Limma or DESeq2 model in transcriptomics.</td></tr>
+                <tr><td><strong>AGE</strong> <span class="tag-o">Optional</span></td><td>Used to adjust the Limma or DESeq2 model in transcriptomics.</td></tr>
+                <tr><td><strong>Any other column</strong> <span class="tag-o">Optional</span></td><td>Can be used to filter samples in the Metadata advanced options, or for PCA and UMAP visualization in Preview-QC.</td></tr>
+              </tbody>
+            </table>
 
-    <h3>Expression matrix</h3>
-    <p>BiomiX requires a matrix where columns represent samples and rows represent variables. Accepted formats: <code>.tsv</code>, <code>.xls</code>, <code>.xlsx</code>.</p>
+            <h3>Expression matrix</h3>
+            <p>BiomiX requires a matrix where columns represent samples and rows represent variables. Accepted formats: <code>.tsv</code>, <code>.xls</code>, <code>.xlsx</code>.</p>
+            <ul class="content-list">
+              <li><strong>Transcriptomics:</strong> Variables (genes) must use Gene Symbol or Ensembl ID.</li>
+              <li><strong>Metabolomics:</strong> Variables (metabolites) should use KEGG, HMDB, or official compound names. For unannotated peaks, use the format <code>peak_[number]</code>.</li>
+              <li><strong>Methylomics:</strong> Variables must use EPIC or 450K array probe codes.</li>
+              <li><strong>Undefined omics:</strong> Any variable name is accepted.</li>
+            </ul>
 
-    <ul class="content-list">
-      <li><strong>Transcriptomics:</strong> Variables (genes) must be named using Gene Symbol or Ensembl ID.</li>
-      <li><strong>Metabolomics:</strong> Variables (metabolites) should use KEGG, HMDB, or official compound names. For unannotated peaks, use the format <code>peak_[number]</code>.</li>
-      <li><strong>Methylomics:</strong> Variables must use the EPIC or 450K array probe codes.</li>
-      <li><strong>Undefined omics:</strong> Any variable name is accepted.</li>
-    </ul>
+            <h3>Directory system and reproducibility</h3>
+            <p>BiomiX follows the FAIR principles (Findability, Accessibility, Interoperability, and Reuse).</p>
+            <ul class="content-list">
+              <li><strong>Save inputs in the correct location:</strong> Although BiomiX can read files from any location, we recommend saving a copy within the BiomiX shared folder — metadata in <code>Metadata/</code>, omics matrices in the corresponding omics subfolder.</li>
+              <li><strong>Analysis reports:</strong> After each completed analysis, a report file is automatically saved including filenames, analysis type, and all parameters.</li>
+            </ul>
 
-    <h3>Directory system and reproducibility</h3>
-    <p>BiomiX follows the FAIR principles (Findability, Accessibility, Interoperability, and Reuse) to ensure reproducible analyses.</p>
-    <ul class="content-list">
-      <li><strong>Save inputs in the correct location:</strong> Although BiomiX can read matrices from any location, we strongly recommend saving a copy within the BiomiX shared folder — metadata in the <code>Metadata/</code> subfolder, and omics matrices in the corresponding omics subfolder.</li>
-      <li><strong>Analysis reports:</strong> After each completed analysis, a report file is automatically saved, including the filenames used, the analysis type, and all parameters, to guarantee reproducibility.</li>
-    </ul>
+          </div>
+        </div>
+      </div>
 
-  </div>
-</section>
+      <!-- 2. PREVIEW-QC -->
+      <div class="accordion" id="preview-qc">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <span class="icon">🔍</span>
+            <div>
+              <h2>Preview-QC</h2>
+              <div class="accordion__subtitle">Data exploration, normalization and outlier removal before analysis</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
 
-<!-- PREVIEW QC -->
-<section class="section section--alt" id="preview-qc">
-  <div class="container content-col">
+            <p>Selecting Preview-QC in an omics input slot opens a Shiny interface for data exploration and quality control. It includes four sections:</p>
+            <ul class="content-list">
+              <li><strong>Plot section:</strong> Scatter plots of the top 50 high-variance variables, PCA, UMAP, and correlation heatmaps. Available transformations: logarithmic, median/mean centralization, Z-score, MAD, quantile, Loess, and VST.</li>
+              <li><strong>Data Table section:</strong> Preview of the full matrix.</li>
+              <li><strong>Outliers section:</strong> Filters variables by variance threshold and identifies sample outliers via PCA.</li>
+              <li><strong>Download section:</strong> Download the transformed matrix for external use.</li>
+            </ul>
 
-    <div class="omics-title">
-      <span class="omics-icon">🔍</span>
-      <h2>Preview-QC</h2>
-    </div>
+            <p>Once satisfied with the transformation and QC, press the <strong>Close App</strong> button to pass the current matrix to the analysis pipeline.</p>
 
-    <p>Selecting Preview-QC in an omics input slot opens a Shiny interface for data exploration and quality control before analysis. It includes four sections:</p>
+            <div class="callout callout--warn">
+              <span>⚠️</span>
+              <p>For metabolomics, QC samples can be uploaded by labeling them as <strong>"QC"</strong> in the CONDITION column. They will be visible in the Preview-QC for distribution comparison and can then be excluded from statistical analysis.</p>
+            </div>
 
-    <ul class="content-list">
-      <li><strong>Plot section:</strong> Scatter plots of the top 50 high-variance variables, PCA, UMAP, and correlation heatmaps. Data can be transformed using logarithmic transformation, median/mean centralization, Z-score, MAD, quantile, Loess, or variance stabilizing transformation (VST).</li>
-      <li><strong>Data Table section:</strong> Preview of the matrix.</li>
-      <li><strong>Outliers section:</strong> Filters variables by variance threshold and identifies sample outliers via PCA.</li>
-      <li><strong>Download section:</strong> Download the transformed matrix for external use.</li>
-    </ul>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/GIT_preview.gif?raw=true" alt="Preview-QC interface">
+              <figcaption>Preview-QC interface — data transformation and outlier removal.</figcaption>
+            </figure>
 
-    <p>Once satisfied with the transformation and QC, press the <strong>Close App</strong> button to pass the current matrix to the analysis pipeline.</p>
+          </div>
+        </div>
+      </div>
 
-    <div class="callout callout--warn">
-      <span>⚠️</span>
-      <p>For metabolomics, QC samples can be uploaded by labeling them as <strong>"QC"</strong> in the CONDITION column. They will be visible in the Preview-QC for distribution comparison and can then be excluded from statistical analysis.</p>
-    </div>
+      <!-- 3. TRANSCRIPTOMICS -->
+      <div class="accordion" id="transcriptomics">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <span class="icon">🧬</span>
+            <div>
+              <h2>Transcriptomics</h2>
+              <div class="accordion__subtitle">DEG analysis, enrichment, gene panel subgrouping</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
 
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/GIT_preview.gif?raw=true" alt="Preview-QC interface animation">
-      <figcaption>Preview-QC interface — data transformation and outlier removal.</figcaption>
-    </figure>
+            <p>The transcriptomics pipeline identifies differentially expressed genes (DEGs) and provides volcano plots and heatmaps. Default thresholds: Log2FC &gt; 0.5 and adjusted p-value &lt; 0.05. If GENDER and AGE columns are present in the metadata, they are used to adjust the statistical model.</p>
+            <p>If the data are transformed in Preview-QC, Limma is used for differential expression. If the matrix contains raw counts without transformation, DESeq2 is used instead. The transformed data are then passed to the integration module. To optimize speed, only the most variable genes are used as MOFA input (5,000 by default, adjustable in advanced options).</p>
+            <p>Biological process enrichment is explored using the R version of EnrichR. BiomiX also prepares export files for <a href="https://www.gsea-msigdb.org/gsea/downloads.jsp" target="_blank">GSEA</a> and <a href="https://maayanlab.cloud/Enrichr/" target="_blank">EnrichR</a>.</p>
 
-  </div>
-</section>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Transcriptomics.svg?raw=true" alt="Transcriptomics pipeline overview">
+              <figcaption>Transcriptomics pipeline overview.</figcaption>
+            </figure>
 
-<!-- TRANSCRIPTOMICS -->
-<section class="section" id="transcriptomics">
-  <div class="container content-col">
+            <h3>Additional features</h3>
 
-    <div class="omics-title">
-      <span class="omics-icon">🧬</span>
-      <h2>Transcriptomics</h2>
-    </div>
-
-    <p>The transcriptomics pipeline identifies differentially expressed genes (DEGs) and provides volcano plots and heatmaps. Default thresholds: Log2FC &gt; 0.5 and adjusted p-value &lt; 0.05. If GENDER and AGE columns are present in the metadata, they are used to adjust the DESeq2 or Limma model.</p>
-
-    <p>If the data are transformed in Preview-QC, Limma is used for differential expression. If the matrix contains raw counts and no transformation is applied, DESeq2 is used instead. The transformed data are then passed to the integration module.</p>
-
-    <p>Biological process enrichment is explored using the R version of EnrichR. BiomiX also prepares export files for <a href="https://www.gsea-msigdb.org/gsea/downloads.jsp" target="_blank">GSEA</a> and <a href="https://maayanlab.cloud/Enrichr/" target="_blank">EnrichR</a>. To optimize speed, only the most variable genes are used as input for integration (5,000 by default, adjustable in the advanced options).</p>
-
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Transcriptomics.svg?raw=true" alt="Transcriptomics pipeline overview">
-      <figcaption>Transcriptomics pipeline overview.</figcaption>
-    </figure>
-
-    <h3>Additional features</h3>
-
-    <h4>Gene panel subgrouping</h4>
-    <p>A gene panel can be provided via the <strong>GENE_PANEL</strong> file in the General section of advanced options. Genes must be in Gene Symbol format, one per line:</p>
-    <pre><code>GENES_FOR_SUBPOPULATION
+            <h4>Gene panel subgrouping</h4>
+            <p>A gene panel can be provided via the GENE_PANEL file in the General section of advanced options. Genes must be in Gene Symbol format, one per line:</p>
+            <pre><code>GENES_FOR_SUBPOPULATION
 SIGLEC1
 IFIT3
 IFI6
@@ -284,85 +285,101 @@ MX1
 USP18
 OAS3
 IFI44L</code></pre>
-    <p>These genes generate a heatmap showing each gene's expression Z-score across samples, enabling classification of condition samples into positive and negative subgroups. BiomiX then runs DGE analysis comparing controls with each subgroup.</p>
+            <p>These genes generate a heatmap showing each gene's expression Z-score across samples, enabling classification of condition samples into positive and negative subgroups. BiomiX then runs DGE analysis comparing controls with each subgroup.</p>
 
-    <h4>Clinical or biological marker validation</h4>
-    <p>Adding a <strong>MARKER</strong> column in the metadata allows sample classification based on a clinical or biological marker. This classification can then be compared with gene panel subgrouping to identify similarities or differences.</p>
+            <h4>Clinical or biological marker validation</h4>
+            <p>Adding a <strong>MARKER</strong> column in the metadata allows sample classification based on a clinical or biological marker. This can then be compared with gene panel subgrouping to identify similarities or differences.</p>
 
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Heatmap_BLymphocytes_CTRL_vs_SLE2.svg?raw=true" alt="Gene panel subgrouping heatmap">
-      <figcaption>Example heatmap from gene panel subgrouping.</figcaption>
-    </figure>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Heatmap_BLymphocytes_CTRL_vs_SLE2.svg?raw=true" alt="Gene panel subgrouping heatmap">
+              <figcaption>Example heatmap from gene panel subgrouping.</figcaption>
+            </figure>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/enrichR.svg?raw=true" alt="EnrichR pathway enrichment output">
+              <figcaption>Pathway enrichment output via EnrichR.</figcaption>
+            </figure>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/GSEA2.svg?raw=true" alt="GSEA output">
+              <figcaption>GSEA export output.</figcaption>
+            </figure>
 
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/enrichR.svg?raw=true" alt="EnrichR pathway enrichment output">
-      <figcaption>Pathway enrichment output via EnrichR.</figcaption>
-    </figure>
+          </div>
+        </div>
+      </div>
 
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/GSEA2.svg?raw=true" alt="GSEA output">
-      <figcaption>GSEA export output.</figcaption>
-    </figure>
+      <!-- 4. METABOLOMICS -->
+      <div class="accordion" id="metabolomics">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <span class="icon">⚗️</span>
+            <div>
+              <h2>Metabolomics</h2>
+              <div class="accordion__subtitle">Peak annotation, differential analysis, pathway enrichment</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
 
-  </div>
-</section>
+            <p>Peak or metabolite signals are first explored via Preview-QC. Transformed signals are then compared between groups: Log2FC is computed as the log2 ratio of median peak signals, and p-values are calculated with the Mann-Whitney test corrected by FDR. Volcano plots and heatmaps display significantly changed metabolites or peaks.</p>
+            <p>Pathway enrichment is performed using methPath v1.0.5 from TidyMass v1.0.8. BiomiX also prepares ready-to-copy input files for <a href="https://www.metaboanalyst.ca/" target="_blank">MetaboAnalyst</a>. If transcriptomics results are available, BiomiX automatically prepares joint pathway and network analysis files.</p>
 
-<!-- METABOLOMICS -->
-<section class="section section--alt" id="metabolomics">
-  <div class="container content-col">
+            <div class="callout callout--warn">
+              <span>⚠️</span>
+              <p>Ensure the data matrix is curated before upload: remove variables without biological relevance (contaminants, poorly reproducible signals) and perform instrumental normalization beforehand. For raw .mzML files, we recommend using the <a href="https://doi.org/10.3390/metabo10010028" target="_blank">R pipeline by Á. Fernández-Ochoa</a> or MetaboAnalyst to generate the peak matrix first.</p>
+            </div>
 
-    <div class="omics-title">
-      <span class="omics-icon">⚗️</span>
-      <h2>Metabolomics</h2>
-    </div>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Metabolomics.svg?raw=true" alt="Metabolomics pipeline overview">
+              <figcaption>Metabolomics pipeline overview.</figcaption>
+            </figure>
 
-    <p>Peak or metabolite signals are first explored via Preview-QC to decide on data transformation. Transformed signals are then compared between groups: Log2FC is computed as the log2 ratio of median peak signals, and p-values are calculated with the Mann-Whitney test corrected by FDR. Volcano plots and heatmaps display significantly changed metabolites or peaks.</p>
+            <h3>Additional features</h3>
 
-    <p>Pathway enrichment is performed using methPath v1.0.5 from TidyMass v1.0.8. BiomiX also prepares ready-to-copy input files for <a href="https://www.metaboanalyst.ca/" target="_blank">MetaboAnalyst</a>, supporting enrichment and metabolite set enrichment analysis. If transcriptomics results are available, BiomiX automatically prepares joint pathway and network analysis files for MetaboAnalyst.</p>
+            <h4>Targeted metabolomics</h4>
+            <p>For data from LC-MS, GC-MS, CE-MS, or NMR where metabolite identities are already available. HMDB or KEGG identifiers are required for pathway analysis. IUPAC compound names are also accepted but will not trigger pathway analysis.</p>
 
-    <div class="callout callout--warn">
-      <span>⚠️</span>
-      <p>Ensure that the data matrix is curated before upload: remove variables without biological relevance (contaminants, poorly reproducible signals) and perform instrumental normalization beforehand. If you have only raw .mzML files, we recommend using the <a href="https://doi.org/10.3390/metabo10010028" target="_blank">R pipeline by Á. Fernández-Ochoa</a> or MetaboAnalyst to generate the peak matrix first.</p>
-    </div>
+            <h4>MS1 annotation (untargeted HRMS)</h4>
+            <p>BiomiX uses CEU Mass Mediator to match m/z values of unannotated peaks. Default tolerance: 15 ppm for positive mode. Available adducts in positive mode: M+H, M+2H, M+Na, M+NH4, M+H-H2O. In negative mode: M-H, M-Cl, M+FA-H, M-H-H2O. Databases consulted: HMDB, LipidMaps, Metlin, KEGG (all customizable).</p>
 
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Metabolomics.svg?raw=true" alt="Metabolomics pipeline overview">
-      <figcaption>Metabolomics pipeline overview.</figcaption>
-    </figure>
+            <h4>MS1 and DDA-MS/MS annotation (.mzML and .mgf)</h4>
+            <p>Extends MS1 annotation with fragmentation spectra matching against HMDB, MassBank, and MoNA. MS2-based annotations replace MS1 ones where available, due to higher reliability.</p>
 
-    <h3>Additional features</h3>
+            <h4>Sample type filtering</h4>
+            <p>BiomiX can filter metabolites using HMDB specimen-specific lists, retaining those identified in the relevant sample type: plasma, urine, saliva, CSF, feces, sweat, breast milk, bile, or amniotic fluid.</p>
 
-    <h4>Targeted metabolomics</h4>
-    <p>For data from any analytical platform (LC-MS, GC-MS, CE-MS, NMR) where metabolite identities are already available. The correct metabolite identifier (HMDB or KEGG) is required for pathway analysis. The IUPAC compound name is also accepted but will not trigger pathway analysis.</p>
+          </div>
+        </div>
+      </div>
 
-    <h4>MS1 annotation (untargeted HRMS)</h4>
-    <p>BiomiX uses the CEU Mass Mediator database to match the m/z of unannotated peaks. Default tolerance: 15 ppm for positive mode. Available adducts in positive mode: M+H, M+2H, M+Na, M+NH4, M+H-H2O. In negative mode: M-H, M-Cl, M+FA-H, M-H-H2O. Databases consulted by default: HMDB, LipidMaps, Metlin, KEGG (all customizable).</p>
+      <!-- 5. METHYLOMICS -->
+      <div class="accordion" id="methylomics">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <span class="icon">🔬</span>
+            <div>
+              <h2>Methylomics</h2>
+              <div class="accordion__subtitle">Differential methylation analysis using ChAMP</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
 
-    <h4>MS1 and DDA-MS/MS annotation (.mzML and .mgf)</h4>
-    <p>Extends MS1 annotation with fragmentation spectra matching against HMDB, MassBank, and MoNA databases. MS2-based annotations replace MS1 ones where available, due to their higher reliability.</p>
+            <p>BiomiX performs differential methylation analysis using the ChAMP package. Output includes CpG island delta-beta values, FDR-adjusted p-values, a volcano plot, and a heatmap. Default thresholds: delta-beta &gt; |0.15| and adjusted p-value &lt; 0.05 (FDR).</p>
 
-    <h4>Sample type filtering</h4>
-    <p>BiomiX can filter metabolites using HMDB specimen-specific lists, retaining those identified in the relevant sample type (plasma, urine, saliva, CSF, feces, sweat, breast milk, bile, or amniotic fluid).</p>
+            <figure class="figure">
+              <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Methylomics.svg?raw=true" alt="Methylomics pipeline overview">
+              <figcaption>Methylomics pipeline overview.</figcaption>
+            </figure>
 
-  </div>
-</section>
+          </div>
+        </div>
+      </div>
 
-<!-- METHYLOMICS -->
-<section class="section" id="methylomics">
-  <div class="container content-col">
-
-    <div class="omics-title">
-      <span class="omics-icon">🔬</span>
-      <h2>Methylomics</h2>
-    </div>
-
-    <p>BiomiX performs differential methylation analysis using the ChAMP package. Output includes CpG island delta-beta values, FDR-adjusted p-values, a volcano plot, and a heatmap. Default thresholds: delta-beta &gt; |0.15| and adjusted p-value &lt; 0.05 (FDR).</p>
-
-    <figure class="figure">
-      <img src="https://github.com/IxI-97/IxI-97.github.io/blob/main/Methylomics.svg?raw=true" alt="Methylomics pipeline overview">
-      <figcaption>Methylomics pipeline overview.</figcaption>
-    </figure>
-
+    </div><!-- /accordion-list -->
   </div>
 </section>
 
@@ -406,6 +423,25 @@ IFI44L</code></pre>
     <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
   </div>
 </footer>
+
+<script>
+  function toggle(btn) {
+    const acc = btn.closest('.accordion');
+    acc.classList.toggle('open');
+  }
+
+  // Auto-open from URL hash
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el && el.classList.contains('accordion')) {
+        el.classList.add('open');
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
