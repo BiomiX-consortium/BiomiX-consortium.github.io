@@ -1,262 +1,516 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-   <title>BiomiX</title>
-   <!-- Add your other head content here -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
 
-   <!-- Styles for the banner and content -->
-   <style>
-      body {
-         margin: 0;
-         padding: 0;
-         font-family: 'Lato', sans-serif;
-      }
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 24px; list-style: none; }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
+    .badge--new { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
 
-      .banner {
-         background-color: #3498db; /* Blue background color */
-         padding: 10px;
-         text-align: left;
-         color: white;
-      }
+    /* LAYOUT */
+    .section { padding: 64px 0; }
+    .section--alt { background: var(--bg); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
 
-      .banner a {
-         color: white;
-         margin-right: 15px;
-         text-decoration: none;
-      }
+    /* PAGE HEADER */
+    .page-header { padding: 48px 0 16px; }
+    .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(1.9rem,4vw,2.6rem); color: var(--text); margin-bottom: 14px; }
+    .page-header p { color: var(--muted); font-size: 1rem; max-width: 68ch; }
 
-      .header-section {
-         font-family: Arial, sans-serif;
-         text-align: center;
-         position: relative;
-         background-color: #f1f1f1; /* Light gray background color */
-         margin-bottom: 20px;
-      }
+    /* SECTION HEADER */
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 8px; }
+    .section-header p { color: var(--muted); font-size: 0.95rem; max-width: 68ch; }
+    .section-header--center { text-align: center; }
+    .section-header--center p { margin: 8px auto 0; }
 
-      .header-section figure {
-         margin: 0;
-         position: relative;
-         overflow: hidden; /* Ensure the image does not overflow */
-      }
+    /* TEAM GRID */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
 
-      .header-section img {
-         width: 100%;
-         height: 50vh; /* 50% of the viewport height */
-         object-fit: cover; /* Cover the entire figure with the image */
-         display: block;
-      }
+    .team-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 22px; box-shadow: var(--shadow); text-align: center; transition: transform 0.18s, box-shadow 0.18s; }
+    .team-card:hover { transform: translateY(-3px); box-shadow: 0 6px 24px rgba(33,150,243,0.13); }
 
-      .header-overlay {
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         transform: translate(-50%, -50%);
-         color: white;
-         text-align: center;
-         width: 100%;
-         padding: 20px;
-         box-sizing: border-box;
-      }
+    .team-card__photo { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 16px; overflow: hidden; border: 3px solid var(--blue-light); background: var(--blue-light); display: flex; align-items: center; justify-content: center; }
+    .team-card__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-card__initials { font-size: 1.6rem; font-weight: 700; color: var(--blue-dark); }
 
-      .header-overlay h1 {
-         font-size: 60px; /* Adjust the font size as needed */
-         margin-bottom: 10px;
-      }
+    .team-card__name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .team-card__role { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; line-height: 1.4; }
+    .team-card__domain { display: inline-block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); padding: 3px 10px; border-radius: 20px; margin-bottom: 14px; }
 
-      .header-overlay p {
-         font-size: 20px;
-         margin-bottom: 20px;
-      }
+    .team-card__links { display: flex; justify-content: center; gap: 12px; }
+    .team-card__links a { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); font-weight: 500; transition: color 0.15s; }
+    .team-card__links a:hover { color: var(--blue); text-decoration: none; }
+    .team-card__links svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-      .install-button {
-         display: inline-block;
-         padding: 15px 30px;
-         background-color: #ffd700;
-         text-decoration: none;
-         border-radius: 5px;
-         font-size: 18px;
-         color: white; /* Text color */
-      }
+    /* CONTACT SECTION */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .contact-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; box-shadow: var(--shadow); display: flex; gap: 16px; align-items: flex-start; }
+    .contact-card__icon { width: 42px; height: 42px; border-radius: 50%; background: var(--blue-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-card__icon svg { width: 20px; height: 20px; color: var(--blue); }
+    .contact-card__topic { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 2px; }
+    .contact-card__name { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .contact-card__email { font-size: 0.82rem; color: var(--blue); }
 
-      .content-section {
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         padding: 20px;
-         box-sizing: border-box;
-      }
+    /* JOIN SECTION */
+    .join-box { background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: var(--radius-lg); padding: 36px 40px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+    .join-box h2 { font-size: 1.4rem; color: var(--text); margin-bottom: 10px; }
+    .join-box p { color: var(--muted); font-size: 0.95rem; max-width: 56ch; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 26px; border-radius: var(--radius); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.18s; border: none; text-decoration: none !important; }
+    .btn--blue { background: var(--blue); color: var(--white); }
+    .btn--blue:hover { background: var(--blue-dark); }
+    .btn--outline { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+    .btn--outline:hover { background: var(--blue-light); }
 
-      .content-section .text-content {
-         flex: 1;
-         padding-right: 20px;
-      }
+    /* MASCOT SECTION */
+    .mascot-wrap { display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center; }
+    .mascot-wrap__img { width: 200px; height: 200px; border-radius: var(--radius-lg); background: var(--blue-light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .mascot-wrap__img img { width: 100%; height: 100%; object-fit: contain; }
+    .mascot-wrap h2 { font-size: 1.4rem; color: var(--text); margin-bottom: 12px; }
+    .mascot-wrap p { color: var(--muted); font-size: 0.95rem; }
 
-      .content-section .text-content h2 {
-         font-size: 30px;
-         color: #3498db; /* Blue color for title */
-         font-weight: bold;
-         margin-left: 60px; /* Adjust the left margin of the text */
-         text-align: center; /* Center the content */
-      }
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; font-weight: 600; }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
-      .content-section .text-content p {
-         font-size: 22px;
-         margin-left: 60px; /* Adjust the left margin of the text */
-         text-align: center; /* Center the content */
-      }
-
-      .content-section .image-content {
-         flex: 1;
-         max-width: 600px; /* Limit the width of the figure */
-         margin-right: 50px; /* Adjust the left margin of the figure */
-
-      }
-
-      .content-section .image-content img {
-         width: 100%;
-         height: auto;
-      }
-
-      .inline-figures {
-         display: flex;
-         justify-content: space-between;
-         margin-bottom: 10px; /* Reduced separation between inline figures */
-      }
-
-      .inline-figure {
-         flex: 1;
-         max-width: 400px; /* Increase the width of each inline figure */
-         text-align: center; /* Center the content */
-         margin: 20px; /* Add margin to each inline figure */
-      }
-
-      .inline-figure:first-child {
-         margin-left: 100px; /* Adjust the left margin of the first figure */
-      }
-
-      .inline-figure:last-child {
-         margin-right: 100px; /* Adjust the right margin of the last figure */
-      }
-
-      .inline-figure img {
-         width: 100%;
-         height: 300px;
-      }
-
-      .inline-figure h2 {
-         font-size: 20px;
-         color: #3498db; /* Blue color for title */
-         font-weight: bold;
-      }
-
-      .inline-figure p {
-         font-size: 14px;
-         max-width: 400px; /* Adjust the max-width as needed */
-         text-align: center; /* Center the content */
-         margin: 0px; /* Add margin to each inline figure */
-      }
-      
-      .final-content {
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         padding: 50px;
-         box-sizing: border-box;
-      }
-
-      .final-content .text-content {
-         flex: 1;
-         padding-left: 50px; /* Add left padding to create space between image and text */
-      }
-
-      .final-content .text-content h2 {
-         font-size: 30px;
-         color: #3498db; /* Blue color for title */
-         font-weight: bold;
-         text-align: center; /* Center the content */
-      }
-
-      .final-content .text-content p {
-         font-size: 22px;
-         text-align: center; /* Center the content */
-      }
-
-      .final-content .image-content {
-         flex: 1;
-         max-width: 600px; /* Limit the width of the figure */
-      }
-
-      .final-content .image-content img {
-         width: 100%;
-         height: auto;
-      }
-      }
-   </style>
+    @media (max-width: 860px) {
+      .nav__links { display: none; }
+      .join-box { grid-template-columns: 1fr; }
+      .mascot-wrap { grid-template-columns: 1fr; }
+      .mascot-wrap__img { margin: 0 auto; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- Banner with Navigation Links -->
-<div class="banner">
-   <a href="index.html">BiomiX</a>
-   <a href="Installation.html">Installation</a>
-   <a href="Tutorial.html">Tutorial</a>
-   <a href="Single-omics_analysis.html">Single-omics analysis</a>
-   <a href="Integration_analysis.html">Integration</a>
-   <a href="Parameters_and_interface.html">Parameters and interface</a>
-   <a href="about_us.html">About us</a>
-</div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Installation.html">Installation</a></li>
+      <li><a href="Tutorial.html">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html">Integration</a></li>
+      <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      <li><a href="about_us.html" class="active">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
 
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <p class="page-header__eyebrow">About</p>
+    <h1>The BiomiX Consortium</h1>
+    <p>Our mission is to make multi-omics analysis accessible to all — building an open platform where researchers can benefit from advanced integration methods without requiring specialized programming expertise.</p>
+  </div>
+</section>
 
-<!-- Inline Figures with Titles and Text -->
-<div class="inline-figures">
-   <div class="inline-figure">
-      <img src="BiomiX_logo3.png" alt="Inline Image 1">
-      <h2>Join the BiomiX project</h2>
-      <p>We are looking for other collaborators in this open source project to increase the omics included in this platform and the integration analysis! <br></be> Let's do science together!</p>
-   </div>
-   <div class="inline-figure">
-      <img src="Mascot.jpeg" alt="Inline Image 2">
-      <h2>Our mascot</h2>
-      <p>Witness of the liters of coffee consumed in the BAI </p>
-   </div>
-   <div class="inline-figure">
-      <img src="Esclamation.svg" alt="Inline Image 3">
+<!-- WHO WE ARE -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Who we are</h2>
+      <p>A multi-institution European network of bioinformaticians, data scientists, and domain experts united by a common goal: democratizing multi-omics analysis.</p>
+    </div>
+
+    <div class="team-grid">
+
+      <!-- Cristian Iperi -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/cristian.jpg" alt="Cristian Iperi"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">CI</span>
+        </div>
+        <div class="team-card__name">Cristian Iperi</div>
+        <div class="team-card__role">Post-Doc, LBAI UMR 1227, Inserm, Université de Brest, France</div>
+        <div class="team-card__domain">Transcriptomics, Multi-omics integration</div>
+        <div class="team-card__links">
+          <a href="https://github.com/IxI-97" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            IxI-97
+          </a>
+          <a href="mailto:cristian.iperi@univ-brest.fr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Álvaro Fernández Ochoa -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/alvaro.jpg" alt="Álvaro Fernández Ochoa"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">ÁF</span>
+        </div>
+        <div class="team-card__name">Álvaro Fernández Ochoa</div>
+        <div class="team-card__role">Junior Professor, Department of Analytical Chemistry, University of Granada, Spain</div>
+        <div class="team-card__domain">Metabolomics</div>
+        <div class="team-card__links">
+          <a href="https://github.com/alvaroferochoa" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            alvaroferochoa
+          </a>
+          <a href="mailto:alvaroferochoa@ugr.es">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Nathan Foulquier -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/nathan.jpg" alt="Nathan Foulquier"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">NF</span>
+        </div>
+        <div class="team-card__name">Nathan Foulquier</div>
+        <div class="team-card__role">Post-Doc, LBAI UMR 1227, Inserm, Université de Brest, France</div>
+        <div class="team-card__domain">Machine learning</div>
+        <div class="team-card__links">
+          <a href="https://github.com/Nurtal" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            Nurtal
+          </a>
+        </div>
+      </div>
+
+      <!-- Alberto Gil de la Fuente -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/alberto.jpg" alt="Alberto Gil de la Fuente"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">AG</span>
+        </div>
+        <div class="team-card__name">Alberto Gil de la Fuente</div>
+        <div class="team-card__role">Full-time Lecturer, San Pablo-CEU University, Madrid, Spain</div>
+        <div class="team-card__domain">Metabolomics, Computer science</div>
+        <div class="team-card__links">
+          <a href="https://github.com/albertogilf" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            albertogilf
+          </a>
+          <a href="mailto:alberto.gilf@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Lourdes Velo Suarez -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/lourdes.jpg" alt="Lourdes Velo Suarez"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">LV</span>
+        </div>
+        <div class="team-card__name">Lourdes Velo Suarez</div>
+        <div class="team-card__role">Hospital Research Engineer, GGB UMR 1078, Brest, France</div>
+        <div class="team-card__domain">Microbiomics, Multi-omics integration</div>
+        <div class="team-card__links">
+          <a href="https://github.com/lvelosuarez" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            lvelosuarez
+          </a>
+        </div>
+      </div>
+
+      <!-- Jessica Gliozzo -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/jessica.jpg" alt="Jessica Gliozzo"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">JG</span>
+        </div>
+        <div class="team-card__name">Jessica Gliozzo</div>
+        <div class="team-card__role">Post-Doc, AnacletoLab, University of Milan, Italy</div>
+        <div class="team-card__domain">Graph methods, Multi-omics integration, Machine learning</div>
+        <div class="team-card__links">
+          <a href="https://github.com/GliozzoJ" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GliozzoJ
+          </a>
+          <a href="mailto:jessica.gliozzo@istitutotumori.mi.it">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Iñigo Clemente Larramendi -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/inigo.jpg" alt="Iñigo Clemente Larramendi"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">IC</span>
+        </div>
+        <div class="team-card__name">Iñigo Clemente Larramendi</div>
+        <div class="team-card__role">PhD Student, LBAI UMR 1227, Inserm, Université de Brest, France</div>
+        <div class="team-card__domain">Graph methods, Neural networks</div>
+        <div class="team-card__links">
+          <a href="https://github.com/iclemente99" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            iclemente99
+          </a>
+        </div>
+      </div>
+
+      <!-- Ozvan Bocher -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/ozvan.jpg" alt="Ozvan Bocher"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">OB</span>
+        </div>
+        <div class="team-card__name">Ozvan Bocher</div>
+        <div class="team-card__role">Junior Professor, GGB UMR 1078, Université de Brest, France</div>
+        <div class="team-card__domain">Statistical genetics, Omics analyses</div>
+        <div class="team-card__links">
+          <a href="https://github.com/Ozvan" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            Ozvan
+          </a>
+          <a href="mailto:ozvan.bocher@univ-brest.fr">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- María Hernández Valladares -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/maria.jpg" alt="María del Carmen Hernández Valladares"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">MH</span>
+        </div>
+        <div class="team-card__name">María C. Hernández Valladares</div>
+        <div class="team-card__role">Associate Professor, Department of Physical Chemistry, University of Granada, Spain</div>
+        <div class="team-card__domain">Chemistry, Proteomics</div>
+        <div class="team-card__links">
+          <a href="mailto:mariahv@ugr.es">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- Marc-André Legault -->
+      <div class="team-card">
+        <div class="team-card__photo">
+          <img src="assets/team/marc.jpg" alt="Marc-André Legault"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <span class="team-card__initials" style="display:none;">ML</span>
+        </div>
+        <div class="team-card__name">Marc-André Legault</div>
+        <div class="team-card__role">Assistant Professor, University of Montreal, Canada</div>
+        <div class="team-card__domain">Pharmacology, Genetics, Method development</div>
+        <div class="team-card__links">
+          <a href="https://github.com/legaultmarc" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            legaultmarc
+          </a>
+          <a href="mailto:marc-andre.legault.1@umontreal.ca">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT US -->
+<section class="section section--alt" id="contact">
+  <div class="container">
+    <div class="section-header">
       <h2>Contact us</h2>
-      <p>The issues section can be used to share problems and make solutions available for everyone! <br>To contact me personally send me a mail to <br> <strong>cristian.iperi@univ-brest.fr </strong></p>
-   </div>
-</div>
+      <p>Reach out to the right person for your question.</p>
+    </div>
+    <div class="contact-grid">
 
-<!-- Content Section with Title, Text, and Figures -->
-<div class="content-section">
-   <div class="text-content">
-      <h2>Collaborators and mainteiners</h2>
-      <p> <strong>Main maintainer:</strong> Cristian Iperi <br> <strong>maintainer:</strong> Álvaro Fernández-Ochoa <br> <strong>maintainer: </strong> Nathan Foulquier </p>
-   </div>
-   <div class="image-content">
-      <img src="umr12271.jpg" alt="Image for section 4"> <!-- Replace "your-image.jpg" with the actual filename of your jpg image -->
-   </div>
-</div>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card__topic">General inquiries</div>
+          <div class="contact-card__name">Cristian Iperi</div>
+          <a href="mailto:cristian.iperi@univ-brest.fr" class="contact-card__email">cristian.iperi@univ-brest.fr</a>
+        </div>
+      </div>
 
-<!-- Final Content Section with Title, Text, and Figure -->
-<div class="final-content">
-   <div class="image-content">
-      <img src="LBAI_logo.jpg" alt="Image for the final section"> <!-- Replace "your-image.jpg" with the actual filename of your jpg image -->
-   </div>
-   <div class="text-content">
-      <h2>Click and discover our research group Lymphocytes B, Autoimmunité et Immunothérapies - UMR 1227 </h2>
-      <p> Our focus is in immunology, autoimmune disease and their treatments.<br> <br> Our bioinformatics section BAI focuses on artificial intelligence, machine learning and data integration. Join us, the fun is guaranteed! </p>
-   </div>
-</div>
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card__topic">Metabolomics</div>
+          <div class="contact-card__name">Álvaro Fernández Ochoa &amp; Alberto Gil de la Fuente</div>
+          <a href="mailto:alvaroferochoa@ugr.es" class="contact-card__email">alvaroferochoa@ugr.es</a>
+        </div>
+      </div>
 
-<!-- Main content of your page goes here -->
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="contact-card__topic">Statistical genetics</div>
+          <div class="contact-card__name">Ozvan Bocher</div>
+          <a href="mailto:ozvan.bocher@univ-brest.fr" class="contact-card__email">ozvan.bocher@univ-brest.fr</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </div>
+        <div>
+          <div class="contact-card__topic">SNF &amp; NEMO integration</div>
+          <div class="contact-card__name">Jessica Gliozzo</div>
+          <a href="mailto:jessica.gliozzo@istitutotumori.mi.it" class="contact-card__email">jessica.gliozzo@istitutotumori.mi.it</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="contact-card__topic">Microbiomics</div>
+          <div class="contact-card__name">Lourdes Velo Suarez</div>
+          <a href="mailto:lourdes.velo-suarez@univ-brest.fr" class="contact-card__email">lourdes.velo-suarez@univ-brest.fr</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUR MASCOT -->
+<section class="section">
+  <div class="container">
+    <div class="mascot-wrap">
+      <div class="mascot-wrap__img">
+        <img src="BiomiX_mascot.png" alt="BiomiX mascot"
+             onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-size:5rem;\'>🦔</span>';">
+      </div>
+      <div>
+        <h2>Our Mascot</h2>
+        <p style="margin-top:12px;">Meet the BiomiX mascot — a hedgehog symbolizing the careful, methodical approach we take to multi-omics analysis. Just as a hedgehog navigates complex terrain one step at a time, BiomiX guides researchers through complex multi-omics data with precision and accessibility.</p>
+        <p style="margin-top:10px;">The mascot was created by the consortium as a symbol of our community and our shared commitment to open, accessible science.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN THE PROJECT -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="join-box">
+      <div>
+        <h2>Join the BiomiX project</h2>
+        <p style="margin-top:10px;">BiomiX is an open-source consortium welcoming contributions from bioinformaticians, domain experts, and developers. Whether you want to add a new integration method, a single-omics pipeline, or improve documentation — there is a place for you.</p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:22px;">
+          <a href="https://github.com/BiomiX-consortium" target="_blank" class="btn btn--blue">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            GitHub organization ↗
+          </a>
+          <a href="mailto:cristian.iperi@univ-brest.fr" class="btn btn--outline">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank">GitHub ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Analysis</h4>
+      <ul>
+        <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+        <li><a href="Integration_analysis.html">Integration</a></li>
+        <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5/issues" target="_blank">Report a bug</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
 
 </body>
-
 </html>
