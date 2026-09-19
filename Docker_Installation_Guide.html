@@ -405,8 +405,14 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
       </details>
 
       <details class="ts-item">
-        <summary>Docker does not start on Windows — virtualization error</summary>
-        <p>Hardware virtualization may be disabled in your BIOS. To check: open Task Manager (Ctrl+Shift+Esc), go to the Performance tab, click CPU, and look for "Virtualization: Enabled". If it shows Disabled, you need to enable it in your BIOS/UEFI settings (usually under CPU or Advanced settings). The exact steps depend on your motherboard — search for your model + "enable virtualization BIOS".</p>
+        <summary>Docker does not start on Windows, virtualization error</summary>
+        <p>First, make sure WSL 2 is installed and up to date. Open PowerShell as Administrator and run:</p>
+        <div class="code-block" style="margin-top:8px;">
+          <button class="copy-btn" onclick="copyCode(this,'ts-wsl')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+          <pre id="ts-wsl"><code>wsl --install
+wsl --update</code></pre>
+        </div>
+        <p style="margin-top:10px;">Restart your computer and try launching Docker Desktop again. If the problem persists, hardware virtualization may be disabled in your BIOS. To check: open Task Manager (Ctrl+Shift+Esc), go to the Performance tab, click CPU, and look for "Virtualization: Enabled". If it shows Disabled, you need to enable it in your BIOS/UEFI settings (usually under CPU or Advanced settings). The exact steps depend on your motherboard, search for your model + "enable virtualization BIOS".</p>
       </details>
 
       <details class="ts-item">
@@ -426,7 +432,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 
       <details class="ts-item">
         <summary>Still stuck?</summary>
-        <p>Open an issue on the <a href="https://github.com/BiomiX-consortium/BiomiX2.5/issues" target="_blank">BiomiX issue tracker</a> or contact us at <a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a>.</p>
+        <p>Open an issue on the <a href="https://github.com/BiomiX-consortium/BiomiX2.5/issues" target="_blank">BiomiX issue tracker</a> or <a href="about_us.html">contact the team</a> directly.</p>
       </details>
 
     </div>
@@ -448,8 +454,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
     <div class="footer__col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
-        <li><a href="about_us.html">Team</a></li>
+        <li><a href="about_us.html">Contact the team</a></li>
       </ul>
     </div>
   </div>
