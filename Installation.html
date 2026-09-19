@@ -414,16 +414,6 @@
   </div>
 </section>
 
-<!-- PRAMIGO SOON -->
-<section class="section">
-  <div class="container">
-    <div class="callout callout--green">
-      <span>🚧</span>
-      <p><strong>PRAMIGO</strong> will be released as a separate module shortly after BiomiX 3.0. The launcher will update automatically once it becomes available.</p>
-    </div>
-  </div>
-</section>
-
 <!-- NEED HELP -->
 <section class="section section--alt">
   <div class="container">
@@ -433,8 +423,59 @@
     <p style="color:var(--muted); font-size:0.95rem;">
       If you run into issues during installation, please open an issue on the
       <a href="https://github.com/BiomiX-consortium/BiomiX/issues" target="_blank">consortium's issue tracker</a>
-      or contact us directly at <a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a>.
+      or <a href="about_us.html">contact the team</a> directly.
     </p>
+  </div>
+</section>
+
+<!-- COMMON ISSUES -->
+<section class="section">
+  <div class="container">
+
+    <button class="advanced-toggle" onclick="toggleSection('common-issues-body', this)">
+      <span>⚠️</span>
+      Common issues
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="advanced-body" id="common-issues-body">
+
+      <!-- Issue: port already allocated -->
+      <details style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; margin-bottom:10px; cursor:pointer; margin-top:24px;">
+        <summary style="font-weight:600; font-size:0.9rem; color:var(--text);">Port 3838 is already allocated — BiomiX won't start</summary>
+        <div style="margin-top:10px;">
+          <p style="color:var(--muted); font-size:0.875rem; margin-bottom:8px;">
+            If you see an error like the one below, it means a previous BiomiX session is still running in the background and is occupying port 3838.
+          </p>
+          <div class="code-block">
+            <pre><code>docker: Error response from daemon: failed to set up container networking:
+driver failed programming external connectivity on endpoint distracted_sinoussi
+(...): Bind for 0.0.0.0:3838 failed: port is already allocated.</code></pre>
+          </div>
+          <p style="color:var(--muted); font-size:0.875rem; margin-bottom:8px; margin-top:12px;"><strong style="color:var(--text);">Fix:</strong> stop the running container, then relaunch the launcher.</p>
+          <ol style="color:var(--muted); font-size:0.875rem; padding-left:20px; display:flex; flex-direction:column; gap:8px;">
+            <li>List all running containers to find the BiomiX one (look for <code>biomix-gui</code>):
+              <div class="code-block" style="margin-top:8px;">
+                <button class="copy-btn" onclick="copyCode(this,'ci-docker-ps')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="ci-docker-ps"><code>docker ps</code></pre>
+              </div>
+            </li>
+            <li>Stop the container using its name or ID (shown in the <code>NAMES</code> or <code>CONTAINER ID</code> column):
+              <div class="code-block" style="margin-top:8px;">
+                <button class="copy-btn" onclick="copyCode(this,'ci-docker-stop')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button>
+                <pre id="ci-docker-stop"><code>docker stop &lt;container-name-or-id&gt;</code></pre>
+              </div>
+            </li>
+            <li>Relaunch the BiomiX launcher as usual.</li>
+          </ol>
+          <div class="callout" style="margin-top:16px;">
+            <span>💡</span>
+            <p>To avoid this in future, always close BiomiX using the launcher window or pressing <code>Ctrl+C</code> in the terminal rather than closing the browser tab.</p>
+          </div>
+        </div>
+      </details>
+
+    </div>
   </div>
 </section>
 
