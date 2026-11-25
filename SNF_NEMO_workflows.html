@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNF and NEMO integration workflows — BiomiX 3.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue:       #2196f3;
+      --blue-dark:  #1565c0;
+      --blue-light: #e3f2fd;
+      --blue-mid:   #90caf9;
+      --green:      #43a047;
+      --green-light:#e8f5e9;
+      --green-mid:  #a5d6a7;
+      --text:       #1a2636;
+      --muted:      #546e7a;
+      --white:      #ffffff;
+      --bg:         #f5f9ff;
+      --border:     #dce8f5;
+      --radius:     10px;
+      --radius-lg:  18px;
+      --shadow:     0 2px 16px rgba(33,150,243,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(33,150,243,0.07); }
+    .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px; height: 62px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .nav__logo img { height: 34px; width: auto; }
+    .nav__logo-name { color: var(--blue); }
+    .nav__links { display: flex; gap: 24px; list-style: none; }
+    .nav__links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover, .nav__links a.active { color: var(--blue); text-decoration: none; }
+    .nav__cta { background: var(--blue); color: var(--white) !important; padding: 6px 18px; border-radius: var(--radius); font-weight: 600; font-size: 0.875rem; }
+    .nav__cta:hover { background: var(--blue-dark) !important; text-decoration: none; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px; border-radius: 20px; vertical-align: middle; margin-left: 5px; }
+    .badge--new  { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); }
+    .badge--soon { background: #f1f8e9; color: #388e3c; border: 1px solid var(--green-mid); }
+
+    /* LAYOUT */
+    .section { padding: 56px 0; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+    /* PAGE HEADER */
+    .page-header { padding: 48px 0 40px; }
+    .page-header__eyebrow { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 12px; }
+    .page-header h1 { font-size: clamp(1.9rem,4vw,2.6rem); color: var(--text); margin-bottom: 14px; }
+    .page-header p { color: var(--muted); font-size: 1rem; max-width: 68ch; }
+
+
+    main section { scroll-margin-top: 80px; border-top: 1px solid var(--border); padding: 28px 0; }
+    main h2 { font-size: 1.5rem; }
+    main h3 { font-size: 1.05rem; margin: 20px 0 4px; }
+    main p, main li { max-width: 78ch; margin: 8px 0; color: var(--muted); }
+    main strong { color: var(--text); }
+    main ol { padding-left: 1.5rem; }
+    main li { padding-left: .3rem; }
+    main li::marker { color: var(--blue-dark); font-weight: 700; }
+    main code { color: var(--blue-dark); background: var(--blue-light); padding: 1px 4px; border-radius: 4px; overflow-wrap: anywhere; }
+    main a { color: var(--blue-dark); text-decoration: underline; }
+    .workflow-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; }
+    /* FOOTER */
+    .footer { background: #1a2636; padding: 56px 0 0; margin-top: 24px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; padding: 0 32px 40px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer__col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.09em; color: #78909c; margin-bottom: 16px; font-weight: 600; }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul a { color: #b0bec5; font-size: 0.875rem; }
+    .footer__col ul a:hover { color: var(--white); text-decoration: none; }
+    .footer__bottom { max-width: 1140px; margin: 0 auto; padding: 18px 32px; border-top: 1px solid #263545; font-size: 0.78rem; color: #546e7a; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+    @media (max-width: 860px) { .nav__links { display: none; } .accordion__content { padding: 20px 18px 28px; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="BiomiX_logo3.png" alt="BiomiX logo" onerror="this.style.display='none'">
+      <span class="nav__logo-name">BiomiX</span>
+      <span class="badge badge--new">3.0</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Installation.html">Installation</a></li>
+      <li><a href="Tutorial.html">Tutorial</a></li>
+      <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+      <li><a href="Integration_analysis.html" class="active">Integration</a></li>
+      <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      <li><a href="about_us.html">About</a></li>
+      <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank" class="nav__cta">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<main class="container">
+  <header class="page-header">
+    <p><a href="Integration_analysis.html">Integration methods</a></p>
+    <h1>SNF and NEMO integration workflows</h1>
+    <p>Both methods group patients using similarities across continuous omics measurements. In <strong>Integration Options</strong>, enable integration and choose a method. Configure the run in <a href="Parameters_and_interface.html#advanced-snf-nemo">Advanced options — SNF / NEMO</a>.</p>
+    <nav class="workflow-links" aria-label="Workflow sections">
+      <a href="#snf">SNF workflow</a>
+      <a href="#nemo">NEMO workflow</a>
+      <a href="#outputs">Validation and outputs</a>
+    </nav>
+  </header>
+
+  <section id="snf">
+    <h2>SNF workflow</h2>
+    <ol>
+      <li><strong>Match the samples.</strong> BiomiX retains patients present in every omics matrix and the metadata, and aligns their order across inputs.</li>
+      <li><strong>Prepare each omic.</strong> Remove features with missing values or zero variance. Optional variance filtering retains the highest-variance features. Enable scaling to z-score each retained feature across samples.</li>
+      <li><strong>Build patient similarity networks.</strong> Within each omic, SNF converts Euclidean distances into similarities using a scaled exponential kernel. <strong>N° neighbors</strong> defines the local neighborhood and <strong>Variance affinity matrix</strong> controls how similarity decays with distance.</li>
+      <li><strong>Fuse the networks.</strong> SNF repeatedly updates each omic network using its local neighborhoods and information from the other networks. <strong>N° iterations</strong> sets the number of message-passing rounds. The result is one fused patient similarity matrix.</li>
+      <li><strong>Cluster the patients.</strong> BiomiX applies spectral clustering to the fused matrix for each 
+        candidate number of clusters from 2 through <strong>Max cluster range</strong>. SNFtool uses the eigengap method 
+        (see <a href="https://search.r-project.org/CRAN/refmans/SNFtool/html/estimateNumberOfClustersGivenGraph.html">SNFtool::estimateNumberOfClustersGivenGraph</a> for details)
+        to select an optimal number of clusters within that range.</li>
+    </ol>
+    <p><a href="#outputs">Inspect the cluster assignments, validation results, and feature rankings</a>.</p>
+  </section>
+
+  <section id="nemo">
+    <h2>NEMO workflow</h2>
+    <ol>
+      <li><strong>Choose which samples to retain.</strong> With <strong>Only common samples</strong> enabled, BiomiX aligns patients present in all omics and the metadata. Turn it off to retain patients with metadata who lack one or more omics. Every pair of retained patients must share at least one measured omic.</li>
+      <li><strong>Check partial overlap.</strong> When partial overlap is enabled, <code>missing_samples_per_omic_NEMO.csv</code> reports the percentage missing in each omic. BiomiX warns if an omic lacks more than 20% of samples. If a patient pair shares no omic, the run stops and <code>nemo_pairwise_overlap_issues.csv</code> identifies the affected pairs.</li>
+      <li><strong>Prepare each omic.</strong> Among the available samples, remove features with missing values or zero variance. Optionally filter by variance and z-score the retained features.</li>
+      <li><strong>Compute relative similarities.</strong> In each omic, NEMO converts Euclidean distances into affinities using a scaled exponential kernel, then evaluates each pair relative to its local neighborhoods. Set <strong>N° neighbors</strong> or leave it blank to derive it separately for each omic from its sample count divided by six.</li>
+      <li><strong>Integrate and cluster.</strong> For each patient pair, NEMO averages relative similarities over the omics measured in both patients. 
+        BiomiX applies spectral clustering to the integrated matrix for each number of candidate clusters from 2 through 
+        <strong>Max cluster range</strong>. NEMO selects the optimal number of clusters using its modified eigengap method. <a href="https://academic.oup.com/bioinformatics/article/35/18/3348/5304361">Rappoport and Shamir, <cite>Bioinformatics</cite> (2019)</a>.</li>
+    </ol>
+    <p><a href="#outputs">Inspect the cluster assignments and available downstream analyses</a>.</p>
+  </section>
+
+  <section id="outputs">
+    <h2>Validation, interpretation, and output files</h2>
+    <h3>Find each patient's cluster</h3>
+    <p>Read the selected number of clusters in <code>optimal_number_of_clusters.csv</code>, then 
+      open <code>clustering_results.csv</code> to know which clusters patients are assigned across the number of clusters 
+      evaluated. Setting the maximum to 2 fixes the number of clusters at 2. If you supply reference labels 
+      through <strong>Condition column</strong>, their number of classes must fall within the candidate range or the run stops.</p>
+
+    <h3>Assess cluster quality and stability</h3>
+    <p><code>internal_quality_indices.csv</code> file and <code>internal_quality_indices.png</code> plots report mean 
+      silhouette coefficient, Dunn index, entropy, and Calinski-Harabasz index for each candidate number of clusters. 
+      <code>stability_results.csv</code> reports stability for individual clusters across 100 resamplings, 
+      each using 80% of samples (Details in <a href="https://search.r-project.org/CRAN/refmans/fpc/html/clusterboot.html">fpc::clusterboot</a>)).</p>
+    <p>When reference labels are available (i.e. condition column), <code>external_quality_indices.csv</code> file and <code>external_quality_indices.png</code> image report agreement 
+      with those labels using ARI, AMI, NMI, and NVI for each number of clusters tested.</p>
+
+    <h3>Inspect the networks</h3>
+    <p>BiomiX saves each omic similarity matrix and the integrated matrix as CSV files. Similarity matrices are also showed using heatmaps, 
+      where patients are ordered by predicted groups and, when available, reference groups. Each corresponding network is showed has a 
+      static PNG image and an interactive HTML graph showing nearest-neighbor links (equal to <code>N° neighbors</code>). With reference labels, node color 
+      denotes the reference group and shape denotes the predicted cluster. Otherwise, color denotes the predicted cluster.</p>
+
+    <h3>Identify features associated with the clustering</h3>
+    <p> To rank features based on their importance, BiomiX builds a similarity matrix and clusters patients using 
+      each feature individually. It ranks features by normalized mutual information (NMI) between their individual feature 
+      assignments and the integrated clustering. 
+      Open <code>feature_importance.csv</code> for the scores and the per-omic heatmaps for z-scored values of 
+      the highest-ranked features. <strong>N° variables in heatmap</strong> sets how many features appear. 
+      NEMO produces these rankings and heatmaps only with <strong>Only common samples</strong> enabled.</p>
+
+    <h3>Relate clusters to metadata and survival</h3>
+    <p>For each selected enrichment variable, an alluvial plot shows its relationship to predicted clusters 
+      and any reference groups. BiomiX tests categorical variables with a chi-squared test and continuous variables 
+      with a Kruskal-Wallis test.</p>
+    <p>For survival analysis, supply a time and event column for each endpoint, such 
+      as <code>A.time</code> and <code>A.event</code>. BiomiX compares clusters with a log-rank test and 
+      produces a Kaplan-Meier plot for each endpoint and number of clusters. 
+      <code>enrichment_survival_results.csv</code> contains nominal and Benjamini-Hochberg-adjusted p-values for the 
+      enrichment of clinical variables and survival tests. Check <code>enrichment_survival_results_warnings.csv</code> for eventual statistical warnings.</p>
+    <p> Samples missing a value in clinical/survival variables are excluded from the corresponding test.</p>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h4>BiomiX</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Installation.html">Installation</a></li>
+        <li><a href="Tutorial.html">Tutorial</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5" target="_blank">GitHub ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Analysis</h4>
+      <ul>
+        <li><a href="Single-omics_analysis.html">Single-omics</a></li>
+        <li><a href="Integration_analysis.html">Integration</a></li>
+        <li><a href="Parameters_and_interface.html">Parameters</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://doi.org/10.1186/s12859-024-06022-y" target="_blank">Publication (v1)</a></li>
+        <li><a href="https://github.com/BiomiX-consortium/BiomiX2.5/issues" target="_blank">Report a bug</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:cristian.iperi@univ-brest.fr">cristian.iperi@univ-brest.fr</a></li>
+        <li><a href="about_us.html">Team</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2025 BiomiX Consortium — LBAI, UMR 1227, Inserm, Univ Brest</span>
+    <span>Funded by the EU · Marie Skłodowska-Curie grant No 101072891</span>
+  </div>
+</footer>
+
+</body>
+</html>

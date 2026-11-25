@@ -233,7 +233,7 @@
           <div class="accordion__title">
             <div>
               <h2>SNF <span class="tag tag--unsupervised">Unsupervised</span></h2>
-              <div class="accordion__meta">Similarity Network Fusion — network-based patient stratification</div>
+              <div class="accordion__meta">Similarity Network Fusion — network-based integration and patient stratification</div>
             </div>
           </div>
           <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -249,13 +249,18 @@
             </div>
 
             <h3>Analysis</h3>
-            <p>SNF constructs a patient similarity network for each omics layer independently, then iteratively fuses them into a single integrated network that captures complementary cross-modal information. Spectral clustering is then applied to the fused network to identify patient subgroups.</p>
-            <p>In BiomiX 3.0, SNF is implemented via the SNFtool R package. The number of clusters is selected automatically via the eigen-gap heuristic, but can also be set manually. Cluster quality is evaluated using the Average Silhouette Width (ASW), Adjusted Rand Index (ARI), Adjusted Mutual Information (AMI), and Calinski-Harabasz (CH) index.</p>
+            <p>SNF constructs a patient similarity network for each omics layer independently, then iteratively fuses them, using a message-passing approach, into a single integrated network 
+              that captures shared and complementary cross-modal information. Spectral clustering is then applied to the fused network to identify patient subgroups. <a href="https://www.nature.com/articles/nmeth.2810">Wang et al., <cite>Nature Methods</cite> (2014)</a>.</p>
+            <p>In BiomiX 3.0, SNF is implemented via the SNFtool R package. The number of clusters is selected automatically via the eigen-gap heuristic. 
+              Cluster quality is evaluated using the Average Silhouette Width (ASW), Dunn index (D), Calinski-Harabasz index (CH), Entropy (E) and cluster-wise cluster stability. 
+              If the user provides a "condition column", the agreement between clustering and condition is evaluated using Adjusted Rand Index (ARI), Adjusted Mutual Information (AMI), Normalized Mutual Information (NMI) 
+              and Normalized Variation of Information (NVI).</p>
 
             <div class="callout">
               <span>💡</span>
-              <p>SNF requires complete data across all omics layers. Samples with missing data in any layer are excluded before analysis. If your dataset has partial overlap between omics, consider NEMO instead.</p>
+              <p>SNF requires complete data across all omics layers. Samples with missing modalities in any layer are excluded before analysis. If your dataset has partial overlap between omics, consider NEMO instead.</p>
             </div>
+            <p><a href="SNF_NEMO_workflows.html#snf">View the complete SNF workflow</a></p>
 
           </div>
         </div>
@@ -267,7 +272,7 @@
           <div class="accordion__title">
             <div>
               <h2>NEMO <span class="tag tag--unsupervised">Unsupervised</span></h2>
-              <div class="accordion__meta">NEighborhood-based Multi-Omics clustering — partial overlap support</div>
+              <div class="accordion__meta">NEighborhood-based Multi-Omics clustering — network-based integration with missing modalities support</div>
             </div>
           </div>
           <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -277,19 +282,24 @@
 
             <div class="spec-grid">
               <div class="spec-item"><div class="spec-item__label">Type</div><div class="spec-item__value">Network-based</div></div>
-              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Partially overlapping datasets</div></div>
-              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Affinity matrix + clusters</div></div>
+              <div class="spec-item"><div class="spec-item__label">Best for</div><div class="spec-item__value">Patient stratification, partially overlapping datasets</div></div>
+              <div class="spec-item"><div class="spec-item__label">Output</div><div class="spec-item__value">Integrated affinity matrix + clusters</div></div>
               <div class="spec-item"><div class="spec-item__label">Missing data</div><div class="spec-item__value">Natively supported</div></div>
             </div>
 
             <h3>Analysis</h3>
-            <p>NEMO is specifically designed for datasets where samples are not fully overlapping across omics layers, without requiring imputation. It constructs affinity scores from nearest-neighbor relationships within each omics layer, using only the available modalities for each sample.</p>
-            <p>In BiomiX 3.0, NEMO is implemented via the NEMO R package. Like SNF, cluster quality is assessed using ASW, ARI, AMI, and CH metrics, and the number of clusters can be determined automatically or set manually.</p>
+            <p>NEMO identifies patient subgroups by combining similarities across omics layers. Within each layer, it measures how similar two patients are 
+              relative to their nearest neighbors. It then averages these relative similarities across the layers measured in both patients and applies spectral 
+              clustering to identify subgroups. This allows NEMO to use partially overlapping datasets, provided each pair of patients shares at least 
+              one measured layer. <a href="https://academic.oup.com/bioinformatics/article/35/18/3348/5304361">Rappoport and Shamir, <cite>Bioinformatics</cite> (2019)</a>.</p>
+            <p>In BiomiX 3.0, NEMO is implemented via the NEMO R package. Like SNF, cluster quality is assessed using different internal (ASW, D, CH, E, stability) and 
+              external (ARI, AMI, NMI, NVI) quality indices, and the number of clusters is determined automatically.</p>
 
             <div class="callout">
               <span>💡</span>
               <p>NEMO is the recommended choice when your omics layers do not share the same set of samples — for example, when transcriptomics and methylomics were profiled on different subsets of the same cohort.</p>
             </div>
+            <p><a href="SNF_NEMO_workflows.html#nemo">View the complete NEMO workflow</a></p>
 
           </div>
         </div>
@@ -372,7 +382,7 @@
         <tbody>
           <tr><td>MOFA</td><td>Your goal is multi-dimensional coverage of independent biological axes and you do not have a predefined group label, or you want to explore latent structure across omics without supervision.</td></tr>
           <tr><td>SNF</td><td>Your goal is patient stratification and all samples are profiled across all omics layers (no missing samples between layers).</td></tr>
-          <tr><td>NEMO</td><td>Your goal is patient stratification but your omics layers do not share the same set of samples — NEMO handles partial overlap natively.</td></tr>
+          <tr><td>NEMO</td><td>You want to identify patient subgroups using neighborhood similarities across omics. NEMO works with fully profiled patients as well as partially overlapping datasets, provided each patient pair shares at least one measured omics layer.</td></tr>
           <tr><td>DIABLO</td><td>Your primary goal is biomarker discovery with cross-omic co-variation, and you have a known condition label for each sample.</td></tr>
           <tr><td>PRAMIGO</td><td>Your goal is discovering cross-modal regulatory mechanisms, especially structural multi-omics features such as ncRNA hubs or epigenetic co-regulation programs. <span class="badge badge--soon">Soon</span></td></tr>
         </tbody>
