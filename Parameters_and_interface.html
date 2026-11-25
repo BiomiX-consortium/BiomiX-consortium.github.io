@@ -434,6 +434,62 @@
         </div>
       </div>
 
+      <!-- ADVANCED OPTIONS: SNF AND NEMO -->
+      <div class="accordion" id="advanced-snf-nemo">
+        <button class="accordion__header" onclick="toggle(this)">
+          <div class="accordion__title">
+            <span class="icon">🔗</span>
+            <div>
+              <h2>Advanced options — SNF / NEMO</h2>
+              <div class="accordion__subtitle">Neighborhood size, sample overlap, clustering, and metadata</div>
+            </div>
+          </div>
+          <svg class="accordion__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__content">
+            <p>In <strong>Integration Options</strong>, enable integration and select <strong>SNF</strong> or <strong>NEMO</strong>. Open <strong>Advanced Options</strong> → <strong>SNF / NEMO</strong> and enter the settings in the relevant fields. The metadata, clustering, and feature settings apply to both methods.</p>
+
+            <h3>SNF parameters</h3>
+            <table class="param-table">
+              <thead><tr><th scope="col">Parameter</th><th scope="col">Default</th><th scope="col">Description</th></tr></thead>
+              <tbody>
+                <tr><td>N° neighbors</td><td><code>5</code></td><td>Number of nearest neighbors used to construct and fuse the similarity networks.</td></tr>
+                <tr><td>Variance affinity matrix</td><td><code>0.5</code></td><td>Affinity parameter that controls the scaling of the similarity kernel. Smaller values make the similarity decrease more rapidly with distance, producing more sharply localized similarities, whereas larger values produce smoother similarities.</td></tr>
+                <tr><td>N° iterations</td><td><code>20</code></td><td>Number of message-passing iterations used to fuse the networks.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>NEMO parameters</h3>
+            <table class="param-table">
+              <thead><tr><th scope="col">Parameter</th><th scope="col">Default</th><th scope="col">Description</th></tr></thead>
+              <tbody>
+                <tr><td>N° neighbors</td><td><code>5</code></td><td>Number of nearest neighbors. Leave blank to calculate the neighborhood size separately for each omic using its sample count divided by 6 (used in NEMO paper for cancer datasets).</td></tr>
+                <tr><td>Only common samples</td><td><code>TRUE</code></td><td>Keep only samples present in every omic layer and in the metadata. Set to <code>FALSE</code> to allow the integration of samples having missing omics. Every pair of samples must still share at least one measured omic layer.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Shared metadata, clustering, and feature settings</h3>
+            <table class="param-table">
+              <thead><tr><th scope="col">Parameter</th><th scope="col">Default</th><th scope="col">Description</th></tr></thead>
+              <tbody>
+                <tr><td>Columns for Variable Enrichment test</td><td><code> </code></td><td>Optional metadata columns to test for enrichment.</td></tr>
+                <tr><td>Survival columns</td><td><code> </code></td><td> Optional metadata columns used for survival analysis. Endpoints require paired metadata columns such as <code>A.time</code> and <code>A.event</code>. Use <code>0</code>/<code>1</code> or <code>no</code>/<code>yes</code> for event status, where <code>1/yes</code> indicate that the event occurred (e.g. death, recurrence). </td></tr>
+                <tr><td>Condition column</td><td><code>CONDITION</code></td><td> Optional metadata column containing reference group labels.</td></tr>
+                <tr><td>Max cluster range</td><td><code>4</code></td><td>Upper limit for candidate number of clusters. The default evaluates 2 through 4 clusters. SNF uses eigengap selection and NEMO uses a modified eigengap method to identify the optimal number of clusters.</td></tr>
+                <tr><td>N° variables in heatmap</td><td><code>20</code></td><td>Number of top-ranked features to visualize per omic. For NEMO, this heatmap requires <strong>Only common samples</strong> to be <code>TRUE</code> to be computed.</td></tr>
+                <tr><td>Max N° features SNF / NEMO</td><td><code>5000</code></td><td>Number of features to retain by variance filtering.</td></tr>
+                <tr><td>Scaling the SNF/NEMO data</td><td><code>TRUE</code></td><td>Apply z-score standardization before integration (recommended — prevents that high-variance or large scale features dominate the Euclidean distance).</td></tr>
+              </tbody>
+            </table>
+            <figure class="figure">
+              <img src="SNF_NEMO_Advanced_options.png" alt="Advanced Options SNF / NEMO tab with method settings and shared metadata, clustering, and feature controls">
+              <figcaption>Advanced options — SNF / NEMO section.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /accordion-list -->
   </div>
 </section>
